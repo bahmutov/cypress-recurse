@@ -6,8 +6,8 @@ it('gets 7', () => {
     () => cy.task('randomNumber'),
     (n) => n === 7,
     {
-      remainingAttempts: 50,
-      timeout: 3000,
+      limit: 50, // max number of iterations
+      timeout: 3000, // time limit in ms
     },
   )
 })

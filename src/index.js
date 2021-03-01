@@ -1,7 +1,7 @@
 /**
  * @typedef {object} RecurseOptions
  * @property {number=} limit The max number of iterations
- * @property {number=} timeRemaining In milliseconds
+ * @property {number=} timeout In milliseconds
  * @property {boolean=} log Log to Command Log
  */
 /**
@@ -13,7 +13,7 @@
 function recurse(commandsFn, checkFn, options = {}) {
   Cypress._.defaults(options, {
     limit: 30,
-    timeRemaining: 30000,
+    timeout: 30000,
     log: true,
   })
   const started = +new Date()
@@ -25,11 +25,11 @@ function recurse(commandsFn, checkFn, options = {}) {
     cy.log(`remaining attempts **${options.limit}**`)
   }
 
-  if (options.timeRemaining < 0) {
+  if (options.timeout < 0) {
     throw new Error('Max time limit reached')
   }
   if (options.log) {
-    cy.log(`time remaining **${options.timeRemaining}**`)
+    cy.log(`time remaining **${options.timeout}**`)
   }
 
   commandsFn().then((x) => {
@@ -43,7 +43,7 @@ function recurse(commandsFn, checkFn, options = {}) {
     const finished = +new Date()
     const elapsed = finished - started
     recurse(commandsFn, checkFn, {
-      timeRemaining: options.timeRemaining - elapsed,
+      timeout: options.timeout - elapsed,
       limit: options.limit - 1,
       log: options.log,
     })
