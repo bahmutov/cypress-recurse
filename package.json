@@ -1,17 +1,18 @@
 {
   "name": "cypress-recurse",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "A way to re-run Cypress command until a predicate function returns true",
   "main": "src",
   "files": [
     "src"
   ],
   "scripts": {
-    "test": "cypress run"
+    "test": "cypress run",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bahmutov/cypress-recurse.git"
+    "url": "https://github.com/bahmutov/cypress-recurse.git"
   },
   "keywords": [
     "cypress",
@@ -25,6 +26,7 @@
   "homepage": "https://github.com/bahmutov/cypress-recurse#readme",
   "devDependencies": {
     "cypress": "6.6.0",
-    "prettier": "2.2.1"
+    "prettier": "2.2.1",
+    "semantic-release": "^17.4.0"
   }
 }
