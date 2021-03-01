@@ -1,0 +1,30 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "automerge": true,
+  "prHourlyLimit": 2,
+  "updateNotScheduled": false,
+  "timezone": "America/New_York",
+  "schedule": [
+    "after 10pm and before 5am on every weekday",
+    "every weekend"
+  ],
+  "masterIssue": true,
+  "labels": [
+    "type: dependencies",
+    "renovate"
+  ],
+  "packageRules": [
+    {
+      "packagePatterns": [
+        "*"
+      ],
+      "excludePackagePatterns": [
+        "cypress",
+        "semantic-release"
+      ],
+      "enabled": false
+    }
+  ]
+}
