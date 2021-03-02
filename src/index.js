@@ -19,6 +19,7 @@ const RecurseDefaults = {
  * @param {() => Cypress.Chainable} commandsFn Function running Cypress commands
  * @param {(any) => boolean} checkFn Predicate that should return true to finish
  * @param {Partial<RecurseOptions>} options Options for maximum timeout, logging, etc
+ * @returns {Cypress.Chainable} Returns the command chain
  */
 function recurse(commandsFn, checkFn, options = {}) {
   Cypress._.defaults(options, RecurseDefaults)
