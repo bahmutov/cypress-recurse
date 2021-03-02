@@ -1,22 +1,27 @@
+// @ts-check
 /// <reference types="cypress" />
 /**
  * @typedef {object} RecurseOptions
- * @property {number=} limit The max number of iterations
- * @property {number=} timeout In milliseconds
- * @property {boolean=} log Log to Command Log
+ * @property {number} limit The max number of iterations
+ * @property {number} timeout In milliseconds
+ * @property {boolean} log Log to Command Log
  */
+
+/** @type {RecurseOptions} */
+const RecurseDefaults = {
+  limit: 30,
+  timeout: Cypress.config('defaultCommandTimeout'),
+  log: true,
+}
+
 /**
  * Recursively calls the given command until the predicate is true.
  * @param {() => Cypress.Chainable} commandsFn Function running Cypress commands
  * @param {(any) => boolean} checkFn Predicate that should return true to finish
- * @param {RecurseOptions} options Options for maximum timeout, logging, etc
+ * @param {Partial<RecurseOptions>} options Options for maximum timeout, logging, etc
  */
 function recurse(commandsFn, checkFn, options = {}) {
-  Cypress._.defaults(options, {
-    limit: 30,
-    timeout: Cypress.config('defaultCommandTimeout'),
-    log: true,
-  })
+  Cypress._.defaults(options, RecurseDefaults)
   const started = +new Date()
 
   if (options.limit < 0) {
@@ -34,6 +39,10 @@ function recurse(commandsFn, checkFn, options = {}) {
   }
 
   commandsFn().then((x) => {
+    if (options.log) {
+      cy.log(x)
+    }
+
     if (checkFn(x)) {
       if (options.log) {
         cy.log('**NICE!**')
@@ -53,4 +62,5 @@ function recurse(commandsFn, checkFn, options = {}) {
 
 module.exports = {
   recurse,
+  RecurseDefaults,
 }
