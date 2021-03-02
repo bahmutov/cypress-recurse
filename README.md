@@ -48,6 +48,7 @@ import { RecurseDefaults } from 'cypress-recurse'
 ## Examples
 
 - [avoid-while-loops-in-cypress](https://github.com/bahmutov/avoid-while-loops-in-cypress) repo
+- [monalego](https://github.com/bahmutov/monalego)
 
 
 ## Small print
