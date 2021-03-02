@@ -2,11 +2,13 @@
 /// <reference types="cypress" />
 import { recurse, RecurseDefaults } from '../..'
 
-it('gets 7', () => {
+// since the default timeout is short
+// allow retries to "fix" it
+it('gets 7', { retries: 10 }, () => {
   recurse(
     () => cy.wrap(7),
     (n) => n === 7,
-  )
+  ).should('equal', 7)
 })
 
 // there is a chance that this function fails, so allow retrying it
@@ -35,3 +37,10 @@ it('has default options', () => {
 //     },
 //   )
 // })
+
+it('yields the subject from the last command', () => {
+  recurse(
+    () => cy.wrap(7),
+    (n) => n === 7,
+  ).should('equal', 7)
+})

@@ -38,7 +38,7 @@ function recurse(commandsFn, checkFn, options = {}) {
     cy.log(`time remaining **${options.timeout}**`)
   }
 
-  commandsFn().then((x) => {
+  return commandsFn().then((x) => {
     if (options.log) {
       cy.log(x)
     }
@@ -52,7 +52,7 @@ function recurse(commandsFn, checkFn, options = {}) {
 
     const finished = +new Date()
     const elapsed = finished - started
-    recurse(commandsFn, checkFn, {
+    return recurse(commandsFn, checkFn, {
       timeout: options.timeout - elapsed,
       limit: options.limit - 1,
       log: options.log,

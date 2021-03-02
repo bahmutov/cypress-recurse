@@ -23,6 +23,21 @@ it('gets 7', () => {
 })
 ```
 
+## Yields
+
+The `recurse` function yields the subject of the command function.
+
+```js
+import { recurse } from 'cypress-recurse'
+
+it('gets 7', () => {
+  recurse(
+    () => cy.wrap(7),
+    (n) => n === 7,
+  )
+}).should('equal', 7)
+```
+
 ## Options
 
 ```js
