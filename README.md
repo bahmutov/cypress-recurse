@@ -39,6 +39,12 @@ it('gets 7 after 50 iterations or 30 seconds', () => {
 })
 ```
 
+You can see the default options
+
+```js
+import { RecurseDefaults } from 'cypress-recurse'
+```
+
 ## Examples
 
 - [avoid-while-loops-in-cypress](https://github.com/bahmutov/avoid-while-loops-in-cypress) repo
