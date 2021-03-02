@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 /**
  * @typedef {object} RecurseOptions
  * @property {number=} limit The max number of iterations
@@ -13,7 +14,7 @@
 function recurse(commandsFn, checkFn, options = {}) {
   Cypress._.defaults(options, {
     limit: 30,
-    timeout: 30000,
+    timeout: Cypress.config('defaultCommandTimeout'),
     log: true,
   })
   const started = +new Date()
