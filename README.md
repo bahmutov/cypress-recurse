@@ -47,8 +47,8 @@ it('gets 7', () => {
   recurse(
     () => cy.wrap(7),
     (n) => n === 7,
-  )
-}).should('equal', 7)
+  ).should('equal', 7)
+})
 ```
 
 ## Options
