@@ -17,7 +17,7 @@ const RecurseDefaults = {
 /**
  * Recursively calls the given command until the predicate is true.
  * @param {() => Cypress.Chainable} commandsFn Function running Cypress commands
- * @param {(any) => boolean} checkFn Predicate that should return true to finish
+ * @param {(any) => boolean|void} checkFn Predicate that should return true to finish
  * @param {Partial<RecurseOptions>} options Options for maximum timeout, logging, etc
  * @returns {Cypress.Chainable} Returns the command chain
  */
@@ -44,11 +44,16 @@ function recurse(commandsFn, checkFn, options = {}) {
       cy.log(x)
     }
 
-    if (checkFn(x)) {
-      if (options.log) {
-        cy.log('**NICE!**')
+    try {
+      const predicateResult = checkFn(x)
+      if (predicateResult === true || predicateResult === undefined) {
+        if (options.log) {
+          cy.log('**NICE!**')
+        }
+        return
       }
-      return
+    } catch (e) {
+      // ignore the error, treat is as falsy predicate
     }
 
     const finished = +new Date()

@@ -23,6 +23,19 @@ it('gets 7', () => {
 })
 ```
 
+The predicate function should return a boolean OR use assertions to throw errors. If the predicate returns undefined, we assume it passes, see examples in [expect-spec.js](./cypress/integration/expect-spec.js).
+
+```js
+it('works for 4', () => {
+  recurse(
+    () => cy.wrap(4),
+    (x) => {
+      expect(x).to.equal(4)
+    },
+  ).should('equal', 4)
+})
+```
+
 ## Yields
 
 The `recurse` function yields the subject of the command function.
