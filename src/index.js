@@ -41,7 +41,16 @@ function recurse(commandsFn, checkFn, options = {}) {
     cy.log(`time remaining **${options.timeout}**`)
   }
 
-  return commandsFn().then((x) => {
+  const result = commandsFn()
+  if (!Cypress.isCy(result)) {
+    throw new Error(
+      [
+        'The function passed to cypress-recurse did not return a chainable instance.',
+        'Did you forget the "return" command?',
+      ].join(' '),
+    )
+  }
+  return result.then((x) => {
     if (options.log) {
       cy.log(x)
     }
