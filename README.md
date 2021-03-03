@@ -81,6 +81,10 @@ import { RecurseDefaults } from 'cypress-recurse'
 - [reloading the page until it shows the expected text](https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/testing-dom__page-reloads) recipe
 
 
+## Blog post
+
+Read [Writing Cypress Recurse Function](https://glebbahmutov.com/blog/cypress-recurse/)
+
 ## Videos
 
 I have explained how this module was written in the [following videos](https://www.youtube.com/playlist?list=PLP9o9QNnQuAbegJlN5ZTRxqtUBtKwXOHQ)
