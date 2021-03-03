@@ -66,6 +66,22 @@ import { RecurseDefaults } from 'cypress-recurse'
 - [monalego](https://github.com/bahmutov/monalego)
 
 
+## Videos
+
+I have explained how this module was written in the [following videos](https://www.youtube.com/playlist?list=PLP9o9QNnQuAbegJlN5ZTRxqtUBtKwXOHQ)
+
+1. [Call cy task until it returns an expected value](https://youtu.be/r8_hFwYAo5c)
+2. [Reusable recursive function](https://www.youtube.com/watch?v=Q_7-gRQLLMA)
+3. [Reusable function with attempts limit](https://www.youtube.com/watch?v=I1oNKD6NNjg)
+4. [Recursion function with time limit](https://www.youtube.com/watch?v=Cn8Ubhd49Gw)
+5. [Convert recurse to use options object](https://youtu.be/DeMRtTD5p7s)
+6. [Add JSDoc types to the options parameter](https://youtu.be/g4qispkHH-o)
+7. [Published cypress-recurse NPM package](https://www.youtube.com/watch?v=V82p7qTowXg)
+
+### Bonus videos
+
+1. [use cypress-recurse to find the downloaded file](https://www.youtube.com/watch?v=Ty5ltRdgr5M)
+
 ## Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2021
