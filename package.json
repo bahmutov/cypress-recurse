@@ -1,7 +1,7 @@
 {
   "name": "cypress-recurse",
   "version": "0.0.0-development",
-  "description": "A way to re-run Cypress command until a predicate function returns true",
+  "description": "A way to re-run Cypress commands until a predicate function returns true",
   "main": "src",
   "files": [
     "src"

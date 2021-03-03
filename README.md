@@ -1,6 +1,6 @@
 # cypress-recurse
 [![ci status][ci image]][ci url] [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-6.6.0-brightgreen)
-> A way to re-run Cypress command until a predicate function returns true
+> A way to re-run Cypress commands until a predicate function returns true
 
 ## Install
 
