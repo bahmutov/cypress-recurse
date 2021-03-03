@@ -78,6 +78,7 @@ import { RecurseDefaults } from 'cypress-recurse'
 
 - [avoid-while-loops-in-cypress](https://github.com/bahmutov/avoid-while-loops-in-cypress) repo
 - [monalego](https://github.com/bahmutov/monalego)
+- [reloading the page until it shows the expected text](https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/testing-dom__page-reloads) recipe
 
 
 ## Videos
