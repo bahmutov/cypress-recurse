@@ -5,6 +5,7 @@
  * @property {number} limit The max number of iterations
  * @property {number} timeout In milliseconds
  * @property {boolean} log Log to Command Log
+ * @property {number} delay Between iterations, milliseconds
  */
 
 /** @type {RecurseOptions} */
@@ -12,6 +13,7 @@ const RecurseDefaults = {
   limit: 30,
   timeout: Cypress.config('defaultCommandTimeout'),
   log: true,
+  delay: 0,
 }
 
 /**
@@ -56,12 +58,27 @@ function recurse(commandsFn, checkFn, options = {}) {
       // ignore the error, treat is as falsy predicate
     }
 
+    if (options.delay > 0) {
+      return cy.wait(options.delay, { log: false }).then(() => {
+        const finished = +new Date()
+        const elapsed = finished - started
+        return recurse(commandsFn, checkFn, {
+          timeout: options.timeout - elapsed,
+          limit: options.limit - 1,
+          log: options.log,
+          delay: options.delay,
+        })
+      })
+    }
+
+    // no delay
     const finished = +new Date()
     const elapsed = finished - started
     return recurse(commandsFn, checkFn, {
       timeout: options.timeout - elapsed,
       limit: options.limit - 1,
       log: options.log,
+      delay: options.delay,
     })
   })
 }

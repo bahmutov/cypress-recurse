@@ -1,14 +1,7 @@
 // @ts-check
 /// <reference types="cypress" />
 import { recurse } from '../..'
-
-const getTo = (n) => {
-  let k = 0
-  return () => {
-    k += 1
-    return cy.wrap(k)
-  }
-}
+import { getTo } from './utils'
 
 describe('expect inside the predicate', () => {
   it('predicate works', () => {

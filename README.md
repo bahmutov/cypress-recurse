@@ -62,6 +62,7 @@ it('gets 7 after 50 iterations or 30 seconds', () => {
       log: true,
       limit: 50, // max number of iterations
       timeout: 30000, // time limit in ms
+      delay: 300 // delay before next iteration, ms
     },
   )
 })

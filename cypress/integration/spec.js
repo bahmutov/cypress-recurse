@@ -24,7 +24,7 @@ it('gets 7 after 50 iterations or 30 seconds', { retries: 2 }, () => {
 })
 
 it('has default options', () => {
-  expect(RecurseDefaults).to.have.keys(['limit', 'timeout', 'log'])
+  expect(RecurseDefaults).to.have.keys(['limit', 'timeout', 'log', 'delay'])
 })
 
 // it('checks invalid option via types', () => {
