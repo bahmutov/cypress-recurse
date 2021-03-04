@@ -142,6 +142,7 @@ I have explained how this module was written in the [following videos](https://w
 ### Bonus videos
 
 1. [use cypress-recurse to find the downloaded file](https://www.youtube.com/watch?v=Ty5ltRdgr5M)
+2. [canvas visual testing](https://www.youtube.com/watch?v=xSK6fe5WD1g)
 
 ## Small print
 
