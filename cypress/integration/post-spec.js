@@ -33,4 +33,32 @@ describe('extra commands option', () => {
     // confirm the intercept works
     cy.get('@hello')
   })
+
+  it('starts stubbing a method', () => {
+    const obj = {
+      greeting() {
+        return 'not yet'
+      },
+    }
+    recurse(
+      () => cy.wrap(obj.greeting()),
+      (s) => s === 'ready!',
+      {
+        limit: 5,
+        delay: 500,
+        post({ limit }) {
+          if (limit === 3) {
+            cy.stub(obj, 'greeting').returns('ready!')
+          }
+        },
+      },
+    )
+      .should('equal', 'ready!')
+      // the stub was created and called
+      .then(() => {
+        // and really was called just once
+        // before the recursion has finished
+        expect(obj.greeting).to.have.been.calledOnce
+      })
+  })
 })
