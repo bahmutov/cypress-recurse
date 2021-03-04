@@ -92,12 +92,36 @@ recurse(
 
 See the [log-spec.js](./cypress/integration/log-spec.js)
 
+### post
+
+If you want to run a few more Cypress commands after the predicate function that are not part of the initial command, use the `post` option. For example, you can start intercepting the network requests after a few iterations:
+
+```js
+// from the application's window ping a non-existent URL
+const url = 'https://jsonplaceholder.cypress.io/fake-endpoint'
+const checkApi = () => cy.window().invoke('fetch', url)
+const isSuccess = ({ ok }) => ok
+
+recurse(checkApi, isSuccess, {
+  post: ({ limit }) => {
+    // after a few attempts
+    // stub the network call and respond
+    if (limit === 1) {
+      // start intercepting now
+      console.log('start intercepting')
+      return cy.intercept('GET', url, 'Hello!').as('hello')
+    }
+  },
+})
+```
+
+See the [post-spec.js](./cypress/integration/post-spec.js)
+
 ## Examples
 
 - [avoid-while-loops-in-cypress](https://github.com/bahmutov/avoid-while-loops-in-cypress) repo
-- [monalego](https://github.com/bahmutov/monalego) repo and [Canvas Visual Testing with Retries](https://glebbahmutov.com/blog/canvas-testing/) blog post
+- [monalego](https://github.com/bahmutov/monalego) repo and [Canvas Visual Testing with Retries](https://glebbahmutov.com/blog/canvas-testing/) blog post, watch [the video](https://www.youtube.com/watch?v=xSK6fe5WD1g)
 - [reloading the page until it shows the expected text](https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/testing-dom__page-reloads) recipe
-
 
 ## Blog post
 

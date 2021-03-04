@@ -5,11 +5,23 @@
  */
 
 /**
+ * @typedef {object} PostFunctionOptions
+ * @property {number} limit The remaining number of iterations
+ */
+/**
+ * @typedef {(opts: PostFunctionOptions) => void|Cypress.Chainable} PostFunction
+ */
+/**
+ * @typedef {PostFunction} PostFunctionOption
+ */
+
+/**
  * @typedef {object} RecurseOptions
  * @property {number} limit The max number of iterations
  * @property {number} timeout In milliseconds
  * @property {LogOption} log Log to Command Log
  * @property {number} delay Between iterations, milliseconds
+ * @property {PostFunction=} post Function that can run additional Cypress commands after each iteration
  */
 
 /** @type {RecurseOptions} */
@@ -75,28 +87,31 @@ function recurse(commandsFn, checkFn, options = {}) {
       // ignore the error, treat is as falsy predicate
     }
 
-    if (options.delay > 0) {
-      return cy.wait(options.delay, { log: false }).then(() => {
-        const finished = +new Date()
-        const elapsed = finished - started
-        return recurse(commandsFn, checkFn, {
-          timeout: options.timeout - elapsed,
-          limit: options.limit - 1,
-          log: options.log,
-          delay: options.delay,
-        })
+    const nextIteration = () => {
+      const finished = +new Date()
+      const elapsed = finished - started
+      return recurse(commandsFn, checkFn, {
+        timeout: options.timeout - elapsed,
+        limit: options.limit - 1,
+        log: options.log,
+        delay: options.delay,
+        post: options.post,
       })
     }
 
-    // no delay
-    const finished = +new Date()
-    const elapsed = finished - started
-    return recurse(commandsFn, checkFn, {
-      timeout: options.timeout - elapsed,
-      limit: options.limit - 1,
-      log: options.log,
-      delay: options.delay,
-    })
+    const callPost = () => {
+      const result = options.post({ limit: options.limit })
+      return Cypress.isCy(result) ? result : cy
+    }
+
+    const postStep = typeof options.post === 'function' ? callPost() : cy
+
+    const nextStep =
+      options.delay > 0
+        ? postStep.then(() => cy.wait(options.delay, { log: false }))
+        : postStep
+
+    return nextStep.then(nextIteration)
   })
 }
 
