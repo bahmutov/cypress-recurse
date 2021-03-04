@@ -36,6 +36,8 @@ it('works for 4', () => {
 })
 ```
 
+**Important:** the commands inside the first function cannot fail - otherwise the entire test fails. Thus make them as "passive" as possible, and let the predicate function decide if the entire function needs to be retried or not.
+
 ## Yields
 
 The `recurse` function yields the subject of the command function.
