@@ -76,6 +76,22 @@ You can see the default options
 import { RecurseDefaults } from 'cypress-recurse'
 ```
 
+### Log
+
+The log option can be a boolean flag or your own function. For example to pretty-print each number we could:
+
+```js
+recurse(
+  () => {...},
+  (x) => x === 3,
+  {
+    log: (k) => cy.log(`k = **${k}**`),
+  }
+)
+```
+
+See the [log-spec.js](./cypress/integration/log-spec.js)
+
 ## Examples
 
 - [avoid-while-loops-in-cypress](https://github.com/bahmutov/avoid-while-loops-in-cypress) repo

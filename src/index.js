@@ -1,10 +1,14 @@
 // @ts-check
 /// <reference types="cypress" />
 /**
+ * @typedef {boolean|((any) => void)} LogOption
+ */
+
+/**
  * @typedef {object} RecurseOptions
  * @property {number} limit The max number of iterations
  * @property {number} timeout In milliseconds
- * @property {boolean} log Log to Command Log
+ * @property {LogOption} log Log to Command Log
  * @property {number} delay Between iterations, milliseconds
  */
 
@@ -52,7 +56,11 @@ function recurse(commandsFn, checkFn, options = {}) {
   }
   return result.then((x) => {
     if (options.log) {
-      cy.log(x)
+      if (typeof options.log === 'function') {
+        options.log(x)
+      } else {
+        cy.log(x)
+      }
     }
 
     try {
