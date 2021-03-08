@@ -1,7 +1,7 @@
 // @ts-check
 /// <reference types="cypress" />
 /**
- * @typedef {boolean|((any) => void)} LogOption
+ * @typedef {boolean|string|((any) => void)} LogOption
  */
 
 /**
@@ -19,7 +19,7 @@
  * @typedef {object} RecurseOptions
  * @property {number} limit The max number of iterations
  * @property {number} timeout In milliseconds
- * @property {LogOption} log Log to Command Log
+ * @property {LogOption} log Log to Command Log, could be true|false, a message to be printed once at the end, or a custom function
  * @property {number} delay Between iterations, milliseconds
  * @property {PostFunction=} post Function that can run additional Cypress commands after each iteration
  */
@@ -46,14 +46,14 @@ function recurse(commandsFn, checkFn, options = {}) {
   if (options.limit < 0) {
     throw new Error('Recursion limit reached')
   }
-  if (options.log) {
+  if (options.log === true) {
     cy.log(`remaining attempts **${options.limit}**`)
   }
 
   if (options.timeout < 0) {
     throw new Error('Max time limit reached')
   }
-  if (options.log) {
+  if (options.log === true) {
     cy.log(`time remaining **${options.timeout}**`)
   }
 
@@ -67,19 +67,19 @@ function recurse(commandsFn, checkFn, options = {}) {
     )
   }
   return result.then((x) => {
-    if (options.log) {
-      if (typeof options.log === 'function') {
-        options.log(x)
-      } else {
-        cy.log(x)
-      }
+    if (options.log === true) {
+      cy.log(x)
+    } else if (typeof options.log === 'function') {
+      options.log(x)
     }
 
     try {
       const predicateResult = checkFn(x)
       if (predicateResult === true || predicateResult === undefined) {
-        if (options.log) {
+        if (options.log === true) {
           cy.log('**NICE!**')
+        } else if (typeof options.log === 'string') {
+          cy.log(options.log)
         }
         return
       }

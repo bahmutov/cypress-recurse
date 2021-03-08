@@ -76,7 +76,7 @@ You can see the default options
 import { RecurseDefaults } from 'cypress-recurse'
 ```
 
-### Log
+### log
 
 The log option can be a boolean flag or your own function. For example to pretty-print each number we could:
 
@@ -86,6 +86,18 @@ recurse(
   (x) => x === 3,
   {
     log: (k) => cy.log(`k = **${k}**`),
+  }
+)
+```
+
+You can simply print a given string at the successful end of the recursion
+
+```js
+recurse(
+  () => {...},
+  (x) => x === 3,
+  {
+    log: 'got to 3!',
   }
 )
 ```

@@ -4,9 +4,21 @@ import { recurse } from '../..'
 import { getTo } from './utils'
 
 describe('log option', () => {
-  it('can be a flag', () => {
+  it('can be a flag: true', () => {
     recurse(getTo(3), (x) => x === 3, {
       log: true,
+    })
+  })
+
+  it('can be a flag: false', () => {
+    recurse(getTo(3), (x) => x === 3, {
+      log: false,
+    })
+  })
+
+  it('can be a flag: string to be printed at the end', () => {
+    recurse(getTo(3), (x) => x === 3, {
+      log: '**got to 3!**',
     })
   })
 
