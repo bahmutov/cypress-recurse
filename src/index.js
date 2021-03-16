@@ -43,17 +43,19 @@ function recurse(commandsFn, checkFn, options = {}) {
   Cypress._.defaults(options, RecurseDefaults)
   const started = +new Date()
 
+  const logCommands = options.log === true
+
   if (options.limit < 0) {
     throw new Error('Recursion limit reached')
   }
-  if (options.log === true) {
+  if (logCommands) {
     cy.log(`remaining attempts **${options.limit}**`)
   }
 
   if (options.timeout < 0) {
     throw new Error('Max time limit reached')
   }
-  if (options.log === true) {
+  if (logCommands) {
     cy.log(`time remaining **${options.timeout}**`)
   }
 
@@ -67,7 +69,7 @@ function recurse(commandsFn, checkFn, options = {}) {
     )
   }
   return result.then((x) => {
-    if (options.log === true) {
+    if (logCommands) {
       cy.log(x)
     } else if (typeof options.log === 'function') {
       options.log(x)
@@ -76,7 +78,7 @@ function recurse(commandsFn, checkFn, options = {}) {
     try {
       const predicateResult = checkFn(x)
       if (predicateResult === true || predicateResult === undefined) {
-        if (options.log === true) {
+        if (logCommands) {
           cy.log('**NICE!**')
         } else if (typeof options.log === 'string') {
           cy.log(options.log)
@@ -99,19 +101,18 @@ function recurse(commandsFn, checkFn, options = {}) {
       })
     }
 
+    const delayStep =
+      options.delay > 0 ? cy.wait(options.delay, { log: logCommands }) : cy
+
     const callPost = () => {
       const result = options.post({ limit: options.limit })
       return Cypress.isCy(result) ? result : cy
     }
 
-    const postStep = typeof options.post === 'function' ? callPost() : cy
+    const postStep =
+      typeof options.post === 'function' ? delayStep.then(callPost) : delayStep
 
-    const nextStep =
-      options.delay > 0
-        ? postStep.then(() => cy.wait(options.delay, { log: false }))
-        : postStep
-
-    return nextStep.then(nextIteration)
+    return postStep.then(nextIteration)
   })
 }
 

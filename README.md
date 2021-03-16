@@ -129,6 +129,8 @@ recurse(checkApi, isSuccess, {
 
 See the [post-spec.js](./cypress/integration/post-spec.js)
 
+**Note:** if you specify both the delay and the `post` options, the delay runs first.
+
 ## Examples
 
 - [avoid-while-loops-in-cypress](https://github.com/bahmutov/avoid-while-loops-in-cypress) repo
