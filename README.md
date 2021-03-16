@@ -158,6 +158,7 @@ I have explained how this module was written in the [following videos](https://w
 
 1. [use cypress-recurse to find the downloaded file](https://www.youtube.com/watch?v=Ty5ltRdgr5M)
 2. [canvas visual testing](https://www.youtube.com/watch?v=xSK6fe5WD1g)
+3. [wait for API to respond](https://www.youtube.com/watch?v=CU8C6MRP_GU)
 
 ## Small print
 
