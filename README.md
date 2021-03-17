@@ -137,6 +137,7 @@ See the [post-spec.js](./cypress/integration/post-spec.js)
 - [monalego](https://github.com/bahmutov/monalego) repo and [Canvas Visual Testing with Retries](https://glebbahmutov.com/blog/canvas-testing/) blog post, watch [the video](https://www.youtube.com/watch?v=xSK6fe5WD1g)
 - [reloading the page until it shows the expected text](https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/testing-dom__page-reloads) recipe
 - [pinging the API endpoint until it responds](https://youtu.be/CU8C6MRP_GU)
+- [HTML canvas bar chart testing](https://youtu.be/aeBclf9A92A)
 
 ## Blog post
 
