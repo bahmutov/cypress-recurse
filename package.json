@@ -28,6 +28,6 @@
   "devDependencies": {
     "cypress": "7.2.0",
     "prettier": "2.2.1",
-    "semantic-release": "17.4.2"
+    "semantic-release": "17.4.3"
   }
 }
