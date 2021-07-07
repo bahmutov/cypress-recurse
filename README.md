@@ -127,7 +127,7 @@ recurse(checkApi, isSuccess, {
 })
 ```
 
-See the [post-spec.js](./cypress/integration/post-spec.js)
+See the [post-spec.js](./cypress/integration/post-spec.js) and [find-on-page-spec.js](./cypress/integration/find-on-page.js).
 
 **Note:** if you specify both the delay and the `post` options, the delay runs first.
 
