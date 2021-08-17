@@ -138,6 +138,7 @@ See the [post-spec.js](./cypress/integration/post-spec.js) and [find-on-page-spe
 - [reloading the page until it shows the expected text](https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/testing-dom__page-reloads) recipe
 - [pinging the API endpoint until it responds](https://youtu.be/CU8C6MRP_GU)
 - [HTML canvas bar chart testing](https://youtu.be/aeBclf9A92A)
+- [Browse Reveal.js Slides Using Cypress and cypress-recurse](https://youtu.be/oq2P1wtIZYY)
 
 ## Blog post
 
