@@ -1,8 +1,6 @@
 // @ts-check
 /// <reference types="cypress" />
-/**
- * @typedef {boolean|string|((any) => void)} LogOption
- */
+/// <reference path="./index.d.ts" />
 
 /**
  * @typedef {object} PostFunctionOptions
