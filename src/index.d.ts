@@ -1,3 +1,53 @@
 /// <reference types="cypress" />
 
-type LogOption = boolean | string | ((any) => void)
+export type LogOption = boolean | string | ((arg0: any) => void)
+
+interface PostFunctionOptions {
+  /**
+   * The remaining number of iterations
+   */
+  limit: number
+}
+
+type PostFunction = (opts: PostFunctionOptions) => void | Cypress.Chainable
+
+interface RecurseOptions {
+  /**
+   * The max number of iterations
+   */
+  limit: number
+  /**
+   * In milliseconds
+   */
+  timeout: number
+  /**
+   * Log to Command Log, could be true|false,
+   * a message to be printed once at the end,
+   * or a custom function
+   */
+  log: LogOption
+  /**
+   * Between iterations, milliseconds
+   */
+  delay: number
+  /**
+   * Function that can run additional Cypress commands after each iteration
+   */
+  post?: PostFunction
+}
+
+/**
+ * Recursively calls the given command until the predicate is true.
+ * @param commandsFn Function running Cypress commands
+ * @param checkFn Predicate that should return true to finish
+ * @param options Options for maximum timeout, logging, etc
+ */
+type RecurseFn = (
+  commandsFn: () => Cypress.Chainable,
+  checkFn: (x: any) => boolean | void,
+  options?: Partial<RecurseOptions>,
+) => Cypress.Chainable
+
+export const RecurseDefaults: RecurseOptions
+
+export const recurse: RecurseFn

@@ -1,28 +1,6 @@
 // @ts-check
-/// <reference types="cypress" />
-/// <reference path="./index.d.ts" />
 
-/**
- * @typedef {object} PostFunctionOptions
- * @property {number} limit The remaining number of iterations
- */
-/**
- * @typedef {(opts: PostFunctionOptions) => void|Cypress.Chainable} PostFunction
- */
-/**
- * @typedef {PostFunction} PostFunctionOption
- */
-
-/**
- * @typedef {object} RecurseOptions
- * @property {number} limit The max number of iterations
- * @property {number} timeout In milliseconds
- * @property {LogOption} log Log to Command Log, could be true|false, a message to be printed once at the end, or a custom function
- * @property {number} delay Between iterations, milliseconds
- * @property {PostFunction=} post Function that can run additional Cypress commands after each iteration
- */
-
-/** @type {RecurseOptions} */
+/** @type {import('./index').RecurseOptions} */
 const RecurseDefaults = {
   limit: 30,
   timeout: Cypress.config('defaultCommandTimeout'),
@@ -31,11 +9,7 @@ const RecurseDefaults = {
 }
 
 /**
- * Recursively calls the given command until the predicate is true.
- * @param {() => Cypress.Chainable} commandsFn Function running Cypress commands
- * @param {(any) => boolean|void} checkFn Predicate that should return true to finish
- * @param {Partial<RecurseOptions>} options Options for maximum timeout, logging, etc
- * @returns {Cypress.Chainable} Returns the command chain
+ * @type {import('./index').RecurseFn}
  */
 function recurse(commandsFn, checkFn, options = {}) {
   Cypress._.defaults(options, RecurseDefaults)

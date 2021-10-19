@@ -1,5 +1,4 @@
 // @ts-check
-/// <reference types="cypress" />
 import { recurse } from '../..'
 
 describe('command fails', () => {
@@ -11,6 +10,7 @@ describe('command fails', () => {
   // this test fails inside onFail, does not recurse
   // and simply passes since we ignore a failure
   it('works', () => {
+    // @ts-ignore
     const onFail = (e) => {
       console.log('test failed', e)
     }

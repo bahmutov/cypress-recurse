@@ -7,6 +7,7 @@ describe('extra commands option', () => {
     // from the application's window ping a non-existent URL
     const url = 'https://jsonplaceholder.cypress.io/fake-endpoint'
     const checkApi = () => cy.window().invoke('fetch', url)
+    // @ts-ignore
     const isSuccess = ({ ok }) => ok
 
     recurse(checkApi, isSuccess, {
