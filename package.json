@@ -31,6 +31,6 @@
     "cypress": "8.6.0",
     "prettier": "2.2.1",
     "semantic-release": "18.0.0",
-    "typescript": "^4.4.4"
+    "typescript": "4.4.4"
   }
 }
