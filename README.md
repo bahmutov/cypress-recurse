@@ -162,6 +162,7 @@ I have explained how this module was written in the [following videos](https://w
 2. [canvas visual testing](https://www.youtube.com/watch?v=xSK6fe5WD1g)
 3. [wait for API to respond](https://www.youtube.com/watch?v=CU8C6MRP_GU)
 4. [get to the last page](https://youtu.be/6-xHHtAzNtk) by clicking the "Next" button
+5. [Use cypress-recurse To Scroll The Page Until It Loads The Text We Are Looking For](https://youtu.be/KHn7647xOz8)
 
 ## Small print
 
