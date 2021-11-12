@@ -1,5 +1,6 @@
 // @ts-check
 /// <reference types="cypress" />
+// normally this would be import from "cypress-recurse"
 import { recurse } from '../../src'
 
 describe(
