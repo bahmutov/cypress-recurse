@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <style>
+      body {
+        margin: 3em;
+      }
+      input {
+        display: block;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      Type something into the field. Notice that the application resets the
+      value randomly during the first 3 seconds, simulating a sudden application
+      re-render.
+    </p>
+    <input type="text" id="flaky-input" value="" />
+    <script>
+      function resetText() {
+        const input = document.getElementById('flaky-input')
+        input.value = ''
+      }
+      // reset the input several times during the first couple of seconds
+      setTimeout(resetText, 100)
+      setTimeout(resetText, 150)
+      setTimeout(resetText, 200)
+      setTimeout(resetText, 250)
+    </script>
+  </body>
+</html>

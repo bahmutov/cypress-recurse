@@ -133,6 +133,7 @@ See the [post-spec.js](./cypress/integration/post-spec.js) and [find-on-page-spe
 
 ## Examples
 
+- clear and type text into the input field until it has the expected value, see [type-with-retries-spec.js](./cypress/integration/type-with-retries-spec.js)
 - [avoid-while-loops-in-cypress](https://github.com/bahmutov/avoid-while-loops-in-cypress) repo
 - [monalego](https://github.com/bahmutov/monalego) repo and [Canvas Visual Testing with Retries](https://glebbahmutov.com/blog/canvas-testing/) blog post, watch [the video](https://www.youtube.com/watch?v=xSK6fe5WD1g)
 - [reloading the page until it shows the expected text](https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/testing-dom__page-reloads) recipe
