@@ -16,17 +16,25 @@
       value randomly during the first 3 seconds, simulating a sudden application
       re-render.
     </p>
-    <input type="text" id="flaky-input" value="" />
+    <!-- remove the "disabled" attribute to cause test flake -->
+    <input type="text" id="flaky-input" value="" disabled />
     <script>
       function resetText() {
         const input = document.getElementById('flaky-input')
         input.value = ''
+      }
+      function enableText() {
+        const input = document.getElementById('flaky-input')
+        input.removeAttribute('disabled')
       }
       // reset the input several times during the first couple of seconds
       setTimeout(resetText, 100)
       setTimeout(resetText, 150)
       setTimeout(resetText, 200)
       setTimeout(resetText, 250)
+      // enable the input element after the application
+      // is truly ready to process the user actions
+      setTimeout(enableText, 2000)
     </script>
   </body>
 </html>
