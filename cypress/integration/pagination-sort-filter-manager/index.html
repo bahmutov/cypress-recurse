@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Table Manager Plugin Example</title>
+    <link
+      href="https://www.jqueryscript.net/css/jquerysctipttop.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- Include Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <!-- Style -->
+    <style type="text/css">
+      body {
+        font-family: 'Roboto Condensed', Helvetica, sans-serif;
+        background-color: #f7f7f7;
+      }
+      .container {
+        margin: 150px auto;
+        max-width: 960px;
+      }
+      a {
+        text-decoration: none;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #bbb;
+        text-align: left;
+      }
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      th {
+        background-color: #ddd;
+      }
+      th,
+      td {
+        padding: 5px;
+      }
+      button {
+        cursor: pointer;
+      }
+      /*Initial style sort*/
+      .tablemanager th.sorterHeader {
+        cursor: pointer;
+      }
+      .tablemanager th.sorterHeader:after {
+        content: ' \f0dc';
+        font-family: 'FontAwesome';
+      }
+      /*Style sort desc*/
+      .tablemanager th.sortingDesc:after {
+        content: ' \f0dd';
+        font-family: 'FontAwesome';
+      }
+      /*Style sort asc*/
+      .tablemanager th.sortingAsc:after {
+        content: ' \f0de';
+        font-family: 'FontAwesome';
+      }
+      /*Style disabled*/
+      .tablemanager th.disableSort {
+      }
+      #for_numrows {
+        padding: 10px;
+        float: left;
+      }
+      #for_filter_by {
+        padding: 10px;
+        float: right;
+      }
+      #pagesControllers {
+        display: block;
+        text-align: center;
+      }
+      .currentPage {
+        font-weight: bold;
+        background-color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Table Manager Plugin Example</h1>
+        <p>
+          A simple yet powerful jQuery table management plugin that provides an
+          easy way to sort/filter/paginate tabular data in an HTML table.
+        </p>
+        <hr />
+      </header>
+
+      <!-- Table start -->
+      <table class="tablemanager">
+        <thead>
+          <tr>
+            <th class="disableSort">Number</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date</th>
+            <th>Points</th>
+            <th class="disableFilterBy">Controls</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="prova">1</td>
+            <td class="prova">Sara</td>
+            <td class="prova">Jackson</td>
+            <td class="prova">08-06-1989</td>
+            <td class="prova">94</td>
+            <td class="prova"><a href="">Edit</a></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>John</td>
+            <td>Doe</td>
+            <td>10-05-1987</td>
+            <td>80</td>
+            <td><a href="">Edit</a></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Adam</td>
+            <td>Johnson</td>
+            <td>10-05-1987</td>
+            <td>50</td>
+            <td><a href="">Edit</a></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>11-11-1972</td>
+            <td>50</td>
+            <td><a href="">Edit</a></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>11-11-1972</td>
+            <td>50</td>
+            <td><a href="">Edit</a></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>11-11-1972</td>
+            <td>50</td>
+            <td><a href="">Edit</a></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>11-11-1972</td>
+            <td>50</td>
+            <td><a href="">Edit</a></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>11-11-1972</td>
+            <td>50</td>
+            <td><a href="">Edit</a></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>11-11-1972</td>
+            <td>50</td>
+            <td><a href="">Edit</a></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>11-11-1972</td>
+            <td>50</td>
+            <td><a href="">Edit</a></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>11-11-1972</td>
+            <td>50</td>
+            <td><a href="">Edit</a></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>11-11-1972</td>
+            <td>50</td>
+            <td><a href="">Edit</a></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>11-11-1972</td>
+            <td>50</td>
+            <td><a href="">Edit</a></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>11-11-1972</td>
+            <td>50</td>
+            <td><a href="">Edit</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- External jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="./js/jquery-1.12.3.min.js"></script> -->
+    <script type="text/javascript" src="./tableManager.js"></script>
+    <script type="text/javascript">
+      // basic usage
+      $('.tablemanager').tablemanager({
+        firstSort: [
+          [3, 0],
+          [2, 0],
+          [1, 'asc'],
+        ],
+        disable: ['last'],
+        appendFilterby: true,
+        dateFormat: [[4, 'mm-dd-yyyy']],
+        debug: true,
+        vocabulary: {
+          voc_filter_by: 'Filter By',
+          voc_type_here_filter: 'Filter...',
+          voc_show_rows: 'Rows Per Page',
+        },
+        pagination: true,
+        showrows: [5, 10, 20, 50, 100],
+        disableFilterBy: [1],
+      })
+      // $('.tablemanager').tablemanager();
+    </script>
+  </body>
+</html>
