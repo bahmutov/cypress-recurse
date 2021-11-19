@@ -130,6 +130,19 @@ recurse(checkApi, isSuccess, {
 See the [post-spec.js](./cypress/integration/post-spec.js) and [find-on-page-spec.js](./cypress/integration/find-on-page.js).
 
 **Note:** if you specify both the delay and the `post` options, the delay runs first.
+### custom error message
+
+Use the `error` option if you want to add a custom error message when the recursion timed out or the iteration limit has reached the end. 
+
+```js
+recurse(
+  () => {...},
+  (x) => x === 3,
+  {
+    error: 'x never got to 3!',
+  }
+)
+```
 
 ## Examples
 
