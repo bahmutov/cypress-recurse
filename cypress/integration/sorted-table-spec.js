@@ -59,6 +59,7 @@ describe('Table pagination', () => {
         expect(points).to.be.ascending,
       {
         log: false,
+        timeout: 5000,
       },
     )
   })
