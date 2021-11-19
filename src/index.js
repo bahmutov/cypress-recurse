@@ -18,14 +18,16 @@ function recurse(commandsFn, checkFn, options = {}) {
   const logCommands = options.log === true
 
   if (options.limit < 0) {
-    throw new Error('Recursion limit reached')
+    const err = options.error ?? 'Recursion limit reached';
+    throw new Error(err);
   }
   if (logCommands) {
     cy.log(`remaining attempts **${options.limit}**`)
   }
 
   if (options.timeout < 0) {
-    throw new Error('Max time limit reached')
+    const err = options.error ?? 'Max time limit reached';
+    throw new Error(err);
   }
   if (logCommands) {
     cy.log(`time remaining **${options.timeout}**`)
@@ -71,6 +73,7 @@ function recurse(commandsFn, checkFn, options = {}) {
         log: options.log,
         delay: options.delay,
         post: options.post,
+        error: options.error
       })
     }
 

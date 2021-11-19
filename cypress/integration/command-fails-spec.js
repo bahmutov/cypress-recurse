@@ -18,4 +18,48 @@ describe('command fails', () => {
 
     recurse(aCommandFails, (x) => x === 2).should('be.equal', 2)
   })
+
+  // this test reaches the recursion limit and throws a custom error message
+  // and verify that message is shown
+  it('custom error message on limit reached failure', () => {
+    const errMsg = 'sorry i reached the limit'
+
+    const onFail = (e) => {
+      expect(e.toString()).to.include(errMsg)
+    }
+    cy.on('fail', onFail)
+
+    recurse(
+      () => cy.wrap(2, { timeout: 1000 }),
+      (x) => {
+        return x == 3
+      },
+      {
+        error: errMsg,
+      },
+    )
+  })
+
+  // this test times out and throws a custom error message
+  // and verify that message is shown
+  it('custom error message on time out failure', () => {
+    const errMsg = 'sorry i timed out'
+
+    const onFail = (e) => {
+      expect(e.toString()).to.include(errMsg)
+    }
+    cy.on('fail', onFail)
+
+    recurse(
+      () => cy.wrap(2, { timeout: 1000 }),
+      (x) => {
+        return x == 3
+      },
+      {
+        error: errMsg,
+        delay: 500,
+        timeout: 1000
+      },
+    )
+  })
 })

@@ -34,6 +34,10 @@ interface RecurseOptions {
    * Function that can run additional Cypress commands after each iteration
    */
   post?: PostFunction
+  /**
+   * Error message to display when timed out or max limit reached
+   */
+  error?: string
 }
 
 /**
