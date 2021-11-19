@@ -2,10 +2,10 @@
 
 /** @type {import('./index').RecurseOptions} */
 const RecurseDefaults = {
-  limit: 30,
+  limit: 5,
   timeout: Cypress.config('defaultCommandTimeout'),
   log: true,
-  delay: 0,
+  delay: Cypress.config('defaultCommandTimeout') / 5,
 }
 
 /**
