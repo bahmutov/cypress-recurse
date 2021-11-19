@@ -24,6 +24,7 @@ describe('command fails', () => {
   it('custom error message on limit reached failure', () => {
     const errMsg = 'sorry i reached the limit'
 
+    // @ts-ignore
     const onFail = (e) => {
       expect(e.toString()).to.include(errMsg)
     }
@@ -45,6 +46,7 @@ describe('command fails', () => {
   it('custom error message on time out failure', () => {
     const errMsg = 'sorry i timed out'
 
+    // @ts-ignore
     const onFail = (e) => {
       expect(e.toString()).to.include(errMsg)
     }
@@ -58,7 +60,7 @@ describe('command fails', () => {
       {
         error: errMsg,
         delay: 500,
-        timeout: 1000
+        timeout: 1000,
       },
     )
   })
