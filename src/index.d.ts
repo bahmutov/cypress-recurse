@@ -44,7 +44,7 @@ interface RecurseOptions {
  */
 type RecurseFn = (
   commandsFn: () => Cypress.Chainable,
-  checkFn: (x: any) => boolean | void,
+  checkFn: (x: any) => boolean | void | Chai.Assertion,
   options?: Partial<RecurseOptions>,
 ) => Cypress.Chainable
 

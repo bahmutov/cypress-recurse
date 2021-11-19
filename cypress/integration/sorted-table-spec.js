@@ -51,10 +51,10 @@ describe('Table pagination', () => {
           .then((strings) => Cypress._.map(strings, Number))
           // log the first few values for clarity
           .then((points) => cy.log(points.slice(0, 5).join(', '))),
-      (points) => {
+      (points) =>
+        // TypeScript is unaware that chai-sorted adds this chainer
         // @ts-ignore
-        expect(points).to.be.ascending
-      },
+        expect(points).to.be.ascending,
       {
         log: false,
         delay: 500,

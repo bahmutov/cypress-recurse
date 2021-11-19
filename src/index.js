@@ -49,7 +49,8 @@ function recurse(commandsFn, checkFn, options = {}) {
 
     try {
       const predicateResult = checkFn(x)
-      if (predicateResult === true || predicateResult === undefined) {
+      // treat truthy as success and stop the recursion
+      if (Boolean(predicateResult) === true || predicateResult === undefined) {
         if (logCommands) {
           cy.log('**NICE!**')
         } else if (typeof options.log === 'string') {

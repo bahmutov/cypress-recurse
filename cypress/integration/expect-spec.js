@@ -40,4 +40,8 @@ describe('expect inside the predicate', () => {
       },
     )
   })
+
+  it('returning assertion', () => {
+    recurse(getTo(4), (x) => expect(x).to.equal(4)).should('equal', 4)
+  })
 })
