@@ -2,6 +2,8 @@
 /// <reference types="cypress" />
 // register chai-sorted assertions
 // https://www.chaijs.com/plugins/chai-sorted/
+// The NPM package does not include TypeScript definitions
+// @ts-ignore
 chai.use(require('chai-sorted'))
 
 import { recurse } from '../..'
