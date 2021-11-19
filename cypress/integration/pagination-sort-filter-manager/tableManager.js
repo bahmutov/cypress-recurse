@@ -446,19 +446,21 @@ Important! Do not edit this plugin if you're not sure you're doing it right. The
 
       if (!disable === true) {
         $(this).on('click', function () {
-          if ($(this).hasClass('sortingAsc')) {
-            $(Heads).removeClass('sortingAsc').removeClass('sortingDesc')
-            $(this).addClass('sortingDesc')
-            order = 1
-          } else {
-            $(Heads).removeClass('sortingDesc').removeClass('sortingAsc')
-            $(this).addClass('sortingAsc')
-            order = 0
-          }
-          // TableSort(this, n, order);
-          var sortRules = []
-          sortRules.push([n + 1, order])
-          TableSort(sortRules)
+          setTimeout(function sortIt() {
+            if ($(this).hasClass('sortingAsc')) {
+              $(Heads).removeClass('sortingAsc').removeClass('sortingDesc')
+              $(this).addClass('sortingDesc')
+              order = 1
+            } else {
+              $(Heads).removeClass('sortingDesc').removeClass('sortingAsc')
+              $(this).addClass('sortingAsc')
+              order = 0
+            }
+            // TableSort(this, n, order);
+            var sortRules = []
+            sortRules.push([n + 1, order])
+            TableSort(sortRules)
+          }, Math.random() * 1000)
         })
         $(this).addClass('sorterHeader')
       }

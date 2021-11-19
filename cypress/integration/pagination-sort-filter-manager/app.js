@@ -39,7 +39,7 @@ $('.tablemanager').tablemanager({
   disable: [],
   appendFilterby: true,
   dateFormat: [[3, 'yyyy-mm-dd']],
-  debug: true,
+  debug: false,
   vocabulary: {
     voc_filter_by: 'Filter By',
     voc_type_here_filter: 'Filter...',

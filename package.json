@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/bahmutov/cypress-recurse#readme",
   "devDependencies": {
+    "chai-sorted": "^0.2.0",
     "cypress": "9.0.0",
     "prettier": "2.2.1",
     "semantic-release": "18.0.0",
