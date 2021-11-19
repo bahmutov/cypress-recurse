@@ -5,7 +5,9 @@ import { recurse } from '../..'
 // https://github.com/bahmutov/cypress-recurse/issues/26
 // keeps clicking "Next" until the page has the element we are looking for
 describe('find on page example', () => {
-  it('clicks until finds text', () => {
+  // because the test is random and can fail
+  // retry it a couple of times on CI
+  it('clicks until finds text', { retries: { runMode: 3 } }, () => {
     cy.visit('cypress/integration/find-on-page.html')
     cy.contains('#output', 'Ready?').should('be.visible')
 
