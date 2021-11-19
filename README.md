@@ -165,6 +165,7 @@ I have explained how this module was written in the [following videos](https://w
 3. [wait for API to respond](https://www.youtube.com/watch?v=CU8C6MRP_GU)
 4. [get to the last page](https://youtu.be/6-xHHtAzNtk) by clicking the "Next" button
 5. [Use cypress-recurse To Scroll The Page Until It Loads The Text We Are Looking For](https://youtu.be/KHn7647xOz8)
+6. [Use cypress-recurse Plugin To Confirm The Table Gets Sorted Eventually](https://youtu.be/Ke5Pf6IISn8)
 
 ## Small print
 
