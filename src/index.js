@@ -18,7 +18,9 @@ function recurse(commandsFn, checkFn, options = {}) {
   const logCommands = options.log === true
 
   if (options.limit < 0) {
-    const err = options.error ?? 'Recursion limit reached'
+    const err = Cypress._.isNil(options.error)
+      ? 'Recursion limit reached'
+      : options.error
     throw new Error(err)
   }
   if (logCommands) {
@@ -26,7 +28,9 @@ function recurse(commandsFn, checkFn, options = {}) {
   }
 
   if (options.timeout < 0) {
-    const err = options.error ?? 'Max time limit reached'
+    const err = Cypress._.isNil(options.error)
+      ? 'Max time limit reached'
+      : options.error
     throw new Error(err)
   }
   if (logCommands) {
