@@ -38,6 +38,11 @@ interface RecurseOptions {
    * Error message to display when timed out or max limit reached
    */
   error?: string
+  /**
+   * Used internally to track the number of timestamp
+   * of the very first iteration
+   */
+  started?: number
 }
 
 /**
