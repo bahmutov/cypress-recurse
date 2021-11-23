@@ -20,6 +20,8 @@ function recurse(commandsFn, checkFn, options = {}) {
       throw new Error(`timeout must be a number, was ${timeout}`)
     }
 
+    // make sure not to modify the passed in options
+    options = Cypress._.clone(options)
     Cypress._.defaults(options, RecurseDefaults, {
       // set the started time if not set
       started: now,
@@ -30,6 +32,9 @@ function recurse(commandsFn, checkFn, options = {}) {
     // console.log('options', options)
 
     const timeRemaining = options.started + options.timeout - now
+    if (!Cypress._.isFinite(timeRemaining)) {
+      throw new Error(`timeRemaining must be a number, was ${timeRemaining}`)
+    }
 
     function getErrorDetails() {
       const details = Cypress._.omit(

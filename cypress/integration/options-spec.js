@@ -1,10 +1,30 @@
 // @ts-check
 /// <reference types="cypress" />
-import { RecurseDefaults } from '../..'
+import { recurse, RecurseDefaults } from '../..'
+import { getTo } from './utils'
 
 describe('options', () => {
   it('has default options', () => {
     expect(RecurseDefaults).to.have.keys(['limit', 'timeout', 'log', 'delay'])
+  })
+
+  it('does not change the options object', () => {
+    const options = {
+      limit: 5,
+      timeout: 500,
+      delay: 50,
+      log: true,
+    }
+    const savedOptions = Cypress._.clone(options)
+    cy.log('**first iteration**')
+    recurse(getTo(3), (x) => x === 3, options).then(() => {
+      expect(options, 'options unchanged').to.deep.equal(savedOptions)
+    })
+
+    cy.log('**second iteration**')
+    recurse(getTo(4), (x) => x === 4, options).then(() => {
+      expect(options, 'options unchanged').to.deep.equal(savedOptions)
+    })
   })
 
   // it('checks invalid option via types', () => {
