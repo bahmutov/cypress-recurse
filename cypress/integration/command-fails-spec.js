@@ -22,7 +22,7 @@ describe('command fails', () => {
   // this test reaches the recursion limit and throws a custom error message
   // and verify that message is shown
   it('custom error message on limit reached failure', () => {
-    const errMsg = 'sorry i reached the limit'
+    const errMsg = 'sorry i reached the iteration limit'
 
     // @ts-ignore
     const onFail = (e) => {
@@ -36,6 +36,8 @@ describe('command fails', () => {
         return x == 3
       },
       {
+        limit: 5,
+        timeout: 10000,
         error: errMsg,
       },
     )
@@ -59,6 +61,23 @@ describe('command fails', () => {
       },
       {
         error: errMsg,
+        delay: 500,
+        timeout: 1000,
+      },
+    )
+  })
+
+  it('logs parameters', () => {
+    // @ts-ignore
+    const onFail = (e) => {}
+    cy.on('fail', onFail)
+
+    recurse(
+      () => cy.wrap(2, { timeout: 1000 }),
+      (x) => {
+        return x == 3
+      },
+      {
         delay: 500,
         timeout: 1000,
       },

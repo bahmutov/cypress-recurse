@@ -43,6 +43,8 @@ interface RecurseOptions {
    * of the very first iteration
    */
   started?: number
+  /** Used internally to keep track of the iterations count */
+  iteration?: number
 }
 
 /**

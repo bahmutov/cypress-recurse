@@ -12,19 +12,39 @@ const RecurseDefaults = {
  * @type {import('./index').RecurseFn}
  */
 function recurse(commandsFn, checkFn, options = {}) {
-  return cy.then(() => {
-    Cypress._.defaults(options, RecurseDefaults, { started: +new Date() })
-    console.log('options', options)
+  return cy.then(function cypressRecurse() {
+    Cypress._.defaults(options, RecurseDefaults, {
+      started: +new Date(),
+      ends: options.started + options.timeout,
+      iteration: 1,
+    })
+    // console.log('options', options)
     const now = +new Date()
     const timeRemaining = options.started + options.timeout - now
 
+    function getErrorDetails() {
+      const details = Cypress._.omit(
+        Cypress._.merge({}, options, { now, timeRemaining }),
+        // skip the following keys
+        'log',
+        'post',
+        'error',
+      )
+      return Cypress._.toPairs(details)
+        .map(([key, value]) => `${key}=${value}`)
+        .join(', ')
+    }
+
     const logCommands = options.log === true
 
-    if (options.limit < 0) {
+    if (options.limit < 1) {
       const err = Cypress._.isNil(options.error)
         ? 'Recursion limit reached'
         : options.error
-      throw new Error(err)
+      const details = getErrorDetails()
+      return cy.log(`cypress-recurse: ${details}`).then(function () {
+        throw new Error(err)
+      })
     }
     if (logCommands) {
       cy.log(`remaining attempts **${options.limit}**`)
@@ -34,7 +54,11 @@ function recurse(commandsFn, checkFn, options = {}) {
       const err = Cypress._.isNil(options.error)
         ? 'Max time limit reached'
         : options.error
-      throw new Error(err)
+
+      const details = getErrorDetails()
+      return cy.log(`cypress-recurse: ${details}`).then(function () {
+        throw new Error(err)
+      })
     }
     if (logCommands) {
       cy.log(`time remaining **${timeRemaining}**`)
@@ -49,7 +73,7 @@ function recurse(commandsFn, checkFn, options = {}) {
         ].join(' '),
       )
     }
-    return result.then((x) => {
+    return result.then(function cypressRecurse(x) {
       if (logCommands) {
         cy.log(x)
       } else if (typeof options.log === 'function') {
@@ -76,12 +100,13 @@ function recurse(commandsFn, checkFn, options = {}) {
 
       const nextIteration = () => {
         const finished = +new Date()
-        const elapsed = finished - options.started
-        console.log('elapsed', elapsed)
+        // const elapsed = finished - options.started
+        // console.log('elapsed', elapsed)
         return recurse(commandsFn, checkFn, {
           started: options.started,
           timeout: options.timeout,
           limit: options.limit - 1,
+          iteration: options.iteration + 1,
           log: options.log,
           delay: options.delay,
           post: options.post,
