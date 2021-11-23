@@ -13,13 +13,21 @@ const RecurseDefaults = {
  */
 function recurse(commandsFn, checkFn, options = {}) {
   return cy.then(function cypressRecurse() {
+    const now = +new Date()
+    const timeout = options.timeout || RecurseDefaults.timeout
+    if (!Cypress._.isNumber(timeout)) {
+      throw new Error(`timeout must be a number, was ${timeout}`)
+    }
+
     Cypress._.defaults(options, RecurseDefaults, {
-      started: +new Date(),
-      ends: options.started + options.timeout,
+      // set the started time if not set
+      started: now,
+      // and calculate the end time if not set
+      ends: now + timeout,
       iteration: 1,
     })
     // console.log('options', options)
-    const now = +new Date()
+
     const timeRemaining = options.started + options.timeout - now
 
     function getErrorDetails() {
