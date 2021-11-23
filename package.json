@@ -11,7 +11,7 @@
     "dev": "cypress open",
     "test": "cypress run",
     "semantic-release": "semantic-release",
-    "lint": "tsc --pretty --allowJs --strict --noEmit cypress/**/*.js",
+    "lint": "tsc --pretty --allowJs --strict --noEmit cypress/integration/**/*.js cypress/integration/*.js cypress/plugins/*.js",
     "stop-only": "stop-only --folder cypress/integration"
   },
   "repository": {
@@ -31,6 +31,7 @@
   "devDependencies": {
     "chai-sorted": "^0.2.0",
     "cypress": "9.0.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "2.2.1",
     "semantic-release": "18.0.0",
     "stop-only": "^3.1.2",
