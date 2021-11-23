@@ -19,7 +19,7 @@ describe('extra commands option', () => {
         // stub the network call and respond
         console.log('post: limit %d', limit)
 
-        if (limit === 1) {
+        if (limit === 2) {
           // start intercepting now
           console.log('start intercepting')
           return cy.intercept('GET', url, 'Hello!').as('hello')

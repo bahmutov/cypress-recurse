@@ -23,7 +23,7 @@ describe('delay option', () => {
     // with just a single delay and a single call to "post"
     recurse(getTo(2), (x) => x === 2, {
       delay: 1000,
-      limit: 1,
+      limit: 2,
       timeout: 6000,
       post() {
         console.log('inside post')
