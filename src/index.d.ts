@@ -39,12 +39,13 @@ interface RecurseOptions {
    */
   error?: string
   /**
-   * Used internally to track the number of timestamp
-   * of the very first iteration
+   * Internal: tracks the timestamp of the very first iteration
    */
   started?: number
-  /** Used internally to keep track of the iterations count */
+  /** Internal: the current iteration count */
   iteration?: number
+  /** Internal: print the current options to Command Log */
+  debugLog?: boolean
 }
 
 /**

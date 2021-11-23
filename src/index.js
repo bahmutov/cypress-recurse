@@ -15,6 +15,7 @@ function recurse(commandsFn, checkFn, options = {}) {
   return cy.then(function cypressRecurse() {
     const now = +new Date()
     const timeout = options.timeout || RecurseDefaults.timeout
+
     if (!Cypress._.isNumber(timeout)) {
       throw new Error(`timeout must be a number, was ${timeout}`)
     }
@@ -41,6 +42,11 @@ function recurse(commandsFn, checkFn, options = {}) {
       return Cypress._.toPairs(details)
         .map(([key, value]) => `${key}=${value}`)
         .join(', ')
+    }
+
+    if (options.debugLog) {
+      const details = getErrorDetails()
+      cy.log(`cypress-recurse: ${details}`)
     }
 
     const logCommands = options.log === true
@@ -100,14 +106,16 @@ function recurse(commandsFn, checkFn, options = {}) {
           } else if (typeof options.log === 'string') {
             cy.log(options.log)
           }
-          return
+
+          // always yield the result
+          return cy.wrap(x, { log: false })
         }
       } catch (e) {
         // ignore the error, treat is as falsy predicate
       }
 
       const nextIteration = () => {
-        const finished = +new Date()
+        // const finished = +new Date()
         // const elapsed = finished - options.started
         // console.log('elapsed', elapsed)
         return recurse(commandsFn, checkFn, {
@@ -119,6 +127,7 @@ function recurse(commandsFn, checkFn, options = {}) {
           delay: options.delay,
           post: options.post,
           error: options.error,
+          debugLog: options.debugLog,
         })
       }
 

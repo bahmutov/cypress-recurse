@@ -132,7 +132,7 @@ See the [post-spec.js](./cypress/integration/post-spec.js) and [find-on-page-spe
 **Note:** if you specify both the delay and the `post` options, the delay runs first.
 ### custom error message
 
-Use the `error` option if you want to add a custom error message when the recursion timed out or the iteration limit has reached the end. 
+Use the `error` option if you want to add a custom error message when the recursion timed out or the iteration limit has reached the end.
 
 ```js
 recurse(
@@ -154,6 +154,22 @@ recurse(
 - [pinging the API endpoint until it responds](https://youtu.be/CU8C6MRP_GU)
 - [HTML canvas bar chart testing](https://youtu.be/aeBclf9A92A)
 - [Browse Reveal.js Slides Using Cypress and cypress-recurse](https://youtu.be/oq2P1wtIZYY)
+
+## Debugging
+
+Use options `log: true` and `debugLog: true` to print additional information to the Command Log
+
+```js
+recurse(getTo(2), (x) => x === 2, {
+  timeout: 1000,
+  limit: 3,
+  delay: 100,
+  log: true,
+  debugLog: true,
+}).should('equal', 2)
+```
+
+![Debug logs](./images/debug-log.png)
 
 ## Blog post
 

@@ -19,4 +19,15 @@ describe('timeout option', () => {
       delay: 1000,
     })
   })
+
+  it('starts counting the time on the first execution', () => {
+    cy.wait(1000)
+    recurse(getTo(2), (x) => x === 2, {
+      timeout: 1000,
+      limit: 3,
+      delay: 100,
+      log: true,
+      debugLog: true,
+    }).should('equal', 2)
+  })
 })
