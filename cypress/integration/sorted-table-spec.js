@@ -8,8 +8,8 @@ chai.use(require('chai-sorted'))
 
 import { recurse } from '../..'
 
-describe('Table pagination', () => {
-  it('has table sorted by points', { viewportHeight: 1100 }, () => {
+describe('Table', () => {
+  it('has rows sorted by points', { viewportHeight: 1100 }, () => {
     cy.visit('/cypress/integration/pagination-sort-filter-manager')
     // at first, the table shows 5 rows per page
     cy.get('#numrows').should('have.value', '5')
