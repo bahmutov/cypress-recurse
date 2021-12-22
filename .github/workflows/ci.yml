@@ -10,7 +10,8 @@ jobs:
       - name: Run tests 🧪
         uses: cypress-io/github-action@v2
         with:
-          build: npx run-s lint stop-only
+          # runs linting
+          build: npm run build
           record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

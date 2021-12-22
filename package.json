@@ -12,7 +12,8 @@
     "test": "cypress run",
     "semantic-release": "semantic-release",
     "lint": "tsc --pretty --allowJs --strict --noEmit cypress/integration/**/*.js cypress/integration/*.js cypress/plugins/*.js",
-    "stop-only": "stop-only --folder cypress/integration"
+    "stop-only": "stop-only --folder cypress/integration",
+    "build": "run-s lint stop-only"
   },
   "repository": {
     "type": "git",
