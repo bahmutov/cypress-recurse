@@ -1,14 +1,14 @@
 // @ts-check
 /// <reference types="cypress" />
-import { recurse } from '../..'
+import { recurse } from '../../../src'
 
 // https://github.com/bahmutov/cypress-recurse/issues/26
 // keeps clicking "Next" until the page has the element we are looking for
 describe('find on page example', () => {
   // because the test is random and can fail
   // retry it a couple of times on CI
-  it('clicks until finds text', { retries: { runMode: 3 } }, () => {
-    cy.visit('cypress/integration/find-on-page.html')
+  it('clicks until finds text', { retries: { runMode: 5 } }, () => {
+    cy.visit('cypress/integration/find-on-page/index.html')
     cy.contains('#output', 'Ready?').should('be.visible')
 
     recurse(

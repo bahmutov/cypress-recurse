@@ -1,5 +1,7 @@
 # cypress-recurse
+
 [![ci status][ci image]][ci url] [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-9.4.1-brightgreen) [![cypress-recurse](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/count/tbtscx/main&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/tbtscx/runs)
+
 > A way to re-run Cypress commands until a predicate function returns true
 
 ## Install
@@ -64,7 +66,7 @@ it('gets 7 after 50 iterations or 30 seconds', () => {
       log: true,
       limit: 50, // max number of iterations
       timeout: 30000, // time limit in ms
-      delay: 300 // delay before next iteration, ms
+      delay: 300, // delay before next iteration, ms
     },
   )
 })
@@ -127,9 +129,10 @@ recurse(checkApi, isSuccess, {
 })
 ```
 
-See the [post-spec.js](./cypress/integration/post-spec.js) and [find-on-page-spec.js](./cypress/integration/find-on-page.js).
+See the [post-spec.js](./cypress/integration/post-spec.js) and [find-on-page/spec.js](./cypress/integration/find-on-page/spec.js).
 
 **Note:** if you specify both the delay and the `post` options, the delay runs first.
+
 ### custom error message
 
 Use the `error` option if you want to add a custom error message when the recursion timed out or the iteration limit has reached the end.
@@ -147,7 +150,7 @@ recurse(
 ## Examples
 
 - clear and type text into the input field until it has the expected value, see [type-with-retries-spec.js](./cypress/integration/type-with-retries-spec.js), watch the video [Avoid Flake When Typing Into The Input Elements Using cypress-recurse](https://youtu.be/aYX7OVqp6AE) and read the blog post [Solve Flake In Cypress Typing Into An Input Element
-](https://glebbahmutov.com/blog/flaky-cy-type/)
+  ](https://glebbahmutov.com/blog/flaky-cy-type/)
 - [avoid-while-loops-in-cypress](https://github.com/bahmutov/avoid-while-loops-in-cypress) repo
 - [monalego](https://github.com/bahmutov/monalego) repo and [Canvas Visual Testing with Retries](https://glebbahmutov.com/blog/canvas-testing/) blog post, watch [the video](https://www.youtube.com/watch?v=xSK6fe5WD1g)
 - [reloading the page until it shows the expected text](https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/testing-dom__page-reloads) recipe
@@ -241,4 +244,3 @@ OTHER DEALINGS IN THE SOFTWARE.
 [ci url]: https://github.com/bahmutov/cypress-recurse/actions
 [renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
 [renovate-app]: https://renovateapp.com/
-
