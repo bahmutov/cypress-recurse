@@ -54,12 +54,10 @@ interface RecurseOptions {
  * @param checkFn Predicate that should return true to finish
  * @param options Options for maximum timeout, logging, etc
  */
-type RecurseFn = (
-  commandsFn: () => Cypress.Chainable,
-  checkFn: (x: any) => boolean | void | Chai.Assertion,
+ export function recurse<T>(
+  commandsFn: () => Cypress.Chainable<T>,
+  checkFn: (x: T) => boolean | void | Chai.Assertion,
   options?: Partial<RecurseOptions>,
-) => Cypress.Chainable
+): Cypress.Chainable<T>
 
 export const RecurseDefaults: RecurseOptions
-
-export const recurse: RecurseFn

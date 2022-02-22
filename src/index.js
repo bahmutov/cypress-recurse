@@ -9,7 +9,7 @@ const RecurseDefaults = {
 }
 
 /**
- * @type {import('./index').RecurseFn}
+ * @type {import('./index').recurse<any>}
  */
 function recurse(commandsFn, checkFn, options = {}) {
   return cy.then(function cypressRecurse() {
@@ -94,6 +94,7 @@ function recurse(commandsFn, checkFn, options = {}) {
     }
     return result.then(function cypressRecurse(x) {
       if (logCommands) {
+        // @ts-ignore
         cy.log(x)
       } else if (typeof options.log === 'function') {
         options.log(x)
