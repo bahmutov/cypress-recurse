@@ -1,6 +1,8 @@
 // @ts-check
 /// <reference types="cypress" />
+
 import { recurse } from '../../../src'
+import 'cypress-command-chain'
 
 it('reloads the page until it 7 appears', { retries: { runMode: 5 } }, () => {
   cy.visit('cypress/integration/reload-page/index.html')
