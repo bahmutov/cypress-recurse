@@ -15,13 +15,12 @@ describe('recurse', () => {
 
   // there is a chance that this function fails, so allow retrying it
   it('gets 7 after 50 iterations or 30 seconds', { retries: 2 }, () => {
-    recurse(
-      () => cy.task('randomNumber'),
-      (n) => n === 7,
-      {
-        limit: 50, // max number of iterations
-        timeout: 30000, // time limit in ms
-      },
-    )
+    function returnRandomNumber() {
+      return cy.task('randomNumber')
+    }
+    recurse(returnRandomNumber, (n) => n === 7, {
+      limit: 50, // max number of iterations
+      timeout: 30000, // time limit in ms
+    })
   })
 })
