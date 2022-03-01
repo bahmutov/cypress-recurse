@@ -9,7 +9,29 @@ const RecurseDefaults = {
 }
 
 /**
- * @type {import('./index').recurse<any>}
+ * @template T
+ * @typedef {import('./index').RecurseOptions<T>} RecurseOptions<T>
+ * @typedef {import('./index').recurse<T>} RecurseFn<T>
+ */
+
+/**
+ * @template T
+ * @type {RecurseFn<T>}
+ * 
+ * @variation 1
+ * @param {() => Cypress.Chainable<Promise<T>>} commandsFn
+ * @param {(x: T) => boolean | void | Chai.Assertion} checkFn
+ * @param {Partial<RecurseOptions<T>>} options
+ * 
+ * @returns {Cypress.Chainable<T>}
+ * 
+ *//**
+ * @variation 2
+ * @param {() => Cypress.Chainable<T>} commandsFn
+ * @param {(x: T) => boolean | void | Chai.Assertion} checkFn
+ * @param {Partial<RecurseOptions<T>>} options
+ * 
+ * @returns {Cypress.Chainable<T>}
  */
 function recurse(commandsFn, checkFn, options = {}) {
   return cy.then(function cypressRecurse() {

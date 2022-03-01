@@ -7,4 +7,9 @@ describe('typechecking', () => {
         /** @type {Cypress.Chainable<number>} */
         const isNumber = recurse(() => cy.wrap(1), (x) => x === 1).should('be.equal', 1)
     })
+
+    it('correctly infers the type of a promise', () => {
+        /** @type {Cypress.Chainable<number>} */
+        const isNumber = recurse(() => cy.wrap(Promise.resolve(1)), (x) => x === 1).should('be.equal', 1)
+    })
 })
