@@ -7,7 +7,7 @@ describe('extra commands option', () => {
     // from the application's window ping a non-existent URL
     const url = 'https://jsonplaceholder.cypress.io/fake-endpoint'
 
-    const checkApi = () => cy.request(url)
+    const checkApi = () => cy.request({ url, failOnStatusCode: false })
     
     recurse(checkApi, ({ status }) => status >= 200 && status < 500, {
       limit: 2,
