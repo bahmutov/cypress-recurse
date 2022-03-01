@@ -6,11 +6,10 @@ describe('extra commands option', () => {
   it('can run extra cy commands between iterations', () => {
     // from the application's window ping a non-existent URL
     const url = 'https://jsonplaceholder.cypress.io/fake-endpoint'
-    const checkApi = () => cy.window().invoke('fetch', url)
-    // @ts-ignore
-    const isSuccess = ({ ok }) => ok
 
-    recurse(checkApi, isSuccess, {
+    const checkApi = () => cy.request(url)
+    
+    recurse(checkApi, ({ status }) => status >= 200 && status < 500, {
       limit: 2,
       delay: 1000,
       log: (r) => cy.log(`response **${r.status}**`),

@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-export type LogOption = boolean | string | ((arg0: any) => void)
+export type LogOption<T> = boolean | string | ((arg: T) => void)
 
 interface PostFunctionOptions {
   /**
@@ -11,7 +11,7 @@ interface PostFunctionOptions {
 
 type PostFunction = (opts: PostFunctionOptions) => void | Cypress.Chainable
 
-interface RecurseOptions {
+interface RecurseOptions<T> {
   /**
    * The max number of iterations
    */
@@ -25,7 +25,7 @@ interface RecurseOptions {
    * a message to be printed once at the end,
    * or a custom function
    */
-  log: LogOption
+  log: LogOption<T>
   /**
    * Between iterations, milliseconds
    */
@@ -57,7 +57,7 @@ interface RecurseOptions {
  export function recurse<T>(
   commandsFn: () => Cypress.Chainable<T>,
   checkFn: (x: T) => boolean | void | Chai.Assertion,
-  options?: Partial<RecurseOptions>,
+  options?: Partial<RecurseOptions<T>>,
 ): Cypress.Chainable<T>
 
-export const RecurseDefaults: RecurseOptions
+export const RecurseDefaults: RecurseOptions<any>
