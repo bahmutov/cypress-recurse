@@ -11,11 +11,7 @@ describe('find on page example', () => {
     cy.visit('cypress/integration/find-on-page/index.html')
     cy.contains('#output', 'Ready?').should('be.visible')
 
-    function getText() {
-      return cy.get('#output').invoke('text')
-    }
-
-    recurse(getText, (text) => text === 'Surprise!', {
+    recurse(() => cy.get('#output').invoke('text'), (text) => text === 'Surprise!', {
       delay: 500,
       timeout: 60000,
       log: false,

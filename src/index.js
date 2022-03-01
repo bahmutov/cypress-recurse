@@ -17,6 +17,20 @@ const RecurseDefaults = {
 /**
  * @template T
  * @type {RecurseFn<T>}
+ * 
+ * @param {() => Cypress.Chainable<Promise<T>>} commandsFn
+ * @param {(x: T) => boolean | void | Chai.Assertion} checkFn
+ * @param {Partial<RecurseOptions<T>>} options
+ * 
+ * @returns {Cypress.Chainable<T>}
+ * 
+ *//**
+ * 
+ * @param {() => Cypress.Chainable<T>} commandsFn
+ * @param {(x: T) => boolean | void | Chai.Assertion} checkFn
+ * @param {Partial<RecurseOptions<T>>} options
+ * 
+ * @returns {Cypress.Chainable<T>}
  */
 function recurse(commandsFn, checkFn, options = {}) {
   return cy.then(function cypressRecurse() {
