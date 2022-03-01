@@ -17,22 +17,6 @@ const RecurseDefaults = {
 /**
  * @template T
  * @type {RecurseFn<T>}
- * 
- * @variation 1
- * @param {() => Cypress.Chainable<Promise<T>>} commandsFn
- * @param {(x: T) => boolean | void | Chai.Assertion} checkFn
- * @param {Partial<RecurseOptions<T>>} options
- * 
- * @returns {Cypress.Chainable<T>}
- * 
- *//**
- * 
- * @variation 2
- * @param {() => Cypress.Chainable<T>} commandsFn
- * @param {(x: T) => boolean | void | Chai.Assertion} checkFn
- * @param {Partial<RecurseOptions<T>>} options
- * 
- * @returns {Cypress.Chainable<T>}
  */
 function recurse(commandsFn, checkFn, options = {}) {
   return cy.then(function cypressRecurse() {
@@ -115,15 +99,21 @@ function recurse(commandsFn, checkFn, options = {}) {
         ].join(' '),
       )
     }
-    return result.then(function cypressRecurse(x) {
+    
+    return result.then(
+      /** @param {T} x */
+      // @ts-ignore
+      function cypressRecurse(x) {
       if (logCommands) {
         // @ts-ignore
         cy.log(x)
       } else if (typeof options.log === 'function') {
+        // @ts-ignore
         options.log(x)
       }
 
       try {
+        // @ts-ignore
         const predicateResult = checkFn(x)
         // treat truthy as success and stop the recursion
         if (
