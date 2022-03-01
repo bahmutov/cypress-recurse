@@ -26,6 +26,7 @@ const RecurseDefaults = {
  * @returns {Cypress.Chainable<T>}
  * 
  *//**
+ * 
  * @variation 2
  * @param {() => Cypress.Chainable<T>} commandsFn
  * @param {(x: T) => boolean | void | Chai.Assertion} checkFn
