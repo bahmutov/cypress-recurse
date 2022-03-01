@@ -55,6 +55,12 @@ interface RecurseOptions<T> {
  * @param options Options for maximum timeout, logging, etc
  */
  export function recurse<T>(
+  commandsFn: () => Cypress.Chainable<Promise<T>>,
+  checkFn: (x: T) => boolean | void | Chai.Assertion,
+  options?: Partial<RecurseOptions<T>>,
+): Cypress.Chainable<T>
+
+export function recurse<T>(
   commandsFn: () => Cypress.Chainable<T>,
   checkFn: (x: T) => boolean | void | Chai.Assertion,
   options?: Partial<RecurseOptions<T>>,
