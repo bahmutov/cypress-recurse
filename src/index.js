@@ -9,7 +9,14 @@ const RecurseDefaults = {
 }
 
 /**
- * @type {import('./index').RecurseFn}
+ * @template T
+ * @typedef {import('./index').RecurseOptions<T>} RecurseOptions<T>
+ * @typedef {import('./index').recurse<T>} RecurseFn<T>
+ */
+
+/**
+ * @template T
+ * @type {RecurseFn<T>}
  */
 function recurse(commandsFn, checkFn, options = {}) {
   return cy.then(function cypressRecurse() {
@@ -92,14 +99,21 @@ function recurse(commandsFn, checkFn, options = {}) {
         ].join(' '),
       )
     }
-    return result.then(function cypressRecurse(x) {
+    
+    return result.then(
+      /** @param {T} x */
+      // @ts-ignore
+      function cypressRecurse(x) {
       if (logCommands) {
+        // @ts-ignore
         cy.log(x)
       } else if (typeof options.log === 'function') {
+        // @ts-ignore
         options.log(x)
       }
 
       try {
+        // @ts-ignore
         const predicateResult = checkFn(x)
         // treat truthy as success and stop the recursion
         if (

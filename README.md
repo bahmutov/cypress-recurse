@@ -114,9 +114,8 @@ If you want to run a few more Cypress commands after the predicate function that
 // from the application's window ping a non-existent URL
 const url = 'https://jsonplaceholder.cypress.io/fake-endpoint'
 const checkApi = () => cy.window().invoke('fetch', url)
-const isSuccess = ({ ok }) => ok
 
-recurse(checkApi, isSuccess, {
+recurse(checkApi, ({ ok }) => ok, {
   post: ({ limit }) => {
     // after a few attempts
     // stub the network call and respond
