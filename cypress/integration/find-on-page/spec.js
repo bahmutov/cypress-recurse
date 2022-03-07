@@ -11,12 +11,18 @@ describe('find on page example', () => {
     cy.visit('cypress/integration/find-on-page/index.html')
     cy.contains('#output', 'Ready?').should('be.visible')
 
-    recurse(() => cy.get('#output').invoke('text'), (text) => text === 'Surprise!', {
-      delay: 500,
-      timeout: 60000,
-      log: false,
-      post: () => cy.get('[data-cy=next]').click(),
-    })
+    recurse(
+      () => cy.get('#output').invoke('text'),
+      // https://github.com/bahmutov/cypress-recurse/issues/76
+      // @ts-ignore
+      (text) => text === 'Surprise!',
+      {
+        delay: 500,
+        timeout: 60000,
+        log: false,
+        post: () => cy.get('[data-cy=next]').click(),
+      },
+    )
   })
 
   it('clicks until finds text (shorthand)', { retries: { runMode: 5 } }, () => {
