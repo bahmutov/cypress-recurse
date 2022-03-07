@@ -1,5 +1,5 @@
 // @ts-check
-/// <reference types="cypress" />
+/// <reference path="../../src/index.d.ts" />
 import { recurse } from '../..'
 import 'cypress-command-chain'
 
