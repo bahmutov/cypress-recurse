@@ -1,6 +1,11 @@
 // typically it would be importing from "cypress-recurse"
 import { recurse } from '../../src'
 
+//
+// watch the video "Iterate Through Pages And Count Rows Using Recursion"
+// https://youtu.be/_vqOtLIGI9o
+//
+
 describe('Table', () => {
   it('counts rows on each page (cypress-recurse)', () => {
     cy.visit('/cypress/integration/pagination-sort-filter-manager')
