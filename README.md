@@ -198,6 +198,7 @@ I have explained how this module was written in the [following videos](https://w
 5. [Use cypress-recurse To Scroll The Page Until It Loads The Text We Are Looking For](https://youtu.be/KHn7647xOz8)
 6. [Use cypress-recurse Plugin To Confirm The Table Gets Sorted Eventually](https://youtu.be/Ke5Pf6IISn8)
 7. [Use cypress-recurse To Ping The Site Before Visiting It](https://youtu.be/8rtBk9MBjXA)
+8. [Use cypress-recurse To Click The Back Button Until It No Longer Exists](https://youtu.be/G-4HbUuUqIM)
 
 ## Small print
 
