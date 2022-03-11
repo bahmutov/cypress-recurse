@@ -7,6 +7,14 @@ const RecurseDefaults = {
   log: true,
   delay: Cypress.config('defaultCommandTimeout') / 5,
 }
+/**
+ *
+ * @param {() => Cypress.Chainable<T>} commandsFn
+ * @param {(x: T) => boolean | void | Chai.Assertion} checkFn
+ * @param {Partial<RecurseOptions<T>>} options
+ *
+ * @returns {Cypress.Chainable<T>}
+ */
 
 /**
  * @template T
@@ -17,22 +25,14 @@ const RecurseDefaults = {
 /**
  * @template T
  * @type {RecurseFn<T>}
- * 
+ *
  * @param {() => Cypress.Chainable<Promise<T>>} commandsFn
  * @param {(x: T) => boolean | void | Chai.Assertion} checkFn
  * @param {Partial<RecurseOptions<T>>} options
- * 
+ *
  * @returns {Cypress.Chainable<T>}
- * 
- *//**
- * 
- * @param {() => Cypress.Chainable<T>} commandsFn
- * @param {(x: T) => boolean | void | Chai.Assertion} checkFn
- * @param {Partial<RecurseOptions<T>>} options
- * 
- * @returns {Cypress.Chainable<T>}
- */
-function recurse(commandsFn, checkFn, options = {}) {
+ *
+ */ function recurse(commandsFn, checkFn, options = {}) {
   return cy.then(function cypressRecurse() {
     const now = +new Date()
     const timeout = options.timeout || RecurseDefaults.timeout
@@ -113,72 +113,77 @@ function recurse(commandsFn, checkFn, options = {}) {
         ].join(' '),
       )
     }
-    
+
     return result.then(
       /** @param {T} x */
       // @ts-ignore
       function cypressRecurse(x) {
-      if (logCommands) {
-        // @ts-ignore
-        cy.log(x)
-      } else if (typeof options.log === 'function') {
-        // @ts-ignore
-        options.log(x)
-      }
-
-      try {
-        // @ts-ignore
-        const predicateResult = checkFn(x)
-        // treat truthy as success and stop the recursion
-        if (
-          Boolean(predicateResult) === true ||
-          predicateResult === undefined
-        ) {
-          if (logCommands) {
-            cy.log('**NICE!**')
-          } else if (typeof options.log === 'string') {
-            cy.log(options.log)
-          }
-
-          // always yield the result
-          return cy.wrap(x, { log: false })
+        if (logCommands) {
+          // @ts-ignore
+          cy.log(x)
+        } else if (typeof options.log === 'function') {
+          // @ts-ignore
+          options.log(x)
         }
-      } catch (e) {
-        // ignore the error, treat is as falsy predicate
-      }
 
-      const nextIteration = () => {
-        // const finished = +new Date()
-        // const elapsed = finished - options.started
-        // console.log('elapsed', elapsed)
-        return recurse(commandsFn, checkFn, {
-          started: options.started,
-          timeout: options.timeout,
-          limit: options.limit - 1,
-          iteration: options.iteration + 1,
-          log: options.log,
-          delay: options.delay,
-          post: options.post,
-          error: options.error,
-          debugLog: options.debugLog,
-        })
-      }
+        try {
+          // @ts-ignore
+          const predicateResult = checkFn(x)
+          // treat truthy as success and stop the recursion
+          if (
+            Boolean(predicateResult) === true ||
+            predicateResult === undefined
+          ) {
+            if (logCommands) {
+              cy.log('**NICE!**')
+            } else if (typeof options.log === 'string') {
+              cy.log(options.log)
+            }
 
-      const delayStep =
-        options.delay > 0 ? cy.wait(options.delay, { log: logCommands }) : cy
+            // always yield the result, BUT
+            // by default, cy.wrap expected jQuery object to exist
+            // we can disable the built-in element existence check
+            // by attaching our own no-op should callback
+            // https://github.com/bahmutov/cypress-recurse/issues/75
+            return cy.wrap(x, { log: false }).should(Cypress._.noop)
+          }
+        } catch (e) {
+          // ignore the error, treat is as falsy predicate
+        }
 
-      const callPost = () => {
-        const result = options.post({ limit: options.limit })
-        return Cypress.isCy(result) ? result : cy
-      }
+        const nextIteration = () => {
+          // const finished = +new Date()
+          // const elapsed = finished - options.started
+          // console.log('elapsed', elapsed)
+          return recurse(commandsFn, checkFn, {
+            started: options.started,
+            timeout: options.timeout,
+            limit: options.limit - 1,
+            iteration: options.iteration + 1,
+            log: options.log,
+            delay: options.delay,
+            post: options.post,
+            error: options.error,
+            debugLog: options.debugLog,
+          })
+        }
 
-      const postStep =
-        typeof options.post === 'function'
-          ? delayStep.then(callPost)
-          : delayStep
+        const delayStep =
+          options.delay > 0 ? cy.wait(options.delay, { log: logCommands }) : cy
 
-      return postStep.then(nextIteration)
-    })
+        const callPost = () => {
+          const result = options.post({ limit: options.limit })
+          return Cypress.isCy(result) ? result : cy
+        }
+
+        const postStep =
+          typeof options.post === 'function'
+            ? delayStep.then(callPost)
+            : delayStep
+
+        return postStep.then(nextIteration)
+      },
+    )
   })
 }
 
