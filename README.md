@@ -146,6 +146,41 @@ recurse(
 )
 ```
 
+## each
+
+This plugin also includes the `each` function that iterates over the given subject items. It can optionally stop when the separate predicate function returns true.
+
+```js
+import { each } from 'cypress-recurse'
+it('iterates until it finds the value 7', () => {
+  cy.get('li').then(
+    each(
+      $li => ..., // do something with the item
+      $li => $li.text() === '7' // stop if we see "7"
+    )
+  )
+})
+```
+
+The `each` function yields the original or transformed items
+
+```js
+const numbers = [1, 2, 3, 4]
+cy.wrap(numbers)
+  .then(
+    each(
+      (x) => {
+        return 10 + x
+      },
+      // stop when the value is 13
+      (x) => x === 13,
+    ),
+  )
+  .should('deep.equal', [11, 12])
+```
+
+See the [each-spec.js](./cypress/integration/each/each-spec.js) file.
+
 ## Examples
 
 - clear and type text into the input field until it has the expected value, see [type-with-retries-spec.js](./cypress/integration/type-with-retries-spec.js), watch the video [Avoid Flake When Typing Into The Input Elements Using cypress-recurse](https://youtu.be/aYX7OVqp6AE) and read the blog post [Solve Flake In Cypress Typing Into An Input Element
