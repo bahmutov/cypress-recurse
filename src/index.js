@@ -187,7 +187,49 @@ const RecurseDefaults = {
   })
 }
 
+/**
+ * Iterates over every value in the previous subject until the predicate
+ * function returns true.
+ */
+function each(commands, stopWhen) {
+  if (!stopWhen) {
+    stopWhen = () => false
+  }
+  return function ($elements) {
+    const els = Cypress.dom.isJquery($elements)
+      ? $elements.toArray()
+      : $elements
+
+    const returnValues = []
+
+    function nextStep(remainingEls) {
+      const item = remainingEls[0]
+
+      return cy
+        .then(() => {
+          return commands(item)
+        })
+        .then((value) => {
+          if (typeof value === 'undefined') {
+            value = item
+          }
+          if (!stopWhen(value)) {
+            returnValues.push(value)
+            if (remainingEls.length > 1) {
+              return nextStep(remainingEls.slice(1))
+            }
+          }
+        })
+    }
+
+    return nextStep(els).then(() => {
+      return returnValues
+    })
+  }
+}
+
 module.exports = {
   recurse,
   RecurseDefaults,
+  each,
 }
