@@ -2,7 +2,7 @@
 /// <reference path="../../../src/index.d.ts" />
 // in the user's code this import would be
 // import { each } from 'cypress-recurse'
-import { each } from '../../../src'
+import { each, recurse } from '../../../src'
 
 describe('each', { viewportWidth: 200 }, () => {
   it('iterates over each row until it finds number 7', () => {
@@ -103,5 +103,26 @@ describe('each', { viewportWidth: 200 }, () => {
         ),
       )
       .should('deep.equal', [11, 12])
+  })
+
+  it('finds the lucky 7 using recursion', () => {
+    cy.visit('cypress/integration/each/index.html')
+    cy.get('#lotto tbody tr button').should('have.length.greaterThan', 10)
+
+    recurse(
+      () => {
+        return cy.contains('tr', '???').then(($tr) => {
+          cy.wrap($tr).contains('button', 'Click me').click()
+          cy.wrap($tr).contains('td', /\d/)
+        })
+      },
+      ($el) => {
+        return $el.text() === '7'
+      },
+      {
+        timeout: 60000,
+        log: false,
+      },
+    )
   })
 })
