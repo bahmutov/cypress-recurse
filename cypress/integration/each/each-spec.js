@@ -105,6 +105,36 @@ describe('each', { viewportWidth: 200 }, () => {
       .should('deep.equal', [11, 12])
   })
 
+  it('overwrites cy.each command', () => {
+    // TODO: update the TypeScript types for cy.each method
+    Cypress.Commands.overwrite(
+      'each',
+      (originalFn, items, itemCallback, stopCallback) => {
+        // @ts-ignore
+        return each(itemCallback, stopCallback)(items)
+      },
+    )
+
+    cy.visit('cypress/integration/each/index.html')
+    cy.get('#lotto tbody tr button')
+      .should('have.length.greaterThan', 10)
+      .each(
+        ($button) => {
+          cy.wrap($button, { log: false })
+            .click()
+            // once the button is clicked,
+            // find the text in the cell next to it
+            .parent() // <TD>
+            .parent() // <TR>
+            .find('td')
+            .eq(1) // <TD> with the number
+            .should(($td) => expect($td.text()).to.match(/\d/))
+        },
+        // @ts-ignore
+        ($td) => $td.text() === '7',
+      )
+  })
+
   it('finds the lucky 7 using recursion', () => {
     cy.visit('cypress/integration/each/index.html')
     cy.get('#lotto tbody tr button').should('have.length.greaterThan', 10)
