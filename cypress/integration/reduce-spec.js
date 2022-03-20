@@ -55,4 +55,27 @@ describe('reduce the data', () => {
       10,
     ])
   })
+
+  it('returns the changed accumulator', () => {
+    const items = [1, 2, 3, 4]
+
+    recurse(
+      () => cy.wrap(items.shift()),
+      (item) => {
+        return item === 4
+      },
+      {
+        limit: 4,
+        delay: 100,
+        log: false,
+        reduceFrom: 0,
+        reduce(acc, item) {
+          // console.log({ acc, item })
+          return acc + item
+        },
+        reduceLastValue: true,
+        yield: 'reduced',
+      },
+    ).should('equal', 10)
+  })
 })

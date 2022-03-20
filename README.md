@@ -161,6 +161,16 @@ TODO: document the above options
 
 See the [reduce-spec.js](./cypress/integration/reduce-spec.js) for examples.
 
+### yield
+
+If you are accumulating a reduced value, you can yield it instead of the last value. You can even yield both the last and the reduced values.
+
+- `yield: "value"` yields the value that passed the predicate function
+- `yield: "reduced"` yields the accumulated value
+- `yield: "both"` yields an object with `value` and `reduced` properties
+
+See the [reduce-spec.js](./cypress/integration/reduce-spec.js) for examples.
+
 ## each
 
 This plugin also includes the `each` function that iterates over the given subject items. It can optionally stop when the separate predicate function returns true.
