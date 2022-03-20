@@ -172,7 +172,7 @@ const RecurseDefaults = {
           options.delay > 0 ? cy.wait(options.delay, { log: logCommands }) : cy
 
         const callPost = () => {
-          const result = options.post({ limit: options.limit })
+          const result = options.post({ limit: options.limit, value: x })
           return Cypress.isCy(result) ? result : cy
         }
 

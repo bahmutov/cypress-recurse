@@ -116,7 +116,7 @@ const url = 'https://jsonplaceholder.cypress.io/fake-endpoint'
 const checkApi = () => cy.window().invoke('fetch', url)
 
 recurse(checkApi, ({ ok }) => ok, {
-  post: ({ limit }) => {
+  post: ({ limit, value }) => {
     // after a few attempts
     // stub the network call and respond
     if (limit === 1) {
@@ -124,9 +124,12 @@ recurse(checkApi, ({ ok }) => ok, {
       console.log('start intercepting')
       return cy.intercept('GET', url, 'Hello!').as('hello')
     }
+    // you can use the value prop to look at the fetch results
   },
 })
 ```
+
+The argument is a single object with `limit` and `value` properties.
 
 See the [post-spec.js](./cypress/integration/post-spec.js) and [find-on-page/spec.js](./cypress/integration/find-on-page/spec.js).
 

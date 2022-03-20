@@ -8,7 +8,7 @@ describe('extra commands option', () => {
     const url = 'https://jsonplaceholder.cypress.io/fake-endpoint'
 
     const checkApi = () => cy.window().invoke('fetch', url)
-    
+
     recurse(checkApi, ({ ok }) => ok, {
       limit: 2,
       delay: 1000,
@@ -60,5 +60,24 @@ describe('extra commands option', () => {
         // before the recursion has finished
         expect(obj.greeting).to.have.been.calledOnce
       })
+  })
+
+  it('passes the value to the post callback', () => {
+    const list = ['first', 'second', 'third']
+    recurse(
+      () => {
+        const s = list.shift()
+        return cy.wrap(s)
+      },
+      (s) => s === 'third',
+      {
+        post({ value }) {
+          expect(value).to.be.oneOf(['first', 'second'])
+        },
+        limit: 3,
+        delay: 500,
+        log: true,
+      },
+    )
   })
 })

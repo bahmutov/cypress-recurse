@@ -2,14 +2,20 @@
 
 export type LogOption<T> = boolean | string | ((arg: T) => void)
 
-interface PostFunctionOptions {
+interface PostFunctionOptions<T> {
+  /**
+   * The value produced by the last iteration
+   */
+  value: T
   /**
    * The remaining number of iterations
    */
   limit: number
 }
 
-type PostFunction = (opts: PostFunctionOptions) => void | Cypress.Chainable
+type PostFunction<T> = (
+  opts: PostFunctionOptions<T>,
+) => void | Cypress.Chainable
 
 interface RecurseOptions<T> {
   /**
@@ -33,7 +39,7 @@ interface RecurseOptions<T> {
   /**
    * Function that can run additional Cypress commands after each iteration
    */
-  post?: PostFunction
+  post?: PostFunction<T>
   /**
    * Error message to display when timed out or max limit reached
    */
