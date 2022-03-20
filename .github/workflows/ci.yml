@@ -13,8 +13,13 @@ jobs:
     runs-on: ubuntu-20.04
     needs: test
     steps:
+      - name: Checkout
+        # https://github.com/actions/checkout
+        uses: actions/checkout@v3
+
       - name: Run linter 🧪
-        uses: cypress-io/github-action@v2
+        # https://github.com/cypress-io/github-action
+        uses: cypress-io/github-action@v3
         with:
           # runs linting
           command: npm run build
