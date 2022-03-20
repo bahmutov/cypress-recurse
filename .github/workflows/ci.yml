@@ -6,8 +6,8 @@ jobs:
     uses: bahmutov/cypress-workflows/.github/workflows/parallel.yml@v1
     with:
       n: 4
-    env:
-      CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+    secrets:
+      recordKey: ${{ secrets.CYPRESS_RECORD_KEY }}
 
   release:
     runs-on: ubuntu-20.04
