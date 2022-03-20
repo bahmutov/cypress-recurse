@@ -49,8 +49,10 @@ const RecurseDefaults = {
       // and calculate the end time if not set
       ends: now + timeout,
       iteration: 1,
+      reduce: Cypress._.noop,
     })
     // console.log('options', options)
+    const accumulator = options.reduceFrom
 
     const timeRemaining = options.started + options.timeout - now
     if (!Cypress._.isFinite(timeRemaining)) {
@@ -134,6 +136,10 @@ const RecurseDefaults = {
             Boolean(predicateResult) === true ||
             predicateResult === undefined
           ) {
+            if (options.reduceLastValue) {
+              options.reduce(accumulator, x)
+            }
+
             if (logCommands) {
               cy.log('**NICE!**')
             } else if (typeof options.log === 'string') {
@@ -165,8 +171,13 @@ const RecurseDefaults = {
             post: options.post,
             error: options.error,
             debugLog: options.debugLog,
+            reduce: options.reduce,
+            reduceFrom: accumulator,
+            reduceLastValue: options.reduceLastValue,
           })
         }
+
+        options.reduce(accumulator, x)
 
         const delayStep =
           options.delay > 0 ? cy.wait(options.delay, { log: logCommands }) : cy
