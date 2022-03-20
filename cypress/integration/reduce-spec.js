@@ -1,4 +1,3 @@
-// @ts-check
 /// <reference types="cypress" />
 import { recurse } from '../../src'
 

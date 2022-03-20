@@ -60,7 +60,7 @@ interface RecurseOptions<T> {
    * Update the accumulator with the given value,
    * synchronous function
    */
-  reduce(accumulator: any, item: T)
+  reduce(accumulator: any, item: T): any
   /** Include the last value in the accumulator */
   reduceLastValue: boolean
   /**
