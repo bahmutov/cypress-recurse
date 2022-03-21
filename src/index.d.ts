@@ -80,13 +80,13 @@ interface RecurseOptions<T> {
  */
 export function recurse<T>(
   commandsFn: () => Cypress.Chainable<Promise<T>>,
-  checkFn: (x: T) => boolean | void | Chai.Assertion,
+  checkFn: (x: T, reducedValue?: any) => boolean | void | Chai.Assertion,
   options?: Partial<RecurseOptions<T>>,
 ): Cypress.Chainable<T>
 
 export function recurse<T>(
   commandsFn: () => Cypress.Chainable<T>,
-  checkFn: (x: T) => boolean | void | Chai.Assertion,
+  checkFn: (x: T, reducedValue?: any) => boolean | void | Chai.Assertion,
   options?: Partial<RecurseOptions<T>>,
 ): Cypress.Chainable<T>
 

@@ -77,4 +77,24 @@ describe('reduce the data', () => {
       },
     ).should('equal', 10)
   })
+
+  it('passes the reduced value to the predicate', () => {
+    // draw a random number until we get a number we have already seen
+    recurse(
+      () => cy.wrap(Cypress._.random(10)),
+      (n, numbers) => numbers.has(n),
+      {
+        limit: 20,
+        delay: 100,
+        log: false,
+        reduceFrom: new Set(),
+        reduce(numbers, n) {
+          numbers.add(n)
+        },
+        yield: 'reduced',
+      },
+    ).then((numbers) => {
+      cy.log(...numbers)
+    })
+  })
 })

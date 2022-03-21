@@ -159,6 +159,8 @@ Similar to reducing an array, the `reduce` function has an option to accumulate 
 
 TODO: document the above options
 
+If there is a reduced value, it will be passed as the second argument to the predicate function.
+
 See the [reduce-spec.js](./cypress/integration/reduce-spec.js) for examples.
 
 ### yield

@@ -137,7 +137,7 @@ const RecurseDefaults = {
 
         try {
           // @ts-ignore
-          const predicateResult = checkFn(x)
+          const predicateResult = checkFn(x, options.reduceFrom)
           // treat truthy as success and stop the recursion
           if (
             Boolean(predicateResult) === true ||
