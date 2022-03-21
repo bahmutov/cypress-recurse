@@ -52,6 +52,24 @@ interface RecurseOptions<T> {
   iteration?: number
   /** Internal: print the current options to Command Log */
   debugLog?: boolean
+
+  // options for accumulator
+  /** Starting value for the accumulator */
+  reduceFrom: any
+  /**
+   * Update the accumulator with the given value,
+   * synchronous function
+   */
+  reduce(accumulator: any, item: T): any
+  /** Include the last value in the accumulator */
+  reduceLastValue: boolean
+  /**
+   * What to yield to the next command, usually it is
+   * the last value, but sometimes can be the accumulator.
+   * If you need both, pass "both" and "reduce" will
+   * yield an object with {value, reduced} properties
+   */
+  yield: 'value' | 'reduced' | 'both'
 }
 
 /**

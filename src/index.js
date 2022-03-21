@@ -41,6 +41,14 @@ const RecurseDefaults = {
       throw new Error(`timeout must be a number, was ${timeout}`)
     }
 
+    if ('yield' in options && typeof options.yield !== 'undefined') {
+      if (!['value', 'reduced', 'both'].includes(options.yield)) {
+        throw new Error(
+          `yield must be either 'value' or 'reduced' or 'both', was ${options.yield}`,
+        )
+      }
+    }
+
     // make sure not to modify the passed in options
     options = Cypress._.clone(options)
     Cypress._.defaults(options, RecurseDefaults, {
@@ -49,6 +57,7 @@ const RecurseDefaults = {
       // and calculate the end time if not set
       ends: now + timeout,
       iteration: 1,
+      reduce: Cypress._.noop,
     })
     // console.log('options', options)
 
@@ -134,18 +143,42 @@ const RecurseDefaults = {
             Boolean(predicateResult) === true ||
             predicateResult === undefined
           ) {
+            if (options.reduceLastValue) {
+              const newAcc = options.reduce(options.reduceFrom, x)
+              if (typeof newAcc !== 'undefined') {
+                options.reduceFrom = newAcc
+              }
+            }
+
             if (logCommands) {
               cy.log('**NICE!**')
             } else if (typeof options.log === 'string') {
               cy.log(options.log)
             }
 
-            // always yield the result, BUT
-            // by default, cy.wrap expected jQuery object to exist
-            // we can disable the built-in element existence check
-            // by attaching our own no-op should callback
-            // https://github.com/bahmutov/cypress-recurse/issues/75
-            return cy.wrap(x, { log: false }).should(Cypress._.noop)
+            // decide what to yield to the next command
+            if (
+              typeof options.yield === 'undefined' ||
+              options.yield === 'value'
+            ) {
+              // always yield the result, BUT
+              // by default, cy.wrap expected jQuery object to exist
+              // we can disable the built-in element existence check
+              // by attaching our own no-op should callback
+              // https://github.com/bahmutov/cypress-recurse/issues/75
+              return cy.wrap(x, { log: false }).should(Cypress._.noop)
+            } else if (options.yield === 'reduced') {
+              return cy.wrap(options.reduceFrom, { log: false })
+            } else if (options.yield === 'both') {
+              return cy.wrap(
+                { value: x, reduced: options.reduceFrom },
+                { log: false },
+              )
+            } else {
+              throw new Error(
+                `cypress-reduce can resolve with the last value or reduced value, you passed ${options.resolve}`,
+              )
+            }
           }
         } catch (e) {
           // ignore the error, treat is as falsy predicate
@@ -165,7 +198,16 @@ const RecurseDefaults = {
             post: options.post,
             error: options.error,
             debugLog: options.debugLog,
+            reduce: options.reduce,
+            reduceFrom: options.reduceFrom,
+            reduceLastValue: options.reduceLastValue,
+            yield: options.yield,
           })
+        }
+
+        const newAccumulator = options.reduce(options.reduceFrom, x)
+        if (typeof newAccumulator !== 'undefined') {
+          options.reduceFrom = newAccumulator
         }
 
         const delayStep =
