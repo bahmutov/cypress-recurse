@@ -11,6 +11,10 @@ interface PostFunctionOptions<T> {
    * The remaining number of iterations
    */
   limit: number
+  /**
+   * The current reduced value, if any
+   */
+  reduced: any
 }
 
 type PostFunction<T> = (

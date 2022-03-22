@@ -6,6 +6,10 @@ const RecurseDefaults = {
   timeout: Cypress.config('defaultCommandTimeout'),
   log: true,
   delay: Cypress.config('defaultCommandTimeout') / 5,
+  reduce: undefined,
+  reduceFrom: undefined,
+  reduceLastValue: false,
+  yield: 'value',
 }
 /**
  *
@@ -176,7 +180,7 @@ const RecurseDefaults = {
               )
             } else {
               throw new Error(
-                `cypress-reduce can resolve with the last value or reduced value, you passed ${options.resolve}`,
+                `cypress-reduce can resolve with the last value or reduced value, you passed ${options.yield}`,
               )
             }
           }
@@ -214,7 +218,11 @@ const RecurseDefaults = {
           options.delay > 0 ? cy.wait(options.delay, { log: logCommands }) : cy
 
         const callPost = () => {
-          const result = options.post({ limit: options.limit, value: x })
+          const result = options.post({
+            limit: options.limit,
+            value: x,
+            reduced: options.reduceFrom,
+          })
           return Cypress.isCy(result) ? result : cy
         }
 

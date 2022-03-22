@@ -80,4 +80,28 @@ describe('extra commands option', () => {
       },
     )
   })
+
+  it('passes the reduced value to the post callback', () => {
+    const list = ['first', 'second', 'third']
+    const seen = []
+    recurse(
+      () => {
+        const s = list.shift()
+        return cy.wrap(s)
+      },
+      (s) => s === 'third',
+      {
+        reduceFrom: seen,
+        reduce(reduced, s) {
+          reduced.push(s)
+        },
+        post({ reduced }) {
+          expect(reduced, 'reduced value in post').to.equal(seen)
+        },
+        limit: 3,
+        delay: 500,
+        log: true,
+      },
+    )
+  })
 })

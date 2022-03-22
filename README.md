@@ -129,7 +129,7 @@ recurse(checkApi, ({ ok }) => ok, {
 })
 ```
 
-The argument is a single object with `limit` and `value` properties.
+The argument is a single object with `limit`, `value`, and `reduced` properties.
 
 See the [post-spec.js](./cypress/integration/post-spec.js) and [find-on-page/spec.js](./cypress/integration/find-on-page/spec.js).
 
