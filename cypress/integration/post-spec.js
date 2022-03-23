@@ -83,6 +83,7 @@ describe('extra commands option', () => {
 
   it('passes the reduced value to the post callback', () => {
     const list = ['first', 'second', 'third']
+    /** @type {string[]} */
     const seen = []
     recurse(
       () => {
