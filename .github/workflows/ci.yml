@@ -9,9 +9,25 @@ jobs:
     secrets:
       recordKey: ${{ secrets.CYPRESS_RECORD_KEY }}
 
+  print-test-names:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        # https://github.com/actions/checkout
+        uses: actions/checkout@v3
+      # https://github.com/bahmutov/find-cypress-specs
+      - name: Install find-cypress-specs
+        run: npm install -g find-cypress-specs
+      - name: Print Cypress test names 🖨
+        run: find-cypress-specs --names
+      - name: Print Cypress test tags if any 🖨
+        run: find-cypress-specs --tags
+
   release:
     runs-on: ubuntu-20.04
-    needs: test
+    needs:
+      - test
+      - print-test-names
     steps:
       - name: Checkout
         # https://github.com/actions/checkout
