@@ -5,7 +5,17 @@ import { getTo } from './utils'
 
 describe('options', () => {
   it('has default options', () => {
-    expect(RecurseDefaults).to.have.keys(['limit', 'timeout', 'log', 'delay'])
+    // there are lots of default options
+    cy.wrap(Object.keys(RecurseDefaults), { log: false })
+      .invoke('join', ', ')
+      .then(cy.log)
+    // check some of them
+    cy.wrap(RecurseDefaults).should('include.keys', [
+      'limit',
+      'timeout',
+      'log',
+      'delay',
+    ])
   })
 
   it('does not change the options object', () => {
