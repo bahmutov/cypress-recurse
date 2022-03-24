@@ -213,5 +213,36 @@ describe('reduce the data', () => {
           expect(calledCount).to.equal(4)
         })
     })
+
+    it('push items into array', () => {
+      const items = [1, 2, 3, 4]
+      let calledCount = 0
+      recurse(
+        () => cy.wrap(items.shift()),
+        (item) => {
+          return item === 4
+        },
+        {
+          limit: 4,
+          delay: 100,
+          log: false,
+          reduceFrom: [],
+          reduce(numbers, item) {
+            // notice here we do not have to return
+            // a new reduced value, so we can
+            // both use cy.commands and push into the array
+            calledCount += 1
+            cy.log(`list: ${numbers.join(',')}`)
+            numbers.push(item)
+          },
+          reduceLastValue: true,
+          yield: 'reduced',
+        },
+      )
+        .should('deep.equal', [1, 2, 3, 4])
+        .then(() => {
+          expect(calledCount).to.equal(4)
+        })
+    })
   })
 })
