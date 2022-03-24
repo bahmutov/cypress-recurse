@@ -224,25 +224,6 @@ const RecurseDefaults = {
               })
             : cy
 
-        // const delayStep =
-        //   options.delay > 0
-        //     ? cy.wait(options.delay, { log: logCommands })
-        //     : cy
-
-        // const callPost = () => {
-        //   const result = options.post({
-        //     limit: options.limit,
-        //     value: x,
-        //     reduced: options.reduceFrom,
-        //   })
-        //   return Cypress.isCy(result) ? result : cy
-        // }
-
-        // const postStep =
-        //   typeof options.post === 'function'
-        //     ? delayStep.then(callPost)
-        //     : delayStep
-
         return reduceStep
           .then(() => {
             if (options.delay > 0) {
