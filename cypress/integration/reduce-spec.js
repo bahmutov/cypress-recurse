@@ -158,4 +158,91 @@ describe('reduce the data', () => {
       expect(calledCount).to.equal(4)
     })
   })
+
+  context('cy commands in accumulator', () => {
+    it('without last value', () => {
+      const items = [1, 2, 3, 4]
+      let calledCount = 0
+      recurse(
+        () => cy.wrap(items.shift()),
+        (item) => {
+          return item === 4
+        },
+        {
+          limit: 4,
+          delay: 100,
+          log: false,
+          reduceFrom: 0,
+          reduce(acc, item) {
+            calledCount += 1
+            return cy.wrap(item).then((x) => acc + x)
+          },
+          reduceLastValue: false,
+          yield: 'reduced',
+        },
+      )
+        .should('equal', 6)
+        .then(() => {
+          expect(calledCount).to.equal(3)
+        })
+    })
+
+    it('with last value', () => {
+      const items = [1, 2, 3, 4]
+      let calledCount = 0
+      recurse(
+        () => cy.wrap(items.shift()),
+        (item) => {
+          return item === 4
+        },
+        {
+          limit: 4,
+          delay: 100,
+          log: false,
+          reduceFrom: 0,
+          reduce(acc, item) {
+            calledCount += 1
+            return cy.wrap(item).then((x) => acc + x)
+          },
+          reduceLastValue: true,
+          yield: 'reduced',
+        },
+      )
+        .should('equal', 10)
+        .then(() => {
+          expect(calledCount).to.equal(4)
+        })
+    })
+
+    it('push items into array', () => {
+      const items = [1, 2, 3, 4]
+      let calledCount = 0
+      recurse(
+        () => cy.wrap(items.shift()),
+        (item) => {
+          return item === 4
+        },
+        {
+          limit: 4,
+          delay: 100,
+          log: false,
+          reduceFrom: [],
+          reduce(numbers, item) {
+            // notice here we do not have to return
+            // a new reduced value, so we can
+            // both use cy.commands and push into the array
+            calledCount += 1
+            cy.log(`list: ${numbers.join(',')}`)
+            numbers.push(item)
+          },
+          reduceLastValue: true,
+          yield: 'reduced',
+        },
+      )
+        .should('deep.equal', [1, 2, 3, 4])
+        .then(() => {
+          expect(calledCount).to.equal(4)
+        })
+    })
+  })
 })
