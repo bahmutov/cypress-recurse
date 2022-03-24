@@ -158,4 +158,50 @@ describe('reduce the data', () => {
       expect(calledCount).to.equal(4)
     })
   })
+
+  context('cy commands in accumulator', () => {
+    it('without last value', () => {
+      const items = [1, 2, 3, 4]
+
+      recurse(
+        () => cy.wrap(items.shift()),
+        (item) => {
+          return item === 4
+        },
+        {
+          limit: 4,
+          delay: 100,
+          log: false,
+          reduceFrom: 0,
+          reduce(acc, item) {
+            return cy.wrap(item).then((x) => acc + x)
+          },
+          reduceLastValue: false,
+          yield: 'reduced',
+        },
+      ).should('equal', 6)
+    })
+
+    it.only('with last value', () => {
+      const items = [1, 2, 3, 4]
+
+      recurse(
+        () => cy.wrap(items.shift()),
+        (item) => {
+          return item === 4
+        },
+        {
+          limit: 4,
+          delay: 100,
+          log: false,
+          reduceFrom: 0,
+          reduce(acc, item) {
+            return cy.wrap(item).then((x) => acc + x)
+          },
+          reduceLastValue: false,
+          yield: 'reduced',
+        },
+      ).should('equal', 6)
+    })
+  })
 })

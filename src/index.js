@@ -219,7 +219,20 @@ const RecurseDefaults = {
                   x,
                 )
                 if (typeof newAccumulator !== 'undefined') {
-                  options.reduceFrom = newAccumulator
+                  if (Cypress.isCy(newAccumulator)) {
+                    return newAccumulator.then(
+                      (yieldedAccumulator) => {
+                        if (
+                          typeof yieldedAccumulator !== 'undefined'
+                        ) {
+                          options.reduceFrom = yieldedAccumulator
+                          return yieldedAccumulator
+                        }
+                      },
+                    )
+                  } else {
+                    options.reduceFrom = newAccumulator
+                  }
                 }
               })
             : cy
