@@ -16,16 +16,16 @@ it(
     cy.visit('cypress/integration/reload-page/index.html')
 
     recurse(
-      () => cy.get('#result'),
-      ($el) => $el && $el.text() === '7',
+      () => cy.get('#result').invoke('text').then(parseInt),
+      (n) => n === 7,
       {
         limit: 60,
         delay: 1000, // sleep for 1 second before reloading the page
         timeout: 60_000, // try up to one minute
         log: false,
         reduceFrom: [],
-        reduce(numbers, $el) {
-          numbers.push(Number($el.text()))
+        reduce(numbers, n) {
+          numbers.push(n)
         },
         post: () => {
           cy.reload()
