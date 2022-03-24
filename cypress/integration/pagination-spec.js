@@ -35,6 +35,7 @@ describe('Table', () => {
       ($button) => $button.attr('disabled') === 'disabled',
       {
         log: 'The last page',
+        timeout: 10_000,
         // delay: 500,
         // collect all last names
         reduceFrom: [],
