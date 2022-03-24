@@ -149,42 +149,56 @@ const RecurseDefaults = {
             Boolean(predicateResult) === true ||
             predicateResult === undefined
           ) {
-            if (options.reduceLastValue) {
-              const newAcc = options.reduce(options.reduceFrom, x)
-              if (typeof newAcc !== 'undefined') {
-                options.reduceFrom = newAcc
-              }
-            }
+            return cy
+              .then(() => {
+                if (options.reduceLastValue) {
+                  const newAcc = options.reduce(options.reduceFrom, x)
+                  if (typeof newAcc !== 'undefined') {
+                    if (Cypress.isCy(newAcc)) {
+                      return newAcc.then((yieldedAcc) => {
+                        if (typeof yieldedAcc !== 'undefined') {
+                          options.reduceFrom = yieldedAcc
+                        }
+                      })
+                    } else {
+                      options.reduceFrom = newAcc
+                    }
+                  }
+                }
+              })
+              .then(() => {
+                if (logCommands) {
+                  cy.log('**NICE!**')
+                } else if (typeof options.log === 'string') {
+                  cy.log(options.log)
+                }
 
-            if (logCommands) {
-              cy.log('**NICE!**')
-            } else if (typeof options.log === 'string') {
-              cy.log(options.log)
-            }
-
-            // decide what to yield to the next command
-            if (
-              typeof options.yield === 'undefined' ||
-              options.yield === 'value'
-            ) {
-              // always yield the result, BUT
-              // by default, cy.wrap expected jQuery object to exist
-              // we can disable the built-in element existence check
-              // by attaching our own no-op should callback
-              // https://github.com/bahmutov/cypress-recurse/issues/75
-              return cy.wrap(x, { log: false }).should(Cypress._.noop)
-            } else if (options.yield === 'reduced') {
-              return cy.wrap(options.reduceFrom, { log: false })
-            } else if (options.yield === 'both') {
-              return cy.wrap(
-                { value: x, reduced: options.reduceFrom },
-                { log: false },
-              )
-            } else {
-              throw new Error(
-                `cypress-reduce can resolve with the last value or reduced value, you passed ${options.yield}`,
-              )
-            }
+                // decide what to yield to the next command
+                if (
+                  typeof options.yield === 'undefined' ||
+                  options.yield === 'value'
+                ) {
+                  // always yield the result, BUT
+                  // by default, cy.wrap expected jQuery object to exist
+                  // we can disable the built-in element existence check
+                  // by attaching our own no-op should callback
+                  // https://github.com/bahmutov/cypress-recurse/issues/75
+                  return cy
+                    .wrap(x, { log: false })
+                    .should(Cypress._.noop)
+                } else if (options.yield === 'reduced') {
+                  return cy.wrap(options.reduceFrom, { log: false })
+                } else if (options.yield === 'both') {
+                  return cy.wrap(
+                    { value: x, reduced: options.reduceFrom },
+                    { log: false },
+                  )
+                } else {
+                  throw new Error(
+                    `cypress-reduce can resolve with the last value or reduced value, you passed ${options.yield}`,
+                  )
+                }
+              })
           }
         } catch (e) {
           // ignore the error, treat is as falsy predicate
