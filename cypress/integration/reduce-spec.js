@@ -18,7 +18,18 @@ describe('reduce the data', () => {
       },
     )
 
-    cy.wrap(seen).should('deep.equal', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    cy.wrap(seen).should('deep.equal', [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+    ])
   })
 
   it('accumulates the items seen', () => {
@@ -95,6 +106,56 @@ describe('reduce the data', () => {
       },
     ).then((numbers) => {
       cy.log(...numbers)
+    })
+  })
+
+  it('calls the reduce the right number of times', () => {
+    const items = [1, 2, 3, 4]
+
+    let calledCount = 0
+    recurse(
+      () => cy.wrap(items.shift()),
+      (item) => {
+        return item === 4
+      },
+      {
+        limit: 4,
+        delay: 100,
+        log: false,
+        reduceFrom: 0,
+        reduce(acc, item) {
+          calledCount += 1
+          return acc + item
+        },
+        reduceLastValue: false,
+      },
+    ).then(() => {
+      expect(calledCount).to.equal(3)
+    })
+  })
+
+  it('calls the reduce the right number of times with the last value', () => {
+    const items = [1, 2, 3, 4]
+
+    let calledCount = 0
+    recurse(
+      () => cy.wrap(items.shift()),
+      (item) => {
+        return item === 4
+      },
+      {
+        limit: 4,
+        delay: 100,
+        log: false,
+        reduceFrom: 0,
+        reduce(acc, item) {
+          calledCount += 1
+          return acc + item
+        },
+        reduceLastValue: true,
+      },
+    ).then(() => {
+      expect(calledCount).to.equal(4)
     })
   })
 })
