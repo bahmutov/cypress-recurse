@@ -67,7 +67,9 @@ const RecurseDefaults = {
 
     const timeRemaining = options.started + options.timeout - now
     if (!Cypress._.isFinite(timeRemaining)) {
-      throw new Error(`timeRemaining must be a number, was ${timeRemaining}`)
+      throw new Error(
+        `timeRemaining must be a number, was ${timeRemaining}`,
+      )
     }
 
     function getErrorDetails() {
@@ -209,29 +211,36 @@ const RecurseDefaults = {
           })
         }
 
-        const newAccumulator = options.reduce(options.reduceFrom, x)
-        if (typeof newAccumulator !== 'undefined') {
-          options.reduceFrom = newAccumulator
-        }
+        const reduceStep =
+          typeof options.reduce === 'function'
+            ? cy.then(() => {
+                const newAccumulator = options.reduce(
+                  options.reduceFrom,
+                  x,
+                )
+                if (typeof newAccumulator !== 'undefined') {
+                  options.reduceFrom = newAccumulator
+                }
+              })
+            : cy
 
-        const delayStep =
-          options.delay > 0 ? cy.wait(options.delay, { log: logCommands }) : cy
-
-        const callPost = () => {
-          const result = options.post({
-            limit: options.limit,
-            value: x,
-            reduced: options.reduceFrom,
+        return reduceStep
+          .then(() => {
+            if (options.delay > 0) {
+              cy.wait(options.delay, { log: logCommands })
+            }
           })
-          return Cypress.isCy(result) ? result : cy
-        }
-
-        const postStep =
-          typeof options.post === 'function'
-            ? delayStep.then(callPost)
-            : delayStep
-
-        return postStep.then(nextIteration)
+          .then(() => {
+            if (typeof options.post === 'function') {
+              const result = options.post({
+                limit: options.limit,
+                value: x,
+                reduced: options.reduceFrom,
+              })
+              return Cypress.isCy(result) ? result : cy
+            }
+          })
+          .then(nextIteration)
       },
     )
   })
