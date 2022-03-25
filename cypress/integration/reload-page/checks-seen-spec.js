@@ -3,7 +3,12 @@
 
 import { recurse } from '../../../src'
 
+// make sure the Chai assertion shows the full array
 chai.config.truncateThreshold = 200
+
+// Watch the video
+// "cypress-recurse: Reload The Page Until We See 7 Plus Check The Numbers Before That"
+// https://youtu.be/KHJkRp_rRYg
 
 it(
   'checks the numbers before 7 appears',

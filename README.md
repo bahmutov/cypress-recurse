@@ -261,6 +261,8 @@ I have explained how this module was written in the [following videos](https://w
 6. [Use cypress-recurse Plugin To Confirm The Table Gets Sorted Eventually](https://youtu.be/Ke5Pf6IISn8)
 7. [Use cypress-recurse To Ping The Site Before Visiting It](https://youtu.be/8rtBk9MBjXA)
 8. [Use cypress-recurse To Click The Back Button Until It No Longer Exists](https://youtu.be/G-4HbUuUqIM)
+9. [Reload The Page Until We See 7 Plus Check The Numbers Before That](https://youtu.be/KHJkRp_rRYg)
+10. [Click On The Button Until It Becomes Disabled](https://youtu.be/u2JUQY2TE3A)
 
 ## Small print
 
