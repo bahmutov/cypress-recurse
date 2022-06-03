@@ -4,6 +4,8 @@
 
 > A way to re-run Cypress commands until a predicate function returns true
 
+Jump to: [Options](#options), [Examples](#examples), [Debugging](#debugging), [Videos](#videos).
+
 ## Install
 
 ```shell
