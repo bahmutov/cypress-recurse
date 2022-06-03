@@ -27,6 +27,10 @@ beforeEach(() => {
 })
 
 it('makes a request until the server returns COMPLETE', () => {
+  // call cy.request until the server returns an object
+  // with { data: { status: 'COMPLETE' } }
+  // Implemented using https://github.com/bahmutov/cypress-recurse
+  // import { recurse } from 'cypress-recurse'
   recurse(
     () => cy.request('/resource'),
     ({ body }) => {
