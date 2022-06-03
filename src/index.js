@@ -36,7 +36,8 @@ const RecurseDefaults = {
  *
  * @returns {Cypress.Chainable<T>}
  *
- */ function recurse(commandsFn, checkFn, options = {}) {
+ */
+function recurse(commandsFn, checkFn, options = {}) {
   return cy.then(function cypressRecurse() {
     const now = +new Date()
     const timeout = options.timeout || RecurseDefaults.timeout
