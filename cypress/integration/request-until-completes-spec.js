@@ -3,6 +3,9 @@
 import { recurse } from '../../src'
 
 beforeEach(() => {
+  // simulate a fake network server
+  // by stubbing cy.request command
+  // with different responses
   const incomplete = {
     body: {
       data: {
@@ -26,6 +29,8 @@ beforeEach(() => {
     .callsFake(() => cy.wrap(complete))
 })
 
+// Watch the video "Stub cy.request Command Using cy.stub And Use cypress-recurse Example"
+// https://youtu.be/rFhTejdPGAM
 it('makes a request until the server returns COMPLETE', () => {
   // call cy.request until the server returns an object
   // with { data: { status: 'COMPLETE' } }
