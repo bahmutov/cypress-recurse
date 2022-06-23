@@ -220,7 +220,7 @@ See the [each-spec.js](./cypress/integration/each/each-spec.js) file.
 - [pinging the API endpoint until it responds](https://youtu.be/CU8C6MRP_GU)
 - [HTML canvas bar chart testing](https://youtu.be/aeBclf9A92A)
 - [Browse Reveal.js Slides Using Cypress and cypress-recurse](https://youtu.be/oq2P1wtIZYY)
-- opening each accordion panel until we find a button to click [accordion-spec.js](./cypress/integration/accordion-spec.js)
+- opening each accordion panel until we find a button to click [accordion-spec.js](./cypress/integration/accordion-spec.js), see video [Use cypress-recurse To Open Accordion Panels Until It Finds A Button To Click](https://youtu.be/s2_467yUF2Y)
 
 ## Debugging
 
@@ -267,6 +267,7 @@ I have explained how this module was written in the [following videos](https://w
 9. [Reload The Page Until We See 7 Plus Check The Numbers Before That](https://youtu.be/KHJkRp_rRYg)
 10. [Click On The Button Until It Becomes Disabled](https://youtu.be/u2JUQY2TE3A)
 11. [Stub cy.request Command Using cy.stub And Use cypress-recurse Example](https://youtu.be/rFhTejdPGAM)
+12. [Use cypress-recurse To Open Accordion Panels Until It Finds A Button To Click](https://youtu.be/s2_467yUF2Y)
 
 ## Small print
 
