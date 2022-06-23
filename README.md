@@ -220,6 +220,7 @@ See the [each-spec.js](./cypress/integration/each/each-spec.js) file.
 - [pinging the API endpoint until it responds](https://youtu.be/CU8C6MRP_GU)
 - [HTML canvas bar chart testing](https://youtu.be/aeBclf9A92A)
 - [Browse Reveal.js Slides Using Cypress and cypress-recurse](https://youtu.be/oq2P1wtIZYY)
+- opening each accordion panel until we find a button to click [accordion-spec.js](./cypress/integration/accordion-spec.js)
 
 ## Debugging
 
