@@ -268,6 +268,7 @@ I have explained how this module was written in the [following videos](https://w
 10. [Click On The Button Until It Becomes Disabled](https://youtu.be/u2JUQY2TE3A)
 11. [Stub cy.request Command Using cy.stub And Use cypress-recurse Example](https://youtu.be/rFhTejdPGAM)
 12. [Use cypress-recurse To Open Accordion Panels Until It Finds A Button To Click](https://youtu.be/s2_467yUF2Y)
+13. [Access The Response Text Yielded By The Plugin cypress-response](https://youtu.be/MRelgoMg230)
 
 ## Small print
 
