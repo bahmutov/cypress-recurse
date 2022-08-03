@@ -105,4 +105,24 @@ describe('extra commands option', () => {
       },
     )
   })
+
+  it('passes the elapsed duration since the recurse start', () => {
+    const list = ['first', 'second', 'third']
+    recurse(
+      () => {
+        const s = list.shift()
+        return cy.wrap(s)
+      },
+      (s) => s === 'third',
+      {
+        post({ elapsed }) {
+          expect(elapsed, 'elapsed').to.be.greaterThan(0)
+          cy.log(`elapsed ${elapsed}ms`)
+        },
+        limit: 3,
+        delay: 500,
+        log: false,
+      },
+    )
+  })
 })
