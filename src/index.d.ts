@@ -15,6 +15,10 @@ interface PostFunctionOptions<T> {
    * The current reduced value, if any
    */
   reduced: any
+  /**
+   * Time since the recursion started, ms
+   */
+  elapsed: number
 }
 
 type PostFunction<T> = (
@@ -84,13 +88,19 @@ interface RecurseOptions<T> {
  */
 export function recurse<T>(
   commandsFn: () => Cypress.Chainable<Promise<T>>,
-  checkFn: (x: T, reducedValue?: any) => boolean | void | Chai.Assertion,
+  checkFn: (
+    x: T,
+    reducedValue?: any,
+  ) => boolean | void | Chai.Assertion,
   options?: Partial<RecurseOptions<T>>,
 ): Cypress.Chainable<T>
 
 export function recurse<T>(
   commandsFn: () => Cypress.Chainable<T>,
-  checkFn: (x: T, reducedValue?: any) => boolean | void | Chai.Assertion,
+  checkFn: (
+    x: T,
+    reducedValue?: any,
+  ) => boolean | void | Chai.Assertion,
   options?: Partial<RecurseOptions<T>>,
 ): Cypress.Chainable<T>
 

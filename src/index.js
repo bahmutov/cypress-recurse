@@ -260,10 +260,12 @@ function recurse(commandsFn, checkFn, options = {}) {
           })
           .then(() => {
             if (typeof options.post === 'function') {
+              const elapsed = +new Date() - options.started
               const result = options.post({
                 limit: options.limit,
                 value: x,
                 reduced: options.reduceFrom,
+                elapsed,
               })
               return Cypress.isCy(result) ? result : cy
             }
