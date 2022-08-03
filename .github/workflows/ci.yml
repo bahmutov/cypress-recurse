@@ -16,7 +16,7 @@ jobs:
         # https://github.com/actions/checkout
         uses: actions/checkout@v3
       # https://github.com/bahmutov/find-cypress-specs
-      - name: Install find-cypress-specs
+      - name: Install find-cypress-specs@1.17
         run: npm install -g find-cypress-specs
       - name: Print Cypress test names 🖨
         run: find-cypress-specs --names
