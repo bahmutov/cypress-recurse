@@ -19,6 +19,11 @@ interface PostFunctionOptions<T> {
    * Time since the recursion started, ms
    */
   elapsed: number
+  /**
+   * Result of the predicate function,
+   * is false for all but the last values
+   */
+  success: boolean
 }
 
 type PostFunction<T> = (
