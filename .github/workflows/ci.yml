@@ -25,6 +25,8 @@ jobs:
 
   release:
     runs-on: ubuntu-20.04
+    # only try releasing from the main branch
+    if: github.ref == 'refs/heads/main'
     needs:
       - test
       - print-test-names
