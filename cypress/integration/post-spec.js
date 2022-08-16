@@ -176,4 +176,36 @@ describe('extra commands option', () => {
       expect(k, 'post was called').to.equal(copy.length)
     })
   })
+
+  it('passes the success flag', () => {
+    const list = ['first', 'second', 'third']
+    const copy = structuredClone(list)
+    let k = 0
+    recurse(
+      () => {
+        const s = list.shift()
+        return cy.wrap(s)
+      },
+      (s) => s === 'third',
+      {
+        postLastValue: true,
+        post({ value, success }) {
+          expect(value, 'value').to.be.oneOf(copy)
+          if (value === 'third') {
+            expect(success, 'last value is success').to.be.true
+          } else {
+            expect(success, 'other values are unsuccessful').to.be
+              .false
+          }
+          k += 1
+        },
+        limit: 3,
+        delay: 1000,
+        log: false,
+      },
+    ).then((value) => {
+      expect(value, 'yielded value').to.equal('third')
+      expect(k, 'post was called').to.equal(copy.length)
+    })
+  })
 })

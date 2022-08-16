@@ -176,6 +176,7 @@ function recurse(commandsFn, checkFn, options = {}) {
                       value: x,
                       reduced: options.reduceFrom,
                       elapsed,
+                      success: true,
                     })
                     return Cypress.isCy(result)
                       ? result.then(() => {
@@ -285,6 +286,7 @@ function recurse(commandsFn, checkFn, options = {}) {
                 value: x,
                 reduced: options.reduceFrom,
                 elapsed,
+                success: false,
               })
               return Cypress.isCy(result) ? result : cy
             }
