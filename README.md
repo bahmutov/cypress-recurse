@@ -135,6 +135,17 @@ The argument is a single object with `limit`, `value`, `reduced`, and `elapsed` 
 
 See the [post-spec.js](./cypress/integration/post-spec.js) and [find-on-page/spec.js](./cypress/integration/find-on-page/spec.js).
 
+By default, the last value is NOT passed to the `post` callback. You can pass the last value by setting an option
+
+```js
+recurse(..., ..., {
+  post () {
+    ...
+  },
+  postLastValue: true
+})
+```
+
 **Note:** if you specify both the delay and the `post` options, the delay runs first.
 
 ### custom error message

@@ -49,6 +49,11 @@ interface RecurseOptions<T> {
    */
   post?: PostFunction<T>
   /**
+   * Call "post" with the last value during recursion,
+   * default is false
+   */
+  postLastValue?: boolean
+  /**
    * Error message to display when timed out or max limit reached
    */
   error?: string

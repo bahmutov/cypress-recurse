@@ -125,4 +125,55 @@ describe('extra commands option', () => {
       },
     )
   })
+
+  it('does not pass the last value by default', () => {
+    const list = ['first', 'second', 'third']
+    const copy = structuredClone(list)
+    let k = 0
+    recurse(
+      () => {
+        const s = list.shift()
+        return cy.wrap(s)
+      },
+      (s) => s === 'third',
+      {
+        post({ value }) {
+          expect(value, 'value').to.be.oneOf(copy)
+          k += 1
+        },
+        limit: 3,
+        delay: 1000,
+        log: false,
+      },
+    ).then((value) => {
+      expect(value, 'yielded value').to.equal('third')
+      expect(k, 'post was called').to.equal(copy.length - 1)
+    })
+  })
+
+  it('passes the last value', () => {
+    const list = ['first', 'second', 'third']
+    const copy = structuredClone(list)
+    let k = 0
+    recurse(
+      () => {
+        const s = list.shift()
+        return cy.wrap(s)
+      },
+      (s) => s === 'third',
+      {
+        postLastValue: true,
+        post({ value }) {
+          expect(value, 'value').to.be.oneOf(copy)
+          k += 1
+        },
+        limit: 3,
+        delay: 1000,
+        log: false,
+      },
+    ).then((value) => {
+      expect(value, 'yielded value').to.equal('third')
+      expect(k, 'post was called').to.equal(copy.length)
+    })
+  })
 })
