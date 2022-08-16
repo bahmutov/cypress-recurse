@@ -168,6 +168,24 @@ function recurse(commandsFn, checkFn, options = {}) {
                 }
               })
               .then(() => {
+                if (options.postLastValue) {
+                  if (typeof options.post === 'function') {
+                    const elapsed = +new Date() - options.started
+                    const result = options.post({
+                      limit: options.limit,
+                      value: x,
+                      reduced: options.reduceFrom,
+                      elapsed,
+                    })
+                    return Cypress.isCy(result)
+                      ? result.then(() => {
+                          return x
+                        })
+                      : cy
+                  }
+                }
+              })
+              .then(() => {
                 if (logCommands) {
                   cy.log('**NICE!**')
                 } else if (typeof options.log === 'string') {
@@ -217,6 +235,7 @@ function recurse(commandsFn, checkFn, options = {}) {
             log: options.log,
             delay: options.delay,
             post: options.post,
+            postLastValue: options.postLastValue,
             error: options.error,
             debugLog: options.debugLog,
             reduce: options.reduce,
