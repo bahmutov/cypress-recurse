@@ -2,7 +2,7 @@ import { recurse } from '../../src'
 
 describe('Table', () => {
   it('collects all sorted last names', () => {
-    cy.visit('/cypress/integration/pagination-sort-filter-manager')
+    cy.visit('/cypress/e2e/pagination-sort-filter-manager')
     cy.contains('th.sorterHeader', 'Last Name')
       .click()
       .should('have.class', 'sortingAsc')

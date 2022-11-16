@@ -27,7 +27,7 @@ it('gets 7', () => {
 })
 ```
 
-The predicate function should return a boolean OR use assertions to throw errors. If the predicate returns undefined, we assume it passes, see examples in [expect-spec.js](./cypress/integration/expect-spec.js).
+The predicate function should return a boolean OR use assertions to throw errors. If the predicate returns undefined, we assume it passes, see examples in [expect-spec.js](./cypress/e2e/expect-spec.cy.js).
 
 ```js
 it('works for 4', () => {
@@ -106,7 +106,7 @@ recurse(
 )
 ```
 
-See the [log-spec.js](./cypress/integration/log-spec.js)
+See the [log-spec.cy.js](./cypress/e2e/log-spec.cy.js)
 
 ### post
 
@@ -133,7 +133,7 @@ recurse(checkApi, ({ ok }) => ok, {
 
 The argument is a single object with `limit`, `value`, `reduced`, `success`, and `elapsed` properties.
 
-See the [post-spec.js](./cypress/integration/post-spec.js) and [find-on-page/spec.js](./cypress/integration/find-on-page/spec.js).
+See the [post-spec.cy.js](./cypress/e2e/post-spec.cy.js) and [find-on-page/spec.cy.js](./cypress/e2e/find-on-page/spec.cy.js).
 
 By default, the last value is NOT passed to the `post` callback. You can pass the last value by setting an option
 
@@ -176,7 +176,7 @@ TODO: document the above options
 
 If there is a reduced value, it will be passed as the second argument to the predicate function.
 
-See the [reduce-spec.js](./cypress/integration/reduce-spec.js) for examples.
+See the [reduce-spec.cy.js](./cypress/e2e/reduce-spec.cy.js) for examples.
 
 ### yield
 
@@ -186,7 +186,7 @@ If you are accumulating a reduced value, you can yield it instead of the last va
 - `yield: "reduced"` yields the accumulated value
 - `yield: "both"` yields an object with `value` and `reduced` properties
 
-See the [reduce-spec.js](./cypress/integration/reduce-spec.js) for examples.
+See the [reduce-spec.cy.js](./cypress/e2e/reduce-spec.cy.js) for examples.
 
 ## each
 
@@ -221,19 +221,19 @@ cy.wrap(numbers)
   .should('deep.equal', [11, 12])
 ```
 
-See the [each-spec.js](./cypress/integration/each/each-spec.js) file.
+See the [each-spec.cy.js](./cypress/e2e/each/each-spec.cy.js) file.
 
 ## Examples
 
-- clear and type text into the input field until it has the expected value, see [type-with-retries-spec.js](./cypress/integration/type-with-retries-spec.js), watch the video [Avoid Flake When Typing Into The Input Elements Using cypress-recurse](https://youtu.be/aYX7OVqp6AE) and read the blog post [Solve Flake In Cypress Typing Into An Input Element
+- clear and type text into the input field until it has the expected value, see [type-with-retries-spec.cy.js](./cypress/e2e/type-with-retries-spec.cy.js), watch the video [Avoid Flake When Typing Into The Input Elements Using cypress-recurse](https://youtu.be/aYX7OVqp6AE) and read the blog post [Solve Flake In Cypress Typing Into An Input Element
   ](https://glebbahmutov.com/blog/flaky-cy-type/)
 - [avoid-while-loops-in-cypress](https://github.com/bahmutov/avoid-while-loops-in-cypress) repo
 - [monalego](https://github.com/bahmutov/monalego) repo and [Canvas Visual Testing with Retries](https://glebbahmutov.com/blog/canvas-testing/) blog post, watch [the video](https://www.youtube.com/watch?v=xSK6fe5WD1g)
-- [reloading the page until it shows the expected text](./cypress/integration/reload-page/spec.js) recipe
+- [reloading the page until it shows the expected text](./cypress/e2e/reload-page/spec.cy.js) recipe
 - [pinging the API endpoint until it responds](https://youtu.be/CU8C6MRP_GU)
 - [HTML canvas bar chart testing](https://youtu.be/aeBclf9A92A)
 - [Browse Reveal.js Slides Using Cypress and cypress-recurse](https://youtu.be/oq2P1wtIZYY)
-- opening each accordion panel until we find a button to click [accordion-spec.js](./cypress/integration/accordion-spec.js), see video [Use cypress-recurse To Open Accordion Panels Until It Finds A Button To Click](https://youtu.be/s2_467yUF2Y)
+- opening each accordion panel until we find a button to click [accordion-spec.cy.js](./cypress/e2e/accordion-spec.cy.js), see video [Use cypress-recurse To Open Accordion Panels Until It Finds A Button To Click](https://youtu.be/s2_467yUF2Y)
 
 ## Debugging
 

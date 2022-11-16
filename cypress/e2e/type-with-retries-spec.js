@@ -9,16 +9,20 @@ import { recurse } from '../../src'
 // https://glebbahmutov.com/blog/flaky-cy-type/
 describe(
   'type with retries',
-  { viewportHeight: 250, viewportWidth: 400, defaultCommandTimeout: 2500 },
+  {
+    viewportHeight: 250,
+    viewportWidth: 400,
+    defaultCommandTimeout: 2500,
+  },
   () => {
     it('is waiting for the input element to become enabled', () => {
-      cy.visit('cypress/integration/type-with-retries.html')
+      cy.visit('cypress/e2e/type-with-retries.html')
       const text = 'hello there, friend!'
       cy.get('#flaky-input').type(text).should('have.value', text)
     })
 
     it('enters the text correctly', () => {
-      cy.visit('cypress/integration/type-with-retries.html')
+      cy.visit('cypress/e2e/type-with-retries.html')
       const text = 'hello there, friend!'
 
       recurse(
