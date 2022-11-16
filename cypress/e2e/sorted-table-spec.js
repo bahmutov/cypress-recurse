@@ -26,7 +26,10 @@ describe('Table', () => {
       .then(($cells) => Cypress._.map($cells, 'innerText'))
       .then((strings) => Cypress._.map(strings, Number))
       // log the first few values for clarity
-      .then((points) => cy.log(points.slice(0, 5).join(', ')))
+      .then((points) => {
+        cy.log(points.slice(0, 5).join(', '))
+        cy.wrap(points)
+      })
       .should('not.be.sorted')
 
     // sort by clicking the header column
