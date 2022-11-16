@@ -8,7 +8,7 @@ import { recurse } from '../../src'
 
 describe('Table', () => {
   it('counts rows on each page (cypress-recurse)', () => {
-    cy.visit('/cypress/integration/pagination-sort-filter-manager')
+    cy.visit('/cypress/e2e/pagination-sort-filter-manager')
 
     let count = 0
     recurse(
@@ -36,7 +36,7 @@ describe('Table', () => {
   })
 
   it('counts all the rows across the pages', () => {
-    cy.visit('/cypress/integration/pagination-sort-filter-manager')
+    cy.visit('/cypress/e2e/pagination-sort-filter-manager')
 
     let count = 0
 
@@ -64,7 +64,7 @@ describe('Table', () => {
   })
 
   it('counts all the rows across the pages (return chain)', () => {
-    cy.visit('/cypress/integration/pagination-sort-filter-manager')
+    cy.visit('/cypress/e2e/pagination-sort-filter-manager')
 
     function goToTheNextPage(count) {
       cy.get('tbody tr:visible')
@@ -98,7 +98,7 @@ describe('Table', () => {
   })
 
   it('counts all the rows across the pages (alias)', () => {
-    cy.visit('/cypress/integration/pagination-sort-filter-manager')
+    cy.visit('/cypress/e2e/pagination-sort-filter-manager')
 
     function goToTheNextPage(count) {
       cy.get('tbody tr:visible')

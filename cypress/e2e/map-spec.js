@@ -5,16 +5,23 @@
 // @ts-ignore
 chai.use(require('chai-sorted'))
 
-Cypress.Commands.add('map', { prevSubject: true }, ($elements, prop) => {
-  if (Cypress._.isArrayLike($elements)) {
-    return Cypress._.map($elements, prop)
-  } else {
-    return Cypress._.property(prop)($elements)
-  }
-})
+Cypress.Commands.add(
+  'map',
+  { prevSubject: true },
+  ($elements, prop) => {
+    if (Cypress._.isArrayLike($elements)) {
+      return Cypress._.map($elements, prop)
+    } else {
+      return Cypress._.property(prop)($elements)
+    }
+  },
+)
 
 function really() {
-  const fns = Cypress._.takeWhile(arguments, (arg) => typeof arg === 'function')
+  const fns = Cypress._.takeWhile(
+    arguments,
+    (arg) => typeof arg === 'function',
+  )
   const chainerIndex = Cypress._.findIndex(
     arguments,
     (arg) => typeof arg === 'string',
@@ -23,7 +30,10 @@ function really() {
     throw new Error('sh: no chainer found')
   }
   const chainer = arguments[chainerIndex]
-  const chainerArguments = Cypress._.slice(arguments, chainerIndex + 1)
+  const chainerArguments = Cypress._.slice(
+    arguments,
+    chainerIndex + 1,
+  )
   const chainers = chainer.split('.')
   const fn = pipe(...fns)
 
@@ -82,7 +92,7 @@ describe('Assertion helpers', () => {
   })
 
   it('map', { viewportHeight: 1100 }, () => {
-    cy.visit('/cypress/integration/pagination-sort-filter-manager')
+    cy.visit('/cypress/e2e/pagination-sort-filter-manager')
     cy.get('#numrows').select('100')
     // check if the table fits into one page
     cy.get('.pagecontroller-num').should('have.length', 1)

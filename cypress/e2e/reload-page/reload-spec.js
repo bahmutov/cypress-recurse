@@ -12,7 +12,7 @@ it(
     viewportHeight: 200,
   },
   () => {
-    cy.visit('cypress/integration/reload-page/index.html')
+    cy.visit('cypress/e2e/reload-page/index.html')
 
     recurse(
       () => cy.contains('#result', '7').should(Cypress._.noop),

@@ -6,7 +6,7 @@ import { each, recurse } from '../../../src'
 
 describe('each', { viewportWidth: 200 }, () => {
   it('iterates over each row until it finds number 7', () => {
-    cy.visit('cypress/integration/each/index.html')
+    cy.visit('cypress/e2e/each/index.html')
     cy.get('#lotto tbody tr button')
       .should('have.length.greaterThan', 10)
       .then(
@@ -28,7 +28,7 @@ describe('each', { viewportWidth: 200 }, () => {
   })
 
   it('iterates over every row', () => {
-    cy.visit('cypress/integration/each/index.html')
+    cy.visit('cypress/e2e/each/index.html')
     cy.get('#lotto tbody tr')
       .should('have.length.greaterThan', 10)
       .its('length')
@@ -53,6 +53,7 @@ describe('each', { viewportWidth: 200 }, () => {
       .then(
         each((x) => {
           cy.log(x)
+          cy.wrap(x)
         }),
       )
       .should('deep.equal', numbers)
@@ -66,6 +67,7 @@ describe('each', { viewportWidth: 200 }, () => {
         each(
           (x) => {
             cy.log(x)
+            cy.wrap(x)
           },
           // stop when the value is 3
           (x) => x === 3,
@@ -115,7 +117,7 @@ describe('each', { viewportWidth: 200 }, () => {
       },
     )
 
-    cy.visit('cypress/integration/each/index.html')
+    cy.visit('cypress/e2e/each/index.html')
     cy.get('#lotto tbody tr button')
       .should('have.length.greaterThan', 10)
       .each(
@@ -136,8 +138,11 @@ describe('each', { viewportWidth: 200 }, () => {
   })
 
   it('finds the lucky 7 using recursion', () => {
-    cy.visit('cypress/integration/each/index.html')
-    cy.get('#lotto tbody tr button').should('have.length.greaterThan', 10)
+    cy.visit('cypress/e2e/each/index.html')
+    cy.get('#lotto tbody tr button').should(
+      'have.length.greaterThan',
+      10,
+    )
 
     recurse(
       () => {

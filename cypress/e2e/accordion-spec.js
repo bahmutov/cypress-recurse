@@ -3,7 +3,7 @@
 import { recurse } from '../..'
 
 it('opens each accordion panel to find the button', () => {
-  cy.visit('cypress/integration/accordion/index.html')
+  cy.visit('cypress/e2e/accordion/index.html')
 
   // first, check that we have accordion panels
   cy.get('.accordion')

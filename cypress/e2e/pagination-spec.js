@@ -5,7 +5,7 @@ describe('Table', () => {
   // "cypress-recurse: Click On The Button Until It Becomes Disabled"
   // https://youtu.be/u2JUQY2TE3A
   it('pagination', () => {
-    cy.visit('/cypress/integration/pagination-sort-filter-manager')
+    cy.visit('/cypress/e2e/pagination-sort-filter-manager')
     // click on the "next" button
     // until the button becomes disabled
     recurse(
