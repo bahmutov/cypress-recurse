@@ -53,6 +53,7 @@ describe('each', { viewportWidth: 200 }, () => {
       .then(
         each((x) => {
           cy.log(x)
+          cy.wrap(x)
         }),
       )
       .should('deep.equal', numbers)
@@ -66,6 +67,7 @@ describe('each', { viewportWidth: 200 }, () => {
         each(
           (x) => {
             cy.log(x)
+            cy.wrap(x)
           },
           // stop when the value is 3
           (x) => x === 3,

@@ -37,7 +37,7 @@ jobs:
 
       - name: Run linter 🧪
         # https://github.com/cypress-io/github-action
-        uses: cypress-io/github-action@v3
+        uses: cypress-io/github-action@v4
         with:
           # runs linting
           command: npm run build

@@ -52,7 +52,10 @@ describe('Table', () => {
           .then(($cells) => Cypress._.map($cells, 'innerText'))
           .then((strings) => Cypress._.map(strings, Number))
           // log the first few values for clarity
-          .then((points) => cy.log(points.slice(0, 5).join(', '))),
+          .then((points) => {
+            cy.log(points.slice(0, 5).join(', '))
+            cy.wrap(points)
+          }),
       (points) =>
         // TypeScript is unaware that chai-sorted adds this chainer
         // @ts-ignore
