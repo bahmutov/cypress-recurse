@@ -20,6 +20,10 @@ interface PostFunctionOptions<T> {
    */
   elapsed: number
   /**
+   * Human-readable elapsed duration, like "5 seconds"
+   */
+  elapsedDuration: string
+  /**
    * Result of the predicate function,
    * is false for all but the last values
    */
