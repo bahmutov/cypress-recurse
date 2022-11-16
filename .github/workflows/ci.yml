@@ -15,13 +15,15 @@ jobs:
       - name: Checkout
         # https://github.com/actions/checkout
         uses: actions/checkout@v3
+      - name: Install dependencies
+        uses: cypress-io/github-action@v4
+        with:
+          runTests: false
       # https://github.com/bahmutov/find-cypress-specs
-      - name: Install find-cypress-specs@1
-        run: npm install --location=global find-cypress-specs@1
       - name: Print Cypress test names 🖨
-        run: find-cypress-specs --names
+        run: npm run print-tests
       - name: Print Cypress test tags if any 🖨
-        run: find-cypress-specs --tags
+        run: npm run print-tags
 
   release:
     runs-on: ubuntu-20.04
