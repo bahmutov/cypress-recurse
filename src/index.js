@@ -1,5 +1,7 @@
 // @ts-check
 
+const humanizeDuration = require('humanize-duration')
+
 /** @type {import('./index').RecurseOptions} */
 const RecurseDefaults = {
   limit: 20,
@@ -281,11 +283,15 @@ function recurse(commandsFn, checkFn, options = {}) {
           .then(() => {
             if (typeof options.post === 'function') {
               const elapsed = +new Date() - options.started
+              const elapsedDuration = humanizeDuration(elapsed, {
+                round: true,
+              })
               const result = options.post({
                 limit: options.limit,
                 value: x,
                 reduced: options.reduceFrom,
                 elapsed,
+                elapsedDuration,
                 success: false,
               })
               return Cypress.isCy(result) ? result : cy

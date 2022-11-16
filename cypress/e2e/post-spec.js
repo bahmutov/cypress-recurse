@@ -126,6 +126,28 @@ describe('extra commands option', () => {
     )
   })
 
+  it('passes the elapsed human duration since the recurse start', () => {
+    const list = ['first', 'second', 'third']
+    recurse(
+      () => {
+        const s = list.shift()
+        return cy.wrap(s)
+      },
+      (s) => s === 'third',
+      {
+        post({ elapsedDuration }) {
+          expect(elapsedDuration, 'elapsed duration').to.be.a(
+            'string',
+          )
+          cy.log(elapsedDuration)
+        },
+        limit: 3,
+        delay: 1000,
+        log: false,
+      },
+    )
+  })
+
   it('does not pass the last value by default', () => {
     const list = ['first', 'second', 'third']
     const copy = structuredClone(list)
