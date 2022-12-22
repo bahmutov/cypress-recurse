@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/bahmutov/cypress-recurse#readme",
   "devDependencies": {
+    "@types/node": "^18.11.17",
     "chai-sorted": "^0.2.0",
     "cypress": "12.2.0",
     "cypress-command-chain": "1.1.2",
