@@ -106,6 +106,19 @@ recurse(
 )
 ```
 
+If the `log` option is a function, it receives the current value, plus a data object with main iteration properties
+
+```js
+log (x, data) {
+  // data is like
+  // elapsed: 1631
+  // elapsedDuration: "2 seconds"
+  // iteration: 3
+  // limit: 18
+  // value: 3
+}
+```
+
 See the [log-spec.js](./cypress/e2e/log-spec.js)
 
 ### post

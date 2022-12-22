@@ -140,8 +140,20 @@ function recurse(commandsFn, checkFn, options = {}) {
           // @ts-ignore
           cy.log(x)
         } else if (typeof options.log === 'function') {
+          const elapsed = +new Date() - options.started
+          const elapsedDuration = humanizeDuration(elapsed, {
+            round: true,
+          })
+          const logData = {
+            iteration: options.iteration,
+            value: x,
+            limit: options.limit,
+            elapsed,
+            elapsedDuration,
+          }
+
           // @ts-ignore
-          options.log(x)
+          options.log(x, logData)
         }
 
         try {
@@ -286,14 +298,15 @@ function recurse(commandsFn, checkFn, options = {}) {
               const elapsedDuration = humanizeDuration(elapsed, {
                 round: true,
               })
-              const result = options.post({
+              const postData = {
                 limit: options.limit,
                 value: x,
                 reduced: options.reduceFrom,
                 elapsed,
                 elapsedDuration,
                 success: false,
-              })
+              }
+              const result = options.post(postData)
               return Cypress.isCy(result) ? result : cy
             }
           })
