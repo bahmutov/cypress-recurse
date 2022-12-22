@@ -7,12 +7,17 @@ describe('extra commands option', () => {
     // from the application's window ping a non-existent URL
     const url = 'https://jsonplaceholder.cypress.io/fake-endpoint'
 
-    const checkApi = () => cy.window().invoke('fetch', url)
+    // in Cypress v12 we need to avoid using `cy.invoke` because
+    // it will retry :)
+    const checkApi = () => cy.window().then((w) => w.fetch(url))
 
     recurse(checkApi, ({ ok }) => ok, {
       limit: 2,
       delay: 1000,
-      log: (r) => cy.log(`response **${r.status}**`),
+      log: (r) => {
+        console.log(r)
+        return cy.log(`response **${r.status}**`)
+      },
       post: ({ limit }) => {
         // after a few attempts
         // stub the network call and respond
@@ -25,13 +30,8 @@ describe('extra commands option', () => {
         }
       },
     })
-      // the "checkApi" chain yields the fetch response
-      .invoke('text')
-      // which should equal our stub
-      .should('equal', 'Hello!')
-
     // confirm the intercept works
-    cy.get('@hello')
+    cy.get('@hello').its('response.body').should('equal', 'Hello!')
   })
 
   it('starts stubbing a method', () => {
