@@ -25,6 +25,18 @@ jobs:
       - name: Print Cypress test tags if any 🖨
         run: npm run print-tags
 
+  lint-types:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        # https://github.com/actions/checkout
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        uses: cypress-io/github-action@v4
+        with:
+          # runs linting only
+          command: npm run build
+
   release:
     runs-on: ubuntu-20.04
     # only try releasing from the main branch
@@ -32,6 +44,7 @@ jobs:
     needs:
       - test
       - print-test-names
+      - lint-types
     steps:
       - name: Checkout
         # https://github.com/actions/checkout
