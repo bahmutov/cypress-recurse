@@ -34,8 +34,7 @@ jobs:
       - name: Install dependencies
         uses: cypress-io/github-action@v4
         with:
-          # runs linting only
-          command: npm run build
+          command: npm run lint
 
   release:
     runs-on: ubuntu-20.04
@@ -54,8 +53,7 @@ jobs:
         # https://github.com/cypress-io/github-action
         uses: cypress-io/github-action@v4
         with:
-          # runs linting
-          command: npm run build
+          command: npm run lint
 
       - name: Semantic Release 🚀
         uses: cycjimmy/semantic-release-action@v2

@@ -1,6 +1,6 @@
 // @ts-check
 /// <reference types="cypress" />
-import { recurse } from '../..'
+import { recurse } from '../../src'
 import { getTo } from './utils'
 
 describe('log option', () => {

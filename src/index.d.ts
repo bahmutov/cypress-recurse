@@ -1,6 +1,35 @@
 /// <reference types="cypress" />
 
-export type LogOption<T> = boolean | string | ((arg: T) => void)
+/**
+ * Data about the current iteration passed to the user log function.
+ */
+interface LogData<T> {
+  /**
+   * The value produced by the current iteration
+   */
+  value: T
+  /**
+   * Current iteration
+   */
+  iteration: number
+  /**
+   * Remaining number of iterations allowed
+   */
+  limit: number
+  /**
+   * Elapsed number of milliseconds
+   */
+  elapsed: number
+  /**
+   * Human elapsed duration, like "2 seconds"
+   */
+  elapsedDuration: string
+}
+
+export type LogOption<T> =
+  | boolean
+  | string
+  | ((arg: T, data: LogData<T>) => void)
 
 interface PostFunctionOptions<T> {
   /**
