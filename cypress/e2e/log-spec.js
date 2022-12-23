@@ -3,6 +3,8 @@
 import { recurse } from '../../src'
 import { getTo } from './utils'
 
+chai.config.truncateThreshold = 300
+
 describe('log option', () => {
   it('can be a flag: true', () => {
     recurse(getTo(3), (x) => x === 3, {
@@ -65,12 +67,34 @@ describe('log option', () => {
     cy.get('@logInfo').should('have.been.calledThrice')
     cy.get('@logInfo')
       .its('firstCall.args.0')
-      .should('deep.include', { iteration: 1, value: 1, limit: 20 })
+      .should('deep.include', {
+        iteration: 1,
+        value: 1,
+        limit: 20,
+        successful: false,
+      })
     cy.get('@logInfo')
       .its('secondCall.args.0')
-      .should('deep.include', { iteration: 2, value: 2, limit: 19 })
+      .should('deep.include', {
+        iteration: 2,
+        value: 2,
+        limit: 19,
+        successful: false,
+      })
     cy.get('@logInfo')
       .its('thirdCall.args.0')
-      .should('deep.include', { iteration: 3, value: 3, limit: 18 })
+      .should('deep.include', {
+        iteration: 3,
+        value: 3,
+        limit: 18,
+        successful: true,
+      })
+  })
+
+  it('has successful property in the data object', () => {
+    recurse(getTo(3), (x) => x === 3, {
+      log: (k, data) =>
+        cy.log(`${data.successful ? '✅' : '🚫'} k = **${k}**`),
+    })
   })
 })

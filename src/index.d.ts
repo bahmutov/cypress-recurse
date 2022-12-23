@@ -9,6 +9,10 @@ interface LogData<T> {
    */
   value: T
   /**
+   * The current iteration successfully passed the predicate check
+   */
+  successful: boolean
+  /**
    * Current iteration
    */
   iteration: number

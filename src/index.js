@@ -136,34 +136,36 @@ function recurse(commandsFn, checkFn, options = {}) {
       /** @param {T} x */
       // @ts-ignore
       function cypressRecurse(x) {
-        if (logCommands) {
-          // @ts-ignore
-          cy.log(x)
-        } else if (typeof options.log === 'function') {
-          const elapsed = +new Date() - options.started
-          const elapsedDuration = humanizeDuration(elapsed, {
-            round: true,
-          })
-          const logData = {
-            iteration: options.iteration,
-            value: x,
-            limit: options.limit,
-            elapsed,
-            elapsedDuration,
-          }
-
-          // @ts-ignore
-          options.log(x, logData)
-        }
-
         try {
           // @ts-ignore
           const predicateResult = checkFn(x, options.reduceFrom)
           // treat truthy as success and stop the recursion
-          if (
+          const successful =
             Boolean(predicateResult) === true ||
             predicateResult === undefined
-          ) {
+
+          if (logCommands) {
+            // @ts-ignore
+            cy.log(x)
+          } else if (typeof options.log === 'function') {
+            const elapsed = +new Date() - options.started
+            const elapsedDuration = humanizeDuration(elapsed, {
+              round: true,
+            })
+            const logData = {
+              iteration: options.iteration,
+              value: x,
+              successful,
+              limit: options.limit,
+              elapsed,
+              elapsedDuration,
+            }
+
+            // @ts-ignore
+            options.log(x, logData)
+          }
+
+          if (successful) {
             return cy
               .then(() => {
                 if (options.reduceLastValue) {
