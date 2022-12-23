@@ -110,12 +110,13 @@ If the `log` option is a function, it receives the current value, plus a data ob
 
 ```js
 log (x, data) {
-  // data is like
-  // elapsed: 1631
-  // elapsedDuration: "2 seconds"
-  // iteration: 3
-  // limit: 18
-  // value: 3
+  // data is like:
+  //  value: 3
+  //  successful: false|true
+  //  iteration: 3
+  //  limit: 18
+  //  elapsed: 1631
+  //  elapsedDuration: "2 seconds"
 }
 ```
 
