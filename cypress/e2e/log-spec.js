@@ -29,9 +29,21 @@ describe('log option', () => {
 
     // verify the calls to our log function
     cy.get('@log').should('have.been.calledThrice')
-    cy.get('@log').its('firstCall.args').should('deep.equal', [1])
-    cy.get('@log').its('secondCall.args').should('deep.equal', [2])
-    cy.get('@log').its('thirdCall.args').should('deep.equal', [3])
+    cy.get('@log')
+      .its('firstCall.args')
+      .should('have.length', 2)
+      .its(0)
+      .should('equal', 1)
+    cy.get('@log')
+      .its('secondCall.args')
+      .should('have.length', 2)
+      .its(0)
+      .should('equal', 2)
+    cy.get('@log')
+      .its('thirdCall.args')
+      .should('have.length', 2)
+      .its(0)
+      .should('equal', 3)
   })
 
   it('can be a function that uses cy.log', () => {
