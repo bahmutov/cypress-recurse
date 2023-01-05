@@ -37,6 +37,10 @@ export type LogOption<T> =
 
 interface PostFunctionOptions<T> {
   /**
+   * Current iteration
+   */
+  iteration: number
+  /**
    * The value produced by the last iteration
    */
   value: T
