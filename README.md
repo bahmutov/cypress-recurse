@@ -145,7 +145,7 @@ recurse(checkApi, ({ ok }) => ok, {
 })
 ```
 
-The argument is a single object with `limit`, `value`, `reduced`, `success`, `elapsed`, and `elapsedDuration` properties.
+The argument is a single object with `iteration`, `limit`, `value`, `reduced`, `success`, `elapsed`, and `elapsedDuration` properties.
 
 See the [post-spec.js](./cypress/e2e/post-spec.js) and [find-on-page/spec.js](./cypress/e2e/find-on-page/spec.js).
 

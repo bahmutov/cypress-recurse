@@ -188,6 +188,7 @@ function recurse(commandsFn, checkFn, options = {}) {
                   if (typeof options.post === 'function') {
                     const elapsed = +new Date() - options.started
                     const result = options.post({
+                      iteration: options.iteration,
                       limit: options.limit,
                       value: x,
                       reduced: options.reduceFrom,
@@ -301,6 +302,7 @@ function recurse(commandsFn, checkFn, options = {}) {
                 round: true,
               })
               const postData = {
+                iteration: options.iteration,
                 limit: options.limit,
                 value: x,
                 reduced: options.reduceFrom,

@@ -1,6 +1,8 @@
 // @ts-check
 /// <reference types="cypress" />
+
 import { recurse } from '../../src'
+import { getTo } from './utils'
 
 describe('extra commands option', () => {
   it('can run extra cy commands between iterations', () => {
@@ -228,6 +230,27 @@ describe('extra commands option', () => {
     ).then((value) => {
       expect(value, 'yielded value').to.equal('third')
       expect(k, 'post was called').to.equal(copy.length)
+    })
+  })
+
+  it('passes the iteration', () => {
+    recurse(getTo(4), (n) => n === 4, {
+      post({ iteration }) {
+        expect(iteration, 'iteration').to.be.within(1, 4)
+      },
+    })
+  })
+
+  it('passes the iteration for the last successful attempt', () => {
+    recurse(getTo(4), (n) => n === 4, {
+      postLastValue: true,
+      post({ iteration, success }) {
+        if (success) {
+          expect(iteration, 'LAST iteration').to.equal(4)
+        } else {
+          expect(iteration, 'iteration').to.be.below(4)
+        }
+      },
     })
   })
 })
