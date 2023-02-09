@@ -281,6 +281,14 @@ I have explained how this module was written in the [following videos](https://w
 6. [Add JSDoc types to the options parameter](https://youtu.be/g4qispkHH-o)
 7. [Published cypress-recurse NPM package](https://www.youtube.com/watch?v=V82p7qTowXg)
 
+### Cypress plugins course
+
+🎓 This plugin is covered in multiple lessons in my [Cypress plugins course](https://cypress.tips/courses/cypress-plugins)
+
+- [Lesson i1: Check the list is sorted after some delay](https://cypress.tips/courses/cypress-plugins/lessons/i1)
+- [Lesson i2: Call the API until it returns the expected result](https://cypress.tips/courses/cypress-plugins/lessons/i2)
+- [Lesson i6: Delete the first todo item until there are no more items](https://cypress.tips/courses/cypress-plugins/lessons/i6)
+
 ### Bonus videos
 
 1. [use cypress-recurse to find the downloaded file](https://www.youtube.com/watch?v=Ty5ltRdgr5M)
