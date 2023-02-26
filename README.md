@@ -265,9 +265,9 @@ recurse(getTo(2), (x) => x === 2, {
 
 ![Debug logs](./images/debug-log.png)
 
-## Blog post
+## Blog posts
 
-Read [Writing Cypress Recurse Function](https://glebbahmutov.com/blog/cypress-recurse/)
+📝 Read [Writing Cypress Recurse Function](https://glebbahmutov.com/blog/cypress-recurse/) and [Crawl Weather Using Cypress](https://glebbahmutov.com/blog/crawl-weather/)
 
 ## Videos
 
