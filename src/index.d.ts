@@ -129,6 +129,11 @@ interface RecurseOptions<T> {
    * yield an object with {value, reduced} properties
    */
   yield: 'value' | 'reduced' | 'both'
+  /**
+   * When recursion ends, if the predicate is still false,
+   * continue without failing the test
+   */
+  doNotFail: boolean
 }
 
 /**
