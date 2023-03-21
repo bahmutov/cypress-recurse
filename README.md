@@ -202,6 +202,18 @@ If you are accumulating a reduced value, you can yield it instead of the last va
 
 See the [reduce-spec.js](./cypress/e2e/reduce-spec.js) for examples.
 
+### doNotFail
+
+Sometimes you want to retry N times or for M seconds, but not fail the test if the predicate is still false.
+
+```js
+recurse(commandFn, predicate, {
+  doNotFail: true,
+})
+```
+
+The yielded value in this case is not guaranteed
+
 ## each
 
 This plugin also includes the `each` function that iterates over the given subject items. It can optionally stop when the separate predicate function returns true.
