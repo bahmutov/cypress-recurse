@@ -95,6 +95,22 @@ function recurse(commandsFn, checkFn, options = {}) {
 
     const logCommands = options.log === true
 
+    /**
+     * Logs a message to Command Log
+     * @param {string} message
+     */
+    const toLog = (message) => {
+      if (!logCommands) {
+        return
+      }
+
+      Cypress.log({
+        type: 'parent',
+        name: 'cypress-recurse',
+        message,
+      })
+    }
+
     if (options.limit < 1) {
       const err = Cypress._.isNil(options.error)
         ? 'Recursion limit reached'
@@ -103,9 +119,6 @@ function recurse(commandsFn, checkFn, options = {}) {
       return cy.log(`cypress-recurse: ${details}`).then(function () {
         throw new Error(err)
       })
-    }
-    if (logCommands) {
-      cy.log(`remaining attempts **${options.limit}**`)
     }
 
     if (timeRemaining < 0) {
@@ -118,9 +131,9 @@ function recurse(commandsFn, checkFn, options = {}) {
         throw new Error(err)
       })
     }
-    if (logCommands) {
-      cy.log(`time remaining **${timeRemaining}**`)
-    }
+    toLog(
+      `remaining **${timeRemaining}** ms **${options.limit}** attempts`,
+    )
 
     const result = commandsFn()
     if (!Cypress.isCy(result)) {
@@ -146,7 +159,7 @@ function recurse(commandsFn, checkFn, options = {}) {
 
           if (logCommands) {
             // @ts-ignore
-            cy.log(x)
+            toLog(`value ${String(x)}`)
           } else if (typeof options.log === 'function') {
             const elapsed = +new Date() - options.started
             const elapsedDuration = humanizeDuration(elapsed, {
@@ -205,7 +218,7 @@ function recurse(commandsFn, checkFn, options = {}) {
               })
               .then(() => {
                 if (logCommands) {
-                  cy.log('**NICE!**')
+                  toLog('finished successfully')
                 } else if (typeof options.log === 'string') {
                   cy.log(options.log)
                 }

@@ -6,6 +6,10 @@ import { getTo } from './utils'
 chai.config.truncateThreshold = 300
 
 describe('log option', () => {
+  it('logs messages and values by default', () => {
+    recurse(getTo(3), (x) => x === 3)
+  })
+
   it('can be a flag: true', () => {
     recurse(getTo(3), (x) => x === 3, {
       log: true,
@@ -95,6 +99,17 @@ describe('log option', () => {
     recurse(getTo(3), (x) => x === 3, {
       log: (k, data) =>
         cy.log(`${data.successful ? '✅' : '🚫'} k = **${k}**`),
+    })
+  })
+
+  it('prints elapsed time and current value', () => {
+    recurse(getTo(3), (x) => x === 3, {
+      log: (k, data) =>
+        cy.log(
+          `${data.successful ? '✅' : '🚫'} after ${
+            data.elapsedDuration
+          } k = **${k}**`,
+        ),
     })
   })
 })
