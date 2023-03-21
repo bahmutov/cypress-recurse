@@ -103,10 +103,6 @@ function recurse(commandsFn, checkFn, options = {}) {
     }
 
     if (options.limit < 1) {
-      const err = Cypress._.isNil(options.error)
-        ? 'Recursion limit reached'
-        : options.error
-
       return cy.then(function () {
         if (options.doNotFail) {
           const elapsed = +new Date() - options.started
@@ -127,7 +123,10 @@ function recurse(commandsFn, checkFn, options = {}) {
             options,
           )
           toLog(details)
-          throw new Error(details)
+          const err = Cypress._.isNil(options.error)
+            ? details
+            : options.error
+          throw new Error(err)
         }
       })
     }

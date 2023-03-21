@@ -3,6 +3,7 @@
 import { recurse } from '../../src'
 import { getErrorDetails } from '../../src/error-utils'
 import { getTo } from './utils'
+// @ts-ignore
 import { stripIndent } from 'common-tags'
 
 chai.config.truncateThreshold = 300
