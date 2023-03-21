@@ -1,5 +1,6 @@
 // @ts-check
 
+const { getErrorDetails } = require('./error-utils')
 const humanizeDuration = require('humanize-duration')
 
 /** @type {import('./index').RecurseOptions} */
@@ -66,6 +67,9 @@ function recurse(commandsFn, checkFn, options = {}) {
       iteration: 1,
       reduce: Cypress._.noop,
     })
+    if (!('initialLimit' in options)) {
+      options.initialLimit = options.limit
+    }
     // console.log('options', options)
 
     const timeRemaining = options.started + options.timeout - now
@@ -75,21 +79,8 @@ function recurse(commandsFn, checkFn, options = {}) {
       )
     }
 
-    function getErrorDetails() {
-      const details = Cypress._.omit(
-        Cypress._.merge({}, options, { now, timeRemaining }),
-        // skip the following keys
-        'log',
-        'post',
-        'error',
-      )
-      return Cypress._.toPairs(details)
-        .map(([key, value]) => `${key}=${value}`)
-        .join(', ')
-    }
-
     if (options.debugLog) {
-      const details = getErrorDetails()
+      const details = getErrorDetails('debug', options)
       cy.log(`cypress-recurse: ${details}`)
     }
 
@@ -131,42 +122,49 @@ function recurse(commandsFn, checkFn, options = {}) {
           // @ts-ignore
           return cy.state('currentSubject')
         } else {
-          const details = getErrorDetails()
-          toLog(`cypress-recurse: ${details}`)
-          throw new Error(err)
+          const details = getErrorDetails(
+            'Hit iteration limit',
+            options,
+          )
+          toLog(details)
+          throw new Error(details)
         }
       })
     }
 
     if (timeRemaining < 0) {
-      const err = Cypress._.isNil(options.error)
-        ? 'Max time limit reached'
+      const errorMessage = Cypress._.isNil(options.error)
+        ? `cypress-recurse: Max time limit ${options.timeout}ms reached`
         : options.error
 
       return cy.then(function () {
-        if (options.doNotFail) {
-          const elapsed = +new Date() - options.started
-          const elapsedDuration = humanizeDuration(elapsed, {
-            round: true,
-          })
+        const elapsed = +new Date() - options.started
+        const elapsedDuration = humanizeDuration(elapsed, {
+          round: true,
+        })
 
-          toLog(
-            `hit time limit **${options.timeout}** after **${options.iteration}** iterations`,
-          )
+        toLog(
+          `🚨 hit time limit **${options.timeout} ms** after **${elapsedDuration}** and **${options.iteration}** iterations`,
+        )
+
+        if (options.doNotFail) {
           // @ts-ignore
           return cy.state('currentSubject')
         } else {
-          const details = getErrorDetails()
-          return cy
-            .log(`cypress-recurse: ${details}`)
-            .then(function () {
-              throw new Error(err)
-            })
+          const errorOptions = {}
+          Cypress._.merge(errorOptions, options, {
+            now,
+            timeRemaining,
+          })
+          const details = getErrorDetails(errorMessage, errorOptions)
+          return cy.then(function () {
+            throw new Error(details)
+          })
         }
       })
     }
     toLog(
-      `remaining **${timeRemaining}** ms **${options.limit}** attempts`,
+      `remaining **${timeRemaining}** ms and **${options.limit}** attempts`,
     )
 
     const result = commandsFn()
@@ -315,6 +313,7 @@ function recurse(commandsFn, checkFn, options = {}) {
             reduceLastValue: options.reduceLastValue,
             yield: options.yield,
             doNotFail: options.doNotFail,
+            initialLimit: options.initialLimit,
           })
         }
 
