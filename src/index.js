@@ -67,6 +67,10 @@ function recurse(commandsFn, checkFn, options = {}) {
       iteration: 1,
       reduce: Cypress._.noop,
     })
+    if ('yield' in options && !('userYield' in options)) {
+      // remember what the user asked to yield
+      options.userYield = 'value'
+    }
     if (!('initialLimit' in options)) {
       options.initialLimit = options.limit
     }
@@ -115,6 +119,10 @@ function recurse(commandsFn, checkFn, options = {}) {
               options.iteration - 1
             }** after **${elapsedDuration}**`,
           )
+          if (options.userYield === 'value') {
+            // user explicitly asked to yield the value, any value
+            // TODO: return the last value
+          }
           // @ts-ignore
           return cy.state('currentSubject')
         } else {

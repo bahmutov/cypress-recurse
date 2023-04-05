@@ -20,4 +20,16 @@ describe('do not fail option', () => {
       timeout: 1000,
     }).should('be.undefined')
   })
+
+  context('yields value', () => {
+    // https://github.com/bahmutov/cypress-recurse/issues/157
+    it.skip('even if predicate is false', () => {
+      recurse(getTo(3), (x) => x === 100, {
+        doNotFail: true,
+        yield: 'value',
+        limit: 3,
+        delay: 100,
+      }).should('equal', 3)
+    })
+  })
 })
