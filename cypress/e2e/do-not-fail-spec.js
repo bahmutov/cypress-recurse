@@ -32,7 +32,7 @@ describe('do not fail option', () => {
       }).should('equal', 3)
     })
 
-    it('yields the value', () => {
+    it('on reaching iteration limit', () => {
       recurse(
         () => cy.wrap(4),
         (x) => x === 10,
@@ -40,6 +40,19 @@ describe('do not fail option', () => {
           doNotFail: true,
           yield: 'value',
           limit: 1,
+        },
+      ).should('equal', 4)
+    })
+
+    it('on timeout', () => {
+      recurse(
+        () => cy.wrap(4),
+        (x) => x === 10,
+        {
+          doNotFail: true,
+          yield: 'value',
+          limit: 10,
+          timeout: 0,
         },
       ).should('equal', 4)
     })

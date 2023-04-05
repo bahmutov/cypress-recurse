@@ -128,7 +128,6 @@ function recurse(commandsFn, checkFn, options = {}) {
           )
           if (options.userYield === 'value') {
             // user explicitly asked to yield the value, any value
-            // TODO: return the last value
             return options.lastValue
           }
           // @ts-ignore
@@ -163,8 +162,13 @@ function recurse(commandsFn, checkFn, options = {}) {
         )
 
         if (options.doNotFail) {
-          // @ts-ignore
-          return cy.state('currentSubject')
+          if (options.userYield === 'value') {
+            // user explicitly asked to yield the value, any value
+            return options.lastValue
+          } else {
+            // @ts-ignore
+            return cy.state('currentSubject')
+          }
         } else {
           const errorOptions = {}
           Cypress._.merge(errorOptions, options, {
