@@ -37,6 +37,17 @@ describe('options', () => {
     })
   })
 
+  // https://github.com/bahmutov/cypress-recurse/issues/159
+  it('computes the limit from timeout and delay', () => {
+    const options = {
+      timeout: 500,
+      delay: 50,
+      log: true,
+    }
+    recurse(getTo(3), (x) => x === 3, options)
+    // hmm, how to confirm the computed limit?
+  })
+
   // it('checks invalid option via types', () => {
   //   recurse(
   //     () => cy.task('randomNumber'),

@@ -57,6 +57,14 @@ function recurse(commandsFn, checkFn, options = {}) {
       }
     }
 
+    if (
+      'timeout' in options &&
+      'delay' in options &&
+      !('limit' in options)
+    ) {
+      options.limit = Math.ceil(options.timeout / options.delay) + 1
+    }
+
     // make sure not to modify the passed in options
     options = Cypress._.clone(options)
 
