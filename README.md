@@ -16,6 +16,8 @@ yarn add -D cypress-recurse
 
 ## Use
 
+### Use a named function
+
 ```js
 import { recurse } from 'cypress-recurse'
 
@@ -41,6 +43,35 @@ it('works for 4', () => {
 ```
 
 **Important:** the commands inside the first function cannot fail - otherwise the entire test fails. Thus make them as "passive" as possible, and let the predicate function decide if the entire function needs to be retried or not.
+
+### Use a custom command
+
+Optionally, you can register `cy.recurse` custom command by importing the `cypress-recurse/commands` from your support file or individual specs.
+
+```js
+// cypress/support/e2e.js
+import 'cypress-recurse/commands'
+// your E2E specs
+it('works', () => {
+  cy.recurse(...)
+})
+```
+
+Parameters to the `cy.recurse` are the same as for named function: the command function, the predicate, followed by the options. For example, to check if the loader goes away after clicking on a button:
+
+```js
+cy.recurse(
+  () => {
+    cy.get('button').click()
+    return cy.get('.loader').should(Cypress._.noop)
+  },
+  ($el) => $el.length === 0,
+  {
+    log: false,
+    delay: 1000,
+  },
+)
+```
 
 ## Yields
 
