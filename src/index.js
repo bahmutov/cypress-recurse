@@ -59,6 +59,16 @@ function recurse(commandsFn, checkFn, options = {}) {
 
     // make sure not to modify the passed in options
     options = Cypress._.clone(options)
+
+    if (!('userYield' in options)) {
+      if ('yield' in options) {
+        // remember what the user asked to yield
+        options.userYield = options.yield
+      } else {
+        options.userYield = 'unspecified'
+      }
+    }
+
     Cypress._.defaults(options, RecurseDefaults, {
       // set the started time if not set
       started: now,
@@ -67,10 +77,7 @@ function recurse(commandsFn, checkFn, options = {}) {
       iteration: 1,
       reduce: Cypress._.noop,
     })
-    if ('yield' in options && !('userYield' in options)) {
-      // remember what the user asked to yield
-      options.userYield = 'value'
-    }
+
     if (!('initialLimit' in options)) {
       options.initialLimit = options.limit
     }
@@ -122,6 +129,7 @@ function recurse(commandsFn, checkFn, options = {}) {
           if (options.userYield === 'value') {
             // user explicitly asked to yield the value, any value
             // TODO: return the last value
+            return options.lastValue
           }
           // @ts-ignore
           return cy.state('currentSubject')
@@ -321,6 +329,8 @@ function recurse(commandsFn, checkFn, options = {}) {
             yield: options.yield,
             doNotFail: options.doNotFail,
             initialLimit: options.initialLimit,
+            lastValue: x,
+            userYield: options.userYield,
           })
         }
 

@@ -243,7 +243,18 @@ recurse(commandFn, predicate, {
 })
 ```
 
-The yielded value in this case is not guaranteed
+The yielded value in this case is not guaranteed. You can yield the last value, even if it does not pass the predicate by explicitly asking for it
+
+```js
+recurse(
+  () => cy.wrap(4),
+  (x) => x === 10,
+  {
+    doNotFail: true,
+    yield: 'value',
+  },
+).should('equal', 4)
+```
 
 ## each
 
