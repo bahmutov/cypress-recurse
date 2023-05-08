@@ -12,7 +12,7 @@
     "dev": "cypress open",
     "test": "cypress run",
     "semantic-release": "semantic-release",
-    "lint": "tsc --pretty --allowJs --strict --noEmit cypress/e2e/**/*.js cypress/e2e/*.js cypress/plugins/*.js",
+    "lint": "tsc --pretty --allowJs --strict --noEmit cypress/e2e/**/*.js cypress/e2e/*.js",
     "stop-only": "stop-only --folder cypress/e2e",
     "build": "run-s lint stop-only",
     "print-tests": "find-cypress-specs --names",
