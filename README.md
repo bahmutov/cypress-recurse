@@ -293,6 +293,8 @@ See the [each-spec.js](./cypress/e2e/each/each-spec.js) file.
 
 ## retry
 
+**Experimental:** this function can change its API at any moment.
+
 If you need retries in your config / plugins code, you can use the included `retry` function.
 
 ```js
@@ -318,8 +320,6 @@ e2e: {
       }
     })
   },
-  supportFile: false,
-  specPattern: 'cypress/e2e/**/*spec.{js,ts}',
 },
 ```
 
