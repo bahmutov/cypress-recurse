@@ -1,20 +1,25 @@
 import { defineConfig } from 'cypress'
 
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms)
+  })
+}
+
+async function randomNumber() {
+  await sleep(1000)
+  const n = parseInt(Math.random().toString().slice(6, 7))
+  console.log('returning %d', n)
+  return n
+}
+
 export default defineConfig({
   fixturesFolder: false,
   projectId: 'tbtscx',
   e2e: {
     setupNodeEvents(on, config) {
       on('task', {
-        randomNumber() {
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              const n = parseInt(Math.random().toString().slice(6, 7))
-              console.log('returning %d', n)
-              resolve(n)
-            }, 1000)
-          })
-        },
+        randomNumber,
       })
     },
     supportFile: false,
