@@ -8,7 +8,7 @@ async function randomNumber() {
 
 it('retries', () => {
   cy.wrap(
-    retry(randomNumber, (n) => n === 7, { limit: 100 }),
+    retry(randomNumber, (n) => n === 7, { limit: 100, log: true }),
     { timeout: 60_000 },
   ).should('equal', 7)
 })
