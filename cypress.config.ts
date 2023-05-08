@@ -1,4 +1,16 @@
 import { defineConfig } from 'cypress'
+import { sleep, retry } from './src/retry'
+
+async function randomNumber() {
+  await sleep(1000)
+  const n = parseInt(Math.random().toString().slice(6, 7))
+  console.log('returning %d', n)
+  return n
+}
+
+async function retryRandomNumber(answer) {
+  return retry(randomNumber, (n) => n === answer)
+}
 
 export default defineConfig({
   fixturesFolder: false,
@@ -6,15 +18,8 @@ export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
       on('task', {
-        randomNumber() {
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              const n = parseInt(Math.random().toString().slice(6, 7))
-              console.log('returning %d', n)
-              resolve(n)
-            }, 1000)
-          })
-        },
+        randomNumber,
+        retryRandomNumber,
       })
     },
     supportFile: false,

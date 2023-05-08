@@ -291,6 +291,38 @@ cy.wrap(numbers)
 
 See the [each-spec.js](./cypress/e2e/each/each-spec.js) file.
 
+## retry
+
+If you need retries in your config / plugins code, you can use the included `retry` function.
+
+```js
+// your cypress.config.js
+import {retry} from 'cypress-recurse/src/retry'
+
+async function getData() {
+  // your async function that returns data
+  // let's say it is a number
+  return n
+}
+
+e2e: {
+  setupNodeEvents(on, config) {
+    on('task', {
+      async fetchData () {
+        // we want to retry "getData" function
+        // until it returns a value above 200
+        const data = await retry(getData, n => n > 200, {
+          limit: 10, // limit calling getData to 10 times
+          delay: 100 // delay 100ms between attempts
+        })
+      }
+    })
+  },
+  supportFile: false,
+  specPattern: 'cypress/e2e/**/*spec.{js,ts}',
+},
+```
+
 ## Examples
 
 - clear and type text into the input field until it has the expected value, see [type-with-retries-spec.js](./cypress/e2e/type-with-retries-spec.js), watch the video [Avoid Flake When Typing Into The Input Elements Using cypress-recurse](https://youtu.be/aYX7OVqp6AE) and read the blog post [Solve Flake In Cypress Typing Into An Input Element
