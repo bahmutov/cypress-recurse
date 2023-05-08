@@ -4,17 +4,29 @@ function sleep(ms) {
   })
 }
 
-export async function retry(fn, predicate, limit = 100) {
+const DEFAULT_RETRY_OPTIONS = {
+  limit: 100,
+  delay: 100,
+}
+
+async function retry(fn, predicate, options = DEFAULT_RETRY_OPTIONS) {
+  const mergedOptions = { ...DEFAULT_RETRY_OPTIONS, ...options }
+
   const n = await fn()
   if (predicate(n)) {
     return n
   }
 
-  if (limit === 1) {
+  if (mergedOptions.limit === 1) {
     throw new Error('Max number of allowed iterations reached')
   }
 
-  await sleep(1000)
+  await sleep(mergedOptions.delay)
 
-  return retry(fn, predicate, limit - 1)
+  return retry(fn, predicate, {
+    ...mergedOptions,
+    limit: mergedOptions.limit - 1,
+  })
 }
+
+module.exports = { sleep, DEFAULT_RETRY_OPTIONS, retry }
