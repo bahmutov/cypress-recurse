@@ -9,7 +9,7 @@ async function randomNumber() {
 }
 
 async function retryRandomNumber(answer) {
-  return retry(randomNumber, (n) => n === answer)
+  return retry(randomNumber, (n) => n === answer, { log: true })
 }
 
 export default defineConfig({

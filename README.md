@@ -324,6 +324,18 @@ e2e: {
 },
 ```
 
+### retry options
+
+```js
+retry(fn, predicateFn, options?)
+```
+
+Options object can have the following properties
+
+- `limit` the maximum number of attempts to call the given function
+- `delay` in milliseconds between calls to `fn`
+- `log` log individual calls to `fn` (by default the logging is off)
+
 ## Examples
 
 - clear and type text into the input field until it has the expected value, see [type-with-retries-spec.js](./cypress/e2e/type-with-retries-spec.js), watch the video [Avoid Flake When Typing Into The Input Elements Using cypress-recurse](https://youtu.be/aYX7OVqp6AE) and read the blog post [Solve Flake In Cypress Typing Into An Input Element
