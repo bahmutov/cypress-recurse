@@ -317,6 +317,7 @@ e2e: {
           limit: 10, // limit calling getData to 10 times
           delay: 100 // delay 100ms between attempts
         })
+        return data
       }
     })
   },
