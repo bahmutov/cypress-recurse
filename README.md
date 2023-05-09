@@ -366,7 +366,13 @@ recurse(getTo(2), (x) => x === 2, {
 
 ## Blog posts
 
-📝 Read [Writing Cypress Recurse Function](https://glebbahmutov.com/blog/cypress-recurse/) and [Crawl Weather Using Cypress](https://glebbahmutov.com/blog/crawl-weather/)
+📝 Read the following posts
+
+- [Writing Cypress Recurse Function](https://glebbahmutov.com/blog/cypress-recurse/)
+- [Crawl Weather Using Cypress](https://glebbahmutov.com/blog/crawl-weather/)
+- [Cypress And Twilio](https://glebbahmutov.com/blog/cypress-twilio/)
+
+**Tip:** use [https://cypress.tips/search](https://cypress.tips/search) to search all my testing content
 
 ## Videos
 
