@@ -335,6 +335,15 @@ Options object can have the following properties
 - `limit` the maximum number of attempts to call the given function
 - `delay` in milliseconds between calls to `fn`
 - `log` log individual calls to `fn` (by default the logging is off)
+- `extract` a custom function that takes the result of the `fn` and returns the value to yield
+
+**Example:** retry until the list is non-empty, then return a property from the first object
+
+```js
+const n = retry(fn, (list) => list.length, {
+  extract: (list) => list[0].n,
+})
+```
 
 ## Examples
 

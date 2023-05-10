@@ -4,11 +4,14 @@ function sleep(ms) {
   })
 }
 
+const identity = (x) => x
+
 const DEFAULT_RETRY_OPTIONS = {
   attempts: 1,
   limit: 100,
   delay: 100,
   log: false,
+  extract: identity,
 }
 
 /**
@@ -19,8 +22,8 @@ const DEFAULT_RETRY_OPTIONS = {
 async function retry(fn, predicate, options = DEFAULT_RETRY_OPTIONS) {
   const mergedOptions = { ...DEFAULT_RETRY_OPTIONS, ...options }
 
-  const n = await fn()
-  const satisfied = Boolean(predicate(n))
+  const result = await fn()
+  const satisfied = Boolean(predicate(result))
 
   if (mergedOptions.log) {
     console.log(
@@ -32,7 +35,8 @@ async function retry(fn, predicate, options = DEFAULT_RETRY_OPTIONS) {
   }
 
   if (satisfied) {
-    return n
+    const finalResult = await options.extract(result)
+    return finalResult
   }
 
   if (mergedOptions.limit === 1) {
