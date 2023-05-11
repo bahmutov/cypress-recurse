@@ -395,7 +395,7 @@ I have explained how this module was written in the [following videos](https://w
 6. [Add JSDoc types to the options parameter](https://youtu.be/g4qispkHH-o)
 7. [Published cypress-recurse NPM package](https://www.youtube.com/watch?v=V82p7qTowXg)
 
-### Cypress plugins course
+### Courses
 
 🎓 This plugin is covered in multiple lessons in my [Cypress plugins course](https://cypress.tips/courses/cypress-plugins)
 
@@ -403,6 +403,15 @@ I have explained how this module was written in the [following videos](https://w
 - [Lesson i2: Call the API until it returns the expected result](https://cypress.tips/courses/cypress-plugins/lessons/i2)
 - [Lesson i6: Delete the first todo item until there are no more items](https://cypress.tips/courses/cypress-plugins/lessons/i6)
 - [Lesson i7: find row in virtualized table](https://cypress.tips/courses/cypress-plugins/lessons/i7)
+
+🎓 This plugin was used in my course [Cypress Network Testing Exercises](https://cypress.tips/courses/network-testing)
+
+- [Bonus 2: Collect all fruits using cypress-recurse plugin](https://cypress.tips/courses/network-testing/lessons/bonus02)
+- [Bonus 27: Use cypress-recurse to ping the endpoint until it succeeds](https://cypress.tips/courses/network-testing/lessons/bonus27)
+- [Bonus 33: Query APIs to check the 3rd party services](https://cypress.tips/courses/network-testing/lessons/bonus33)
+- [Bonus 34: Print messages to the terminal when retrying cy.request calls](https://cypress.tips/courses/network-testing/lessons/bonus34)
+- [Bonus 38: Check all intercepted network calls using cypress-recurse plugin](https://cypress.tips/courses/network-testing/lessons/bonus38)
+- [Bonus 63: Retry calling an API endpoint and log each attempt](https://cypress.tips/courses/network-testing/lessons/bonus63)
 
 ### Bonus videos
 
