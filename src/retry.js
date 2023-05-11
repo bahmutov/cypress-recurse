@@ -25,13 +25,21 @@ async function retry(fn, predicate, options = DEFAULT_RETRY_OPTIONS) {
   const result = await fn()
   const satisfied = Boolean(predicate(result))
 
-  if (mergedOptions.log) {
+  const limit = mergedOptions.attempts + mergedOptions.limit - 1
+  if (mergedOptions.log === true) {
     console.log(
       'attempt %d of %d was %s',
       mergedOptions.attempts,
-      mergedOptions.attempts + mergedOptions.limit - 1,
+      limit,
       satisfied ? '✅' : '🚨',
     )
+  } else if (typeof mergedOptions.log === 'function') {
+    mergedOptions.log({
+      attempt: mergedOptions.attempts,
+      limit,
+      value: result,
+      successful: satisfied,
+    })
   }
 
   if (satisfied) {

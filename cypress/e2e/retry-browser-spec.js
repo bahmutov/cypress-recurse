@@ -13,6 +13,33 @@ it('retries', () => {
   ).should('equal', 7)
 })
 
+function getTo(n, delay = 100) {
+  let k = 0
+  return async () => {
+    if (k > n) {
+      throw new Error(`Limit ${n} exceeded`)
+    }
+    await sleep(delay)
+    k += 1
+    return k
+  }
+}
+
+it('logs using my function', async () => {
+  const log = ({ attempt, limit, value, successful }) => {
+    console.log(
+      'attempt %d of %d, value %o success: %o',
+      attempt,
+      limit,
+      value,
+      successful,
+    )
+  }
+
+  const x = await retry(getTo(3), (n) => n === 3, { limit: 5, log })
+  expect(x, 'final value').to.equal(3)
+})
+
 async function randomList() {
   await sleep(100)
   // most often return an empty list
