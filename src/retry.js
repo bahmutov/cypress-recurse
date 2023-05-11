@@ -43,8 +43,12 @@ async function retry(fn, predicate, options = DEFAULT_RETRY_OPTIONS) {
   }
 
   if (satisfied) {
-    const finalResult = await options.extract(result)
-    return finalResult
+    if (typeof options.extract === 'function') {
+      const finalResult = await options.extract(result)
+      return finalResult
+    } else {
+      return result
+    }
   }
 
   if (mergedOptions.limit === 1) {
