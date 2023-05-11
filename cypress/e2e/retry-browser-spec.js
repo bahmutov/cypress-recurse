@@ -1,4 +1,7 @@
+/// <reference types="cypress" />
 import { sleep, retry } from '../../src/retry'
+
+chai.config.truncateThreshold = 200
 
 async function randomNumber() {
   await sleep(100)
@@ -26,6 +29,7 @@ function getTo(n, delay = 100) {
 }
 
 it('logs using my function', async () => {
+  const logSpy = Cypress.sinon.spy(console, 'log')
   const log = ({ attempt, limit, value, successful }) => {
     console.log(
       'attempt %d of %d, value %o success: %o',
@@ -38,6 +42,41 @@ it('logs using my function', async () => {
 
   const x = await retry(getTo(3), (n) => n === 3, { limit: 5, log })
   expect(x, 'final value').to.equal(3)
+  expect(logSpy, 'console.log').to.be.calledThrice
+})
+
+it('log is called correctly', async () => {
+  const log = Cypress.sinon.stub()
+  const x = await retry(getTo(3, 500), (n) => n === 3, {
+    limit: 5,
+    log,
+  })
+  expect(x, 'final value').to.equal(3)
+  expect(log, 'user log').to.be.calledThrice
+  expect(log.firstCall.args).to.deep.equal([
+    {
+      attempt: 1,
+      limit: 5,
+      value: 1,
+      successful: false,
+    },
+  ])
+  expect(log.secondCall.args).to.deep.equal([
+    {
+      attempt: 2,
+      limit: 5,
+      value: 2,
+      successful: false,
+    },
+  ])
+  expect(log.thirdCall.args).to.deep.equal([
+    {
+      attempt: 3,
+      limit: 5,
+      value: 3,
+      successful: true,
+    },
+  ])
 })
 
 async function randomList() {
