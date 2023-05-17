@@ -217,8 +217,14 @@ function recurse(commandsFn, checkFn, options = {}) {
             predicateResult === undefined
 
           if (logCommands) {
-            // @ts-ignore
-            toLog(`value ${String(x)}`)
+            debugger
+            if (Cypress.dom.isJquery(x)) {
+              // @ts-ignore
+              toLog(`jQuery ${x.selector} [${x.length} element]`)
+            } else {
+              // @ts-ignore
+              toLog(`value ${String(x)}`)
+            }
           } else if (typeof options.log === 'function') {
             const elapsed = +new Date() - options.started
             const elapsedDuration = humanizeDuration(elapsed, {
