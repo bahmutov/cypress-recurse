@@ -1,4 +1,6 @@
 import { recurse } from '../..'
+// https://github.com/bahmutov/cypress-map
+import 'cypress-map'
 
 describe('Menu', () => {
   beforeEach(() => {
@@ -22,6 +24,15 @@ describe('Menu', () => {
     cy.get('nav a')
       .then(($a) => Cypress._.sample($a.toArray()))
       .click()
+    cy.location('pathname').should(
+      'match',
+      /\/menu\/[a-d]\/index.html/,
+    )
+  })
+
+  it('picks random top-menu link using cy.sample from cypress-map', () => {
+    cy.contains('main', 'Index page')
+    cy.get('nav a').sample().click()
     cy.location('pathname').should(
       'match',
       /\/menu\/[a-d]\/index.html/,
