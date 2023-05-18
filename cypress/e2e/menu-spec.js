@@ -2,6 +2,9 @@ import { recurse } from '../..'
 // https://github.com/bahmutov/cypress-map
 import 'cypress-map'
 
+// watch the video "Pick A Random Menu Link"
+// https://youtu.be/xvvL3GRjXCY
+
 describe('Menu', () => {
   beforeEach(() => {
     cy.visit('cypress/e2e/menu/index.html')
@@ -32,6 +35,7 @@ describe('Menu', () => {
 
   it('picks random top-menu link using cy.sample from cypress-map', () => {
     cy.contains('main', 'Index page')
+    // cy.sample comes from cypress-map plugin
     cy.get('nav a').sample().click()
     cy.location('pathname').should(
       'match',
