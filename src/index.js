@@ -217,7 +217,6 @@ function recurse(commandsFn, checkFn, options = {}) {
             predicateResult === undefined
 
           if (logCommands) {
-            debugger
             if (Cypress.dom.isJquery(x)) {
               // @ts-ignore
               toLog(`jQuery ${x.selector} [${x.length} element]`)
