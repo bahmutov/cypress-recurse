@@ -44,7 +44,7 @@
     "prettier": "2.7.1",
     "semantic-release": "21.0.6",
     "stop-only": "^3.1.2",
-    "typescript": "5.1.5"
+    "typescript": "5.1.6"
   },
   "dependencies": {
     "humanize-duration": "^3.27.3"
