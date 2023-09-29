@@ -16,7 +16,8 @@
     "stop-only": "stop-only --folder cypress/e2e",
     "build": "run-s lint stop-only",
     "print-tests": "find-cypress-specs --names",
-    "print-tags": "find-cypress-specs --tags"
+    "print-tags": "find-cypress-specs --tags",
+    "badges": "npx -p dependency-version-badge update-badge cypress"
   },
   "repository": {
     "type": "git",
