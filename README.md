@@ -421,6 +421,7 @@ I have explained how this module was written in the [following videos](https://w
 - [Lesson i7: find row in virtualized table](https://cypress.tips/courses/cypress-plugins/lessons/i7)
 - [Lesson i8: Randomly pick a menu](https://cypress.tips/courses/cypress-plugins/lessons/i8)
 - [Lesson n3: Pagination using cypress-recurse](https://cypress.tips/courses/cypress-plugins/lessons/n3)
+- [Lesson o2: Periodically check LowDB data until the record is found](https://cypress.tips/courses/cypress-plugins/lessons/o2)
 
 🎓 This plugin was used in my course [Cypress Network Testing Exercises](https://cypress.tips/courses/network-testing)
 
