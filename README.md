@@ -299,7 +299,9 @@ If you need retries in your config / plugins code, you can use the included `ret
 
 ```js
 // your cypress.config.js
-import {retry} from 'cypress-recurse/src/retry'
+import {retry} from 'cypress-recurse/src/retry.js'
+// or use require
+const {retry} = require('cypress-recurse/src/retry')
 
 async function getData() {
   // your async function that returns data
@@ -422,6 +424,7 @@ I have explained how this module was written in the [following videos](https://w
 - [Lesson i8: Randomly pick a menu](https://cypress.tips/courses/cypress-plugins/lessons/i8)
 - [Lesson n3: Pagination using cypress-recurse](https://cypress.tips/courses/cypress-plugins/lessons/n3)
 - [Lesson o2: Periodically check LowDB data until the record is found](https://cypress.tips/courses/cypress-plugins/lessons/o2)
+- [Lesson o3: Retry checking LowDB inside the task code](https://cypress.tips/courses/cypress-plugins/lessons/o3)
 
 🎓 This plugin was used in my course [Cypress Network Testing Exercises](https://cypress.tips/courses/network-testing)
 
