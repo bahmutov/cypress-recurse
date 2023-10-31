@@ -37,7 +37,7 @@
     "@types/node": "^18.11.17",
     "chai-sorted": "^0.2.0",
     "common-tags": "^1.8.2",
-    "cypress": "13.3.3",
+    "cypress": "13.4.0",
     "cypress-command-chain": "1.1.2",
     "cypress-map": "^1.20.1",
     "find-cypress-specs": "^1.19.3",
