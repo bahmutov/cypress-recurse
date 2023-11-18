@@ -422,6 +422,7 @@ I have explained how this module was written in the [following videos](https://w
 - [Lesson i6: Delete the first todo item until there are no more items](https://cypress.tips/courses/cypress-plugins/lessons/i6)
 - [Lesson i7: find row in virtualized table](https://cypress.tips/courses/cypress-plugins/lessons/i7)
 - [Lesson i8: Randomly pick a menu](https://cypress.tips/courses/cypress-plugins/lessons/i8)
+- [Lesson i10: Recursively delete items while the page reloads](https://cypress.tips/courses/cypress-plugins/lessons/i10)
 - [Lesson n3: Pagination using cypress-recurse](https://cypress.tips/courses/cypress-plugins/lessons/n3)
 - [Lesson o2: Periodically check LowDB data until the record is found](https://cypress.tips/courses/cypress-plugins/lessons/o2)
 - [Lesson o3: Retry checking LowDB inside the task code](https://cypress.tips/courses/cypress-plugins/lessons/o3)
