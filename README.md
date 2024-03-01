@@ -423,6 +423,7 @@ I have explained how this module was written in the [following videos](https://w
 - [Lesson i7: find row in virtualized table](https://cypress.tips/courses/cypress-plugins/lessons/i7)
 - [Lesson i8: Randomly pick a menu](https://cypress.tips/courses/cypress-plugins/lessons/i8)
 - [Lesson i10: Recursively delete items while the page reloads](https://cypress.tips/courses/cypress-plugins/lessons/i10)
+- [Lesson i11: Repeatedly check the task status](https://cypress.tips/courses/cypress-plugins/lessons/i11)
 - [Lesson n3: Pagination using cypress-recurse](https://cypress.tips/courses/cypress-plugins/lessons/n3)
 - [Lesson o2: Periodically check LowDB data until the record is found](https://cypress.tips/courses/cypress-plugins/lessons/o2)
 - [Lesson o3: Retry checking LowDB inside the task code](https://cypress.tips/courses/cypress-plugins/lessons/o3)
