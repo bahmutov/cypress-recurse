@@ -218,8 +218,18 @@ function recurse(commandsFn, checkFn, options = {}) {
 
           if (logCommands) {
             if (Cypress.dom.isJquery(x)) {
+              let msg = 'jQuery'
               // @ts-ignore
-              toLog(`jQuery ${x.selector} [${x.length} element]`)
+              if (x.selector) {
+                // @ts-ignore
+                msg += ` ${x.selector}`
+              }
+              if (x.length === 0) {
+                msg += ' [empty]'
+              } else {
+                msg += ` [${x.length} element(s)]`
+              }
+              toLog(msg)
             } else {
               // @ts-ignore
               toLog(`value ${String(x)}`)
