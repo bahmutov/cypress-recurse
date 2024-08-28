@@ -427,6 +427,7 @@ I have explained how this module was written in the [following videos](https://w
 - [Lesson n3: Pagination using cypress-recurse](https://cypress.tips/courses/cypress-plugins/lessons/n3)
 - [Lesson o2: Periodically check LowDB data until the record is found](https://cypress.tips/courses/cypress-plugins/lessons/o2)
 - [Lesson o3: Retry checking LowDB inside the task code](https://cypress.tips/courses/cypress-plugins/lessons/o3)
+- [Lesson o10: Custom error message](https://cypress.tips/courses/cypress-plugins/lessons/o10)
 
 🎓 This plugin was used in my course [Cypress Network Testing Exercises](https://cypress.tips/courses/network-testing)
 
