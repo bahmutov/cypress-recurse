@@ -438,6 +438,7 @@ I have explained how this module was written in the [following videos](https://w
 - [Bonus 34: Print messages to the terminal when retrying cy.request calls](https://cypress.tips/courses/network-testing/lessons/bonus34)
 - [Bonus 38: Check all intercepted network calls using cypress-recurse plugin](https://cypress.tips/courses/network-testing/lessons/bonus38)
 - [Bonus 63: Retry calling an API endpoint and log each attempt](https://cypress.tips/courses/network-testing/lessons/bonus63)
+- [Bonus 141: Ping API instead of hard-coded wait](https://cypress.tips/courses/network-testing/lessons/bonus141)
 
 ### Bonus videos
 
