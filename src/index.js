@@ -208,6 +208,20 @@ function recurse(commandsFn, checkFn, options = {}) {
       /** @param {T} x */
       // @ts-ignore
       function cypressRecurse(x) {
+        if (options.failFast) {
+          if (typeof options.failFast !== 'function') {
+            throw new Error(
+              `cypress-recurse: failFast should be a function, got ${typeof options.failFast}`,
+            )
+          }
+          const shouldFail = options.failFast(x)
+          if (shouldFail) {
+            throw new Error(
+              `cypress-recurse: failFast predicate returned true for value ${x}`,
+            )
+          }
+        }
+
         try {
           // @ts-ignore
           const predicateResult = checkFn(x, options.reduceFrom)
