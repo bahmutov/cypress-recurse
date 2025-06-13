@@ -14,9 +14,9 @@ jobs:
     steps:
       - name: Checkout
         # https://github.com/actions/checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install dependencies
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           runTests: false
       # https://github.com/bahmutov/find-cypress-specs
@@ -30,9 +30,9 @@ jobs:
     steps:
       - name: Checkout
         # https://github.com/actions/checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install dependencies
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           command: npm run lint
 
@@ -47,16 +47,17 @@ jobs:
     steps:
       - name: Checkout
         # https://github.com/actions/checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Run linter 🧪
         # https://github.com/cypress-io/github-action
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           command: npm run lint
 
       - name: Semantic Release 🚀
-        uses: cycjimmy/semantic-release-action@v3
+        # https://github.com/cycjimmy/semantic-release-action
+        uses: cycjimmy/semantic-release-action@v4
         with:
           branch: main
         env:
