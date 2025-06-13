@@ -3,7 +3,7 @@ on: push
 jobs:
   test:
     # https://github.com/bahmutov/cypress-workflows
-    uses: bahmutov/cypress-workflows/.github/workflows/parallel.yml@v1
+    uses: bahmutov/cypress-workflows/.github/workflows/parallel.yml@v2
     with:
       n: 8
     secrets:
