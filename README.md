@@ -209,6 +209,23 @@ recurse(
 )
 ```
 
+### failFast
+
+Sometimes the action function yields a value that is obviously wrong and should fail the test. You can check the produced value using a synchronous predicate function. It will be called _before_ the predicate function.
+
+```js
+recurse(
+  () => 42,
+  (n) => n === 42,
+  {
+    // return true to fail the test immediately
+    failFast: (x) => typeof x !== 'number',
+  },
+)
+```
+
+In the scenario above, the action yields `42`. The `failFast` checks if its argument is a number (it is), so it returns `false`. The value is then passed to the predicate function `n => n === 42`. See the spec file [fail-fast-spec.js](./cypress/e2e/fail-fast-spec.js)
+
 ### accumulator
 
 Similar to reducing an array, the `reduce` function has an option to accumulate / reduce the values in the given object. The following options work together

@@ -95,6 +95,11 @@ interface RecurseOptions<T> {
    */
   post?: PostFunction<T>
   /**
+   * A synchronous function that receives the current value
+   * and can return true to immediately throw an error.
+   */
+  failFast?: (value: T) => boolean
+  /**
    * Call "post" with the last value during recursion,
    * default is false
    */
