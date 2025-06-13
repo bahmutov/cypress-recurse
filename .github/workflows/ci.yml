@@ -10,7 +10,7 @@ jobs:
       recordKey: ${{ secrets.CYPRESS_RECORD_KEY }}
 
   print-test-names:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         # https://github.com/actions/checkout
@@ -26,7 +26,7 @@ jobs:
         run: npm run print-tags
 
   lint-types:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         # https://github.com/actions/checkout
@@ -37,7 +37,7 @@ jobs:
           command: npm run lint
 
   release:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     # only try releasing from the main branch
     if: github.ref == 'refs/heads/main'
     needs:
