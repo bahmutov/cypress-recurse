@@ -78,3 +78,24 @@ it('serializes the value object', () => {
   ).should('be.a', 'number')
   // nothing here is reachable because the test throws an error
 })
+
+it('applies custom fail fast message', () => {
+  // fail the test if we do not handle the error
+  cy.on('fail', (err) => {
+    console.error(err.message)
+
+    if (!err.message.includes('FAIL!!! 42')) {
+      throw err
+    }
+  })
+
+  recurse(
+    () => cy.wrap(42),
+    (n) => n === 42,
+    {
+      limit: 1,
+      failFast: (n) => n === 42 && `FAIL!!! ${n}`,
+    },
+  ).should('be.a', 'number')
+  // nothing here is reachable because the test throws an error
+})
