@@ -377,6 +377,7 @@ function recurse(commandsFn, checkFn, options = {}) {
             initialLimit: options.initialLimit,
             lastValue: x,
             userYield: options.userYield,
+            failFast: options.failFast,
           })
         }
 

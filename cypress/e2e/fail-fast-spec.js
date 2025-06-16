@@ -99,3 +99,18 @@ it('applies custom fail fast message', () => {
   ).should('be.a', 'number')
   // nothing here is reachable because the test throws an error
 })
+
+it('copies the fail fast to the next iteration', () => {
+  const items = [1, 2, 3]
+
+  recurse(
+    () => cy.wrap(items.shift()),
+    (n) => n === 3,
+    {
+      limit: 3,
+      delay: 10,
+      failFast: cy.stub().as('failFast').returns(false),
+    },
+  ).should('equal', 3)
+  cy.get('@failFast').should('be.calledThrice')
+})
