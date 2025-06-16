@@ -457,6 +457,7 @@ I have explained how this module was written in the [following videos](https://w
 - [Bonus 63: Retry calling an API endpoint and log each attempt](https://cypress.tips/courses/network-testing/lessons/bonus63)
 - [Bonus 141: Ping API instead of hard-coded wait](https://cypress.tips/courses/network-testing/lessons/bonus141)
 - [Bonus 143: Retry creating an item via flaky endpoint](https://cypress.tips/courses/network-testing/lessons/bonus143)
+- [Bonus 147: Fail fast for recursion](https://cypress.tips/courses/network-testing/lessons/bonus147)
 
 ### Bonus videos
 
