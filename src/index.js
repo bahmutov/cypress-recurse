@@ -217,7 +217,9 @@ function recurse(commandsFn, checkFn, options = {}) {
           const shouldFail = options.failFast(x)
           if (shouldFail) {
             throw new Error(
-              `cypress-recurse: failFast predicate returned true for value ${x}`,
+              `cypress-recurse: failFast predicate returned true for value ${JSON.stringify(
+                x,
+              )}`,
             )
           }
         }
