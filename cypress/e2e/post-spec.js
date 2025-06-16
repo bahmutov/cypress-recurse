@@ -4,6 +4,12 @@
 import { recurse } from '../../src'
 import { getTo } from './utils'
 
+before(() => {
+  // visit the domain once
+  // to initialize the "window.fetch" method
+  cy.visit('https://jsonplaceholder.cypress.io')
+})
+
 describe('extra commands option', () => {
   it('can run extra cy commands between iterations', () => {
     // from the application's window ping a non-existent URL
