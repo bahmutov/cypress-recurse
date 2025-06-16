@@ -53,3 +53,28 @@ it('fails the test if the failFast predicate returns true', () => {
   ).should('be.a', 'number')
   // nothing here is reachable because the test throws an error
 })
+
+it('serializes the value object', () => {
+  // fail the test if we do not handle the error
+  cy.on('fail', (err) => {
+    console.error(err.message)
+
+    if (
+      !err.message.includes(
+        'cypress-recurse: failFast predicate returned true for value {"foo":"bar"}',
+      )
+    ) {
+      throw err
+    }
+  })
+
+  recurse(
+    () => cy.wrap({ foo: 'bar' }),
+    cy.stub().as('predicate').returns(true),
+    {
+      limit: 1,
+      failFast: cy.stub().as('failFast').returns(true),
+    },
+  ).should('be.a', 'number')
+  // nothing here is reachable because the test throws an error
+})
