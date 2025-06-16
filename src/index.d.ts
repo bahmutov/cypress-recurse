@@ -84,6 +84,15 @@ interface RecurseOptions<T> {
    * Log to Command Log, could be true|false,
    * a message to be printed once at the end,
    * or a custom function
+   * @example
+   *  // disable logging all attempts
+   *  cy.recurse(..., ..., { log: false })
+   * @example
+   *  // log just the message on success
+   *  cy.recurse(..., ..., { log: 'Done!' })
+   * @example
+   *   // log the successful value and iteration count
+   *   cy.recurse(..., ..., { log: (value, data) => { })
    */
   log: LogOption<T>
   /**
