@@ -106,8 +106,18 @@ interface RecurseOptions<T> {
   /**
    * A synchronous function that receives the current value
    * and can return true to immediately throw an error.
+   * You can return an error message to throw.
+   * @example
+   *   // fail fast if the value is 42, use default error message
+   *   failFast: (value) => value === 42
+   * @example
+   *  // fail fast if the value is 42, use custom error message
+   *   failFast: (value) => value === 42 && 'Value cannot be 42'
+   * @example
+   *  // fail fast and use the value in the error message
+   *   failFast: (value) => value > 10 && `Value ${value} cannot be larger than 10`
    */
-  failFast?: (value: T) => boolean
+  failFast?: (value: T) => boolean | string
   /**
    * Call "post" with the last value during recursion,
    * default is false

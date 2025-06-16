@@ -216,6 +216,9 @@ function recurse(commandsFn, checkFn, options = {}) {
           }
           const shouldFail = options.failFast(x)
           if (shouldFail) {
+            if (typeof shouldFail === 'string') {
+              throw new Error(shouldFail)
+            }
             throw new Error(
               `cypress-recurse: failFast predicate returned true for value ${JSON.stringify(
                 x,
