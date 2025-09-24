@@ -476,6 +476,7 @@ I have explained how this module was written in the [following videos](https://w
 13. [Access The Response Text Yielded By The Plugin cypress-response](https://youtu.be/MRelgoMg230)
 14. [Cypress Asynchronous Unit Tests Using Sinon.js And Chai](https://youtu.be/2rn3fsR8xp0)
 15. [Go To The Previous Page While Possible Using cypress-recurse](https://youtu.be/B_oOHtuUJwc)
+16. [Test Carousel Captions](https://youtu.be/sNw86J1M-go)
 
 ## Small print
 
