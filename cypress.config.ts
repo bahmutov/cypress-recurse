@@ -8,13 +8,16 @@ async function randomNumber() {
   return n
 }
 
-async function retryRandomNumber(answer) {
-  return retry(randomNumber, (n) => n === answer, { log: true })
+async function retryRandomNumber(answer: number) {
+  return retry(randomNumber, (n: number) => n === answer, {
+    log: true,
+  })
 }
 
 export default defineConfig({
   fixturesFolder: false,
   projectId: 'tbtscx',
+  defaultBrowser: 'electron',
   e2e: {
     setupNodeEvents(on, config) {
       on('task', {

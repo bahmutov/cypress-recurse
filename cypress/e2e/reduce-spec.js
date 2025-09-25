@@ -18,18 +18,10 @@ describe('reduce the data', () => {
       },
     )
 
-    cy.wrap(seen).should('deep.equal', [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-    ])
+    cy.wrap(seen).should(
+      'deep.equal',
+      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    )
   })
 
   it('accumulates the items seen', () => {
@@ -52,18 +44,10 @@ describe('reduce the data', () => {
         reduceLastValue: true,
       },
     )
-    cy.wrap(seen, { log: false }).should('deep.equal', [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-    ])
+    cy.wrap(seen, { log: false }).should(
+      'deep.equal',
+      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    )
   })
 
   it('returns the changed accumulator', () => {
@@ -243,6 +227,119 @@ describe('reduce the data', () => {
         .then(() => {
           expect(calledCount).to.equal(4)
         })
+    })
+  })
+
+  context('equivalent tests', () => {
+    it('uses a local variable to store the results', () => {
+      const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      let sum = 0
+
+      recurse(
+        () => cy.wrap(items.shift()),
+        // the last number is not included
+        (item) => item === 10,
+        {
+          log: false,
+          delay: 0,
+          post({ value }) {
+            sum += value
+          },
+        },
+      ).then(() => {
+        expect(sum, 'sum 1 to 9').to.equal(45)
+      })
+    })
+
+    it('uses an accumulator and yields the sum', () => {
+      const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      recurse(
+        () => cy.wrap(items.shift()),
+        // the last number is not included
+        (item) => item === 10,
+        {
+          log: false,
+          delay: 0,
+          // start with value of 0
+          reduceFrom: 0,
+          // and add each item produced by the first function
+          reduce(acc, item) {
+            return acc + item
+          },
+          // and yield the reduced value
+          yield: 'reduced',
+        },
+      )
+        // the sum is yielded as the subject
+        // no need for a cy.then(callback)
+        .should('equal', 45)
+    })
+
+    it('uses an accumulator including the last value', () => {
+      const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      recurse(
+        () => cy.wrap(items.shift()),
+        // 10 will be the last value
+        (item) => item === 10,
+        {
+          log: false,
+          delay: 0,
+          // start with value of 0
+          reduceFrom: 0,
+          // and include the value that made the predicate return true
+          reduceLastValue: true,
+          // and add each item produced by the first function
+          reduce(acc, item) {
+            return acc + item
+          },
+          // and yield the reduced value
+          yield: 'reduced',
+        },
+      ).should('equal', 55)
+      cy.wrap(items, 'items were consumed').should('deep.equal', [])
+    })
+
+    it('uses the accumulated value in the predicate', () => {
+      const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      recurse(
+        () => cy.wrap(items.shift()),
+        (item, acc) => acc > 30,
+        {
+          log: false,
+          delay: 0,
+          // start with value of 0
+          reduceFrom: 0,
+          // and add each item produced by the first function
+          reduce(acc, item) {
+            return acc + item
+          },
+          // and yield the reduced value
+          yield: 'reduced',
+        },
+      ).should('equal', 36) // 1+2+...+8 = 36
+      // 9 was the item that made the predicate return true
+      // but it was not included in the sum after being removed
+      // so the only item left in the array is 10
+      cy.wrap(items, 'remaining items').should('deep.equal', [10])
+    })
+
+    it('reverses an array', () => {
+      const items = ['a', 'b', 'c', 'd', 'e']
+      recurse(
+        () => cy.wrap(items.shift()),
+        (x) => x === undefined,
+        {
+          log: false,
+          delay: 0,
+          // accumulate all items into an array
+          reduceFrom: [],
+          reduce(acc, item) {
+            acc.unshift(item)
+            return acc
+          },
+          yield: 'reduced',
+        },
+      ).should('deep.equal', ['e', 'd', 'c', 'b', 'a'])
     })
   })
 })
