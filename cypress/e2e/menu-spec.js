@@ -8,6 +8,7 @@ import 'cypress-map'
 describe('Menu', () => {
   beforeEach(() => {
     cy.visit('cypress/e2e/menu/index.html')
+    cy.get('main').should('be.visible')
   })
 
   it('goes to the A menu and back', () => {
@@ -59,6 +60,7 @@ describe('Menu', () => {
       },
     )
     // confirm there are no more links to follow
+    cy.log('**no more links**')
     cy.get('nav a').should('not.exist')
 
     cy.log('**return to the home page**')
@@ -69,6 +71,8 @@ describe('Menu', () => {
         log: false,
         post() {
           cy.go('back')
+            // let the page load
+            .wait(100)
         },
       },
     )
