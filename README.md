@@ -1,6 +1,6 @@
 # cypress-recurse
 
-[![ci status][ci image]][ci url] [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-15.4.0-brightgreen) [![cypress-recurse](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/count/tbtscx/main&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/tbtscx/runs)
+[![ci status][ci image]][ci url] [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-15.5.0-brightgreen) [![cypress-recurse](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/count/tbtscx/main&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/tbtscx/runs)
 
 > A way to re-run Cypress commands until a predicate function returns true
 
