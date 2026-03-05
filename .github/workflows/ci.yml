@@ -38,6 +38,15 @@ jobs:
 
   release:
     runs-on: ubuntu-22.04
+    permissions:
+      # allow the release step to comment on
+      # issues, pull requests, and write to the repo
+      contents: write
+      issues: write
+      pull-requests: write
+      # Required for OIDC to let NPM registry know
+      # that this workflow is trusted
+      id-token: write
     # only try releasing from the main branch
     if: github.ref == 'refs/heads/main'
     needs:
@@ -62,4 +71,3 @@ jobs:
           branch: main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
