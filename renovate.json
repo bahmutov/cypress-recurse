@@ -13,12 +13,15 @@
   "packageRules": [
     {
       "matchPackageNames": ["*"],
-      "excludeMatchPackageNames": [
+      "enabled": false
+    },
+    {
+      "matchPackageNames": [
         "cypress",
         "semantic-release",
         "typescript"
       ],
-      "enabled": false
+      "enabled": true
     }
   ]
 }
