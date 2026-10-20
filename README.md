@@ -226,6 +226,13 @@ recurse(
 
 In the scenario above, the action yields `42`. The `failFast` checks if its argument is a number (it is), so it returns `false`. The value is then passed to the predicate function `n => n === 42`. See the spec file [fail-fast-spec.js](./cypress/e2e/fail-fast-spec.js)
 
+**Tip:** produce custom error message by returning a string
+
+```js
+failFast: (x) =>
+  typeof x !== 'number' && `Expected a number, got "${x}"`
+```
+
 ### accumulator
 
 Similar to reducing an array, the `reduce` function has an option to accumulate / reduce the values in the given object. The following options work together
