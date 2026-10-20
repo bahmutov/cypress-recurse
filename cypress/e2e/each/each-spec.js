@@ -111,6 +111,7 @@ describe('each', { viewportWidth: 200 }, () => {
     // TODO: update the TypeScript types for cy.each method
     Cypress.Commands.overwrite(
       'each',
+      // @ts-ignore
       (originalFn, items, itemCallback, stopCallback) => {
         // @ts-ignore
         return each(itemCallback, stopCallback)(items)
@@ -121,6 +122,7 @@ describe('each', { viewportWidth: 200 }, () => {
     cy.get('#lotto tbody tr button')
       .should('have.length.greaterThan', 10)
       .each(
+        // @ts-ignore
         ($button) => {
           cy.wrap($button, { log: false })
             .click()
